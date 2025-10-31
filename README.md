@@ -115,8 +115,10 @@ O mapa é totalmente autônomo (HTML + JS + CSS embutidos), não requer servidor
 
 ### Acesso Online
 
-Após publicar no GitHub Pages, o mapa estará disponível em:
-**https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_interativo_peld.html**
+Após publicar no GitHub Pages, os mapas estarão disponíveis em:
+- **Mapa Principal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_interativo_peld.html
+- **Dashboard**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html
+- **Índices de Vegetação**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
 
 ### Como Ativar GitHub Pages:
 
