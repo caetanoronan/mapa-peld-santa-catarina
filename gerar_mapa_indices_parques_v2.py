@@ -23,7 +23,7 @@ pe_center_lon = (pe_bounds[0] + pe_bounds[2]) / 2
 
 # Criar mapa focado nos parques
 mapa = folium.Map(location=[(pn_center_lat + pe_center_lat)/2, (pn_center_lon + pe_center_lon)/2],
-                  zoom_start=11, min_zoom=9, max_zoom=15)
+                  zoom_start=11, min_zoom=8, max_zoom=18)
 
 # Adicionar camada de relevo
 folium.TileLayer(
