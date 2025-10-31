@@ -53,6 +53,35 @@ O arquivo `dashboard_peld.html` apresenta um painel interativo com estatísticas
 - Navegue pelas diferentes seções para entender o projeto
 - Use o link para acessar o mapa interativo
 
+## Mapa de Índices de Vegetação
+
+O arquivo `mapa_indices_vegetacao.html` apresenta um mapa interativo com visualizações dos índices de vegetação calculados a partir de imagens Landsat:
+
+### Índices Disponíveis:
+- **NDVI (Normalized Difference Vegetation Index)**: Indicador de saúde da vegetação (-1 a 1)
+- **EVI (Enhanced Vegetation Index)**: Melhor para áreas com cobertura densa (-1 a 2)
+- **SAVI (Soil Adjusted Vegetation Index)**: Ajustado para influência do solo (-1 a 1.5)
+- **ARVI (Atmospherically Resistant Vegetation Index)**: Resistente a interferências atmosféricas (0.4 a 2)
+
+### Como usar:
+- Abra o arquivo `mapa_indices_vegetacao.html` em qualquer navegador web
+- Clique nos **marcadores verdes (🍃)** para visualizar os mapas de índices
+- Cada popup mostra uma visualização colorida do índice com escala de cores
+- Use o zoom para explorar áreas específicas
+
+### Características Técnicas:
+- **Visualizações coloridas**: Diferentes paletas para cada tipo de índice
+- **Dados reamostrados**: Otimizado para performance web
+- **Informações estatísticas**: Valores mínimo, máximo e médio de cada índice
+- **Sobreposição**: Índices sobrepostos às camadas de parques e parcelas
+
+### Interpretação dos Índices:
+- **Valores altos (verde/vermelho)**: Vegetação densa e saudável
+- **Valores baixos (vermelho/azul)**: Solo exposto, vegetação esparsa ou estresse
+- **NDVI > 0.6**: Floresta densa
+- **NDVI 0.2-0.6**: Vegetação moderada
+- **NDVI < 0.2**: Solo ou vegetação rala
+
 ## Estrutura do Projeto
 
 - `amb_csv/`: Dados CSV de coordenadas
