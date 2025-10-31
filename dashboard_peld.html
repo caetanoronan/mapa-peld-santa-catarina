@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard PELD - Programa de Pesquisa Ecológica de Longa Duração</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .stat-description {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .map-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .map-link:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Dashboard PELD</h1>
+            <p>Programa de Pesquisa Ecológica de Longa Duração - Santa Catarina</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📍 Total de Parcelas</h3>
+                <div class="stat-number">49</div>
+                <div class="stat-description">Pontos de monitoramento distribuídos em 3 módulos</div>
+            </div>
+
+            <div class="stat-card">
+                <h3>🌱 Parcelas Terrestres</h3>
+                <div class="stat-number">29</div>
+                <div class="stat-description">Parcelas localizadas em áreas terrestres</div>
+            </div>
+
+            <div class="stat-card">
+                <h3>💧 Parcelas Ripárias</h3>
+                <div class="stat-number">20</div>
+                <div class="stat-description">Parcelas localizadas em áreas ripárias</div>
+            </div>
+
+            <div class="stat-card">
+                <h3>📊 Módulos de Estudo</h3>
+                <div class="stat-number">3</div>
+                <div class="stat-description">M1, M2 e M3 com diferentes características</div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🏞️ Áreas de Conservação</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Parque Nacional de São Joaquim</h3>
+                    <p>Área de conservação com 45.524 hectares, abrangendo importantes ecossistemas de altitude da Serra do Rio do Rato.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Parque Estadual da Serra Furada</h3>
+                    <p>Unidade de conservação com 1.330 hectares divididos em 6 zonas de uso, protegendo remanescentes de Mata Atlântica.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Cidades Afetadas</h3>
+                    <p>Municípios impactados pela criação do PARNA, com diferentes graus de influência na zona de amortecimento.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>📈 Dados Geográficos</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Localização</h3>
+                    <p>Região serrana de Santa Catarina, abrangendo coordenadas entre -28.19° e -28.08° de latitude, e -49.65° e -49.39° de longitude.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Altitude</h3>
+                    <p>Área de estudo localizada em regiões de altitude elevada, com Modelos Digitais de Elevação disponíveis para análise topográfica.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Índices de Vegetação</h3>
+                    <p>Dados de NDVI, EVI, SAVI e ARVI calculados a partir de imagens Landsat, permitindo monitoramento da cobertura vegetal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🗺️ Visualização Interativa</h2>
+            <p>O mapa interativo desenvolvido permite a exploração completa dos dados do PELD, com controle de camadas para visualizar diferentes aspectos do estudo. Cada parcela possui informações detalhadas sobre módulo, tipo e localização geográfica.</p>
+            <div style="text-align: center;">
+                <a href="mapa_interativo_peld.html" class="map-link" target="_blank">
+                    🚀 Abrir Mapa Interativo
+                </a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>🎯 Objetivos do PELD</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Monitoramento de Longa Duração</h3>
+                    <p>Acompanhar mudanças ecológicas em escalas de tempo que capturem processos naturais e antrópicos.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Biodiversidade</h3>
+                    <p>Estudar a diversidade de espécies e seus padrões de distribuição em diferentes habitats.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Mudanças Ambientais</h3>
+                    <p>Detectar e quantificar alterações na cobertura vegetal, solo e recursos hídricos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 - Programa de Pesquisa Ecológica de Longa Duração (PELD) - Universidade Federal de Santa Catarina</p>
+    </div>
+</body>
+</html>
