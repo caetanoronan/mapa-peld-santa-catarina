@@ -82,6 +82,25 @@ O arquivo `mapa_indices_vegetacao.html` apresenta um mapa interativo com visuali
 - **NDVI 0.2-0.6**: Vegetação moderada
 - **NDVI < 0.2**: Solo ou vegetação rala
 
+## Mapa Focado nos Parques
+
+O arquivo `mapa_indices_parques.html` apresenta uma versão otimizada focada exclusivamente nos parques nacionais e estaduais:
+
+### Índices por Parque:
+- **Parque Nacional de São Joaquim** (marcadores verdes):
+  - NDVI: Saúde da vegetação
+  - EVI: Cobertura densa
+  
+- **Parque Estadual da Serra Furada** (marcadores azuis):
+  - SAVI: Ajustado ao solo
+  - ARVI: Resistente à atmosfera
+
+### Vantagens desta versão:
+- **Zoom otimizado**: Focado nas áreas dos parques
+- **Navegação simplificada**: Sem marcadores distantes
+- **Informações contextuais**: Estatísticas específicas por parque
+- **Performance melhorada**: Menos elementos na tela
+
 ## Estrutura do Projeto
 
 - `amb_csv/`: Dados CSV de coordenadas
@@ -118,7 +137,8 @@ O mapa é totalmente autônomo (HTML + JS + CSS embutidos), não requer servidor
 Após publicar no GitHub Pages, os mapas estarão disponíveis em:
 - **Mapa Principal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_interativo_peld.html
 - **Dashboard**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html
-- **Índices de Vegetação**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
+- **Índices de Vegetação (Completo)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
+- **Índices de Vegetação (Parques)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_parques.html
 
 ### Como Ativar GitHub Pages:
 
