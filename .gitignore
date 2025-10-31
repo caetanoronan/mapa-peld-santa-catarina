@@ -1,0 +1,22 @@
+# Arquivos temporários do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Dados grandes (se necessário)
+*.tif
+*.tiff
+*.zip
+
+# Logs
+*.log
