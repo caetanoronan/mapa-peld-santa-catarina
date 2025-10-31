@@ -69,6 +69,21 @@ Para tornar este mapa acessível ao público:
 
 O mapa é totalmente autônomo (HTML + JS + CSS embutidos), não requer servidor backend.
 
+### Acesso Online
+
+Após publicar no GitHub Pages, o mapa estará disponível em:
+`https://SEU_USERNAME.github.io/NOME_DO_REPOSITORIO/mapa_interativo_peld.html`
+
+### Como Ativar GitHub Pages:
+
+1. Vá para o repositório no GitHub
+2. Clique em "Settings" 
+3. Role para baixo até "Pages"
+4. Em "Source", selecione "Deploy from a branch"
+5. Em "Branch", selecione "master" ou "main" e "/ (root)"
+6. Clique em "Save"
+7. Aguarde alguns minutos para o deploy completar
+
 ## Contato
 
 Projeto PELD - Biodiversidade de Santa Catarina
