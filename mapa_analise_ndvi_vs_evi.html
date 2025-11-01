@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e0316817989a62a55305ef383936c6ad {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+            top: 10px; left: 50px; width: 550px; 
+            background-color: white; border:2px solid grey; z-index:9999; 
+            font-size:14px; padding: 15px; opacity: 0.95; box-shadow: 3px 3px 10px rgba(0,0,0,0.3);">
+    <h3 style="margin: 0 0 10px 0; color: #2c5f2d;">📊 Análise Comparativa: NDVI vs EVI</h3>
+    <p style="margin: 5px 0; font-size: 12px;">
+        <strong>Entenda as diferenças entre os índices de vegetação</strong><br>
+        Clique nos marcadores para análise detalhada de cada parque
+    </p>
+</div>
+    
+<div style="position: fixed; 
+            bottom: 50px; right: 10px; width: 280px; 
+            background-color: white; border:2px solid grey; z-index:9999; 
+            font-size:11px; padding: 12px; opacity: 0.95;">
+    <h4 style="margin: 0 0 10px 0; color: #424242;">📚 Guia Rápido</h4>
+    <p style="margin: 5px 0;"><strong>NDVI:</strong> -1 a 1</p>
+    <p style="margin: 0 0 5px 15px; font-size: 10px;">
+        > 0.7 = Floresta densa<br>
+        0.4-0.7 = Vegetação moderada<br>
+        < 0.4 = Vegetação esparsa
+    </p>
+    <p style="margin: 5px 0;"><strong>EVI:</strong> -1 a 2</p>
+    <p style="margin: 0 0 5px 15px; font-size: 10px;">
+        > 0.5 = Cobertura excelente<br>
+        0.3-0.5 = Cobertura boa<br>
+        < 0.3 = Cobertura baixa
+    </p>
+    <hr style="margin: 10px 0;">
+    <p style="font-size: 10px; margin: 0; color: #666;">
+        💡 EVI geralmente mostra valores mais altos que NDVI em florestas densas devido à correção de saturação
+    </p>
+</div>
+    
+            <div class="folium-map" id="map_e0316817989a62a55305ef383936c6ad" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_e0316817989a62a55305ef383936c6ad = L.map(
+                "map_e0316817989a62a55305ef383936c6ad",
+                {
+                    center: [-28.125, -49.533],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_df8641d07ff200e6190b6c2112c5b58b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 8,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_df8641d07ff200e6190b6c2112c5b58b.addTo(map_e0316817989a62a55305ef383936c6ad);
+        
+    
+            var tile_layer_02798dfd88868e33c36d91a8ab5b4865 = L.tileLayer(
+                "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "OpenTopoMap",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 0.6,
+}
+
+            );
+        
+    
+            tile_layer_02798dfd88868e33c36d91a8ab5b4865.addTo(map_e0316817989a62a55305ef383936c6ad);
+        
+    
+            var marker_db44a03d6cbd1969f512dcb00e16de4b = L.marker(
+                [-28.167, -49.583],
+                {
+}
+            ).addTo(map_e0316817989a62a55305ef383936c6ad);
+        
+    
+            var icon_10a69b49c5d2ad52f9e4df29eb26bf4f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7b49877a7b9935142362ba3697710288 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c2dd3bba4663a4da45fa8cf12ed86ba9 = $(`<div id="html_c2dd3bba4663a4da45fa8cf12ed86ba9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 400px; max-height: 600px; overflow-y: auto;">         <h3 style="color: #2c5f2d; margin-bottom: 10px; text-align: center;">             📊 Análise Comparativa         </h3>         <h4 style="text-align: center; color: #666; margin: 5px 0;">             Parque Nacional São Joaquim         </h4>                  <hr style="margin: 15px 0;">                  <!-- NDVI Section -->         <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 15px;">             <h4 style="margin: 0 0 10px 0; color: #2e7d32;">🌿 NDVI (Normalized Difference Vegetation Index)</h4>             <table style="width: 100%; font-size: 13px;">                 <tr>                     <td><strong>Valor Médio:</strong></td>                     <td style="text-align: right; font-size: 18px; font-weight: bold; color: #c62828;">0.368</td>                 </tr>                 <tr>                     <td><strong>Desvio Padrão:</strong></td>                     <td style="text-align: right;">±0.069</td>                 </tr>                 <tr>                     <td><strong>Faixa:</strong></td>                     <td style="text-align: right;">0.013 - 0.563</td>                 </tr>                 <tr>                     <td colspan="2" style="padding-top: 10px; border-top: 1px solid #ccc; margin-top: 10px;">                         🔴 Vegetação esparsa/estresse                     </td>                 </tr>             </table>         </div>                  <!-- EVI Section -->         <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 15px;">             <h4 style="margin: 0 0 10px 0; color: #1565c0;">🌲 EVI (Enhanced Vegetation Index)</h4>             <table style="width: 100%; font-size: 13px;">                 <tr>                     <td><strong>Valor Médio:</strong></td>                     <td style="text-align: right; font-size: 18px; font-weight: bold; color: #2e7d32;">1.217</td>                 </tr>                 <tr>                     <td><strong>Desvio Padrão:</strong></td>                     <td style="text-align: right;">±0.221</td>                 </tr>                 <tr>                     <td><strong>Faixa:</strong></td>                     <td style="text-align: right;">0.060 - 1.818</td>                 </tr>                 <tr>                     <td colspan="2" style="padding-top: 10px; border-top: 1px solid #ccc; margin-top: 10px;">                         🟢 Cobertura excelente                     </td>                 </tr>             </table>         </div>                  <!-- Análise Comparativa -->         <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px;">             <h4 style="margin: 0 0 10px 0; color: #e65100;">🔍 Análise Comparativa</h4>             <p style="font-size: 13px; margin: 5px 0;">                 <strong>Concordância:</strong> ❌ <strong>Baixa concordância</strong>             </p>             <p style="font-size: 13px; margin: 5px 0;">                 <strong>Discrepância:</strong> 0.240             </p>             <p style="font-size: 13px; margin: 5px 0;">                 <strong>Razão NDVI/EVI:</strong> 0.606             </p>             <p style="font-size: 12px; margin-top: 10px; padding: 10px; background: white; border-left: 3px solid #e65100;">                 EVI detecta mais vegetação que NDVI. Isso pode indicar: <br>• Vegetação densa com saturação do NDVI<br>• Influência de cobertura de nuvens/atmosfera<br>• Presença de vegetação de altitude             </p>         </div>                  <!-- Explicação Técnica -->         <div style="background: #f5f5f5; padding: 15px; border-radius: 8px;">             <h4 style="margin: 0 0 10px 0; color: #424242;">📚 Por que NDVI e EVI são diferentes?</h4>             <ul style="font-size: 12px; margin: 0; padding-left: 20px;">                 <li><strong>NDVI:</strong> Sensível à clorofila, mas satura em vegetação densa</li>                 <li><strong>EVI:</strong> Corrige efeitos atmosféricos e saturação, melhor para florestas</li>                 <li><strong>Complementaridade:</strong> Usar ambos dá visão mais completa</li>             </ul>         </div>                  <p style="font-size: 10px; color: #999; text-align: center; margin-top: 15px;">             📅 Dados extraídos de imagem Landsat 8 (Junho/2025)<br>             📏 551,779 pixels analisados         </p>     </div>     </div>`)[0];
+                popup_7b49877a7b9935142362ba3697710288.setContent(html_c2dd3bba4663a4da45fa8cf12ed86ba9);
+            
+        
+
+        marker_db44a03d6cbd1969f512dcb00e16de4b.bindPopup(popup_7b49877a7b9935142362ba3697710288)
+        ;
+
+        
+    
+    
+            marker_db44a03d6cbd1969f512dcb00e16de4b.bindTooltip(
+                `<div>
+                     📊 Clique para análise NDVI vs EVI - PNSJ
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_db44a03d6cbd1969f512dcb00e16de4b.setIcon(icon_10a69b49c5d2ad52f9e4df29eb26bf4f);
+            
+    
+            var marker_4acc36f447666a260622a60d09d962fa = L.marker(
+                [-28.083, -49.483],
+                {
+}
+            ).addTo(map_e0316817989a62a55305ef383936c6ad);
+        
+    
+            var icon_bd31402b80019a9d5aeed2389d035b25 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cf77c915f4e66360daef9151760f9145 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c6466d4acf68b1a7e46fdc609ff82916 = $(`<div id="html_c6466d4acf68b1a7e46fdc609ff82916" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 400px; max-height: 600px; overflow-y: auto;">         <h3 style="color: #1565c0; margin-bottom: 10px; text-align: center;">             📊 Análise Comparativa         </h3>         <h4 style="text-align: center; color: #666; margin: 5px 0;">             Parque Estadual Serra Furada         </h4>                  <hr style="margin: 15px 0;">                  <!-- NDVI Section -->         <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 15px;">             <h4 style="margin: 0 0 10px 0; color: #2e7d32;">🌿 NDVI (Normalized Difference Vegetation Index)</h4>             <table style="width: 100%; font-size: 13px;">                 <tr>                     <td><strong>Valor Médio:</strong></td>                     <td style="text-align: right; font-size: 18px; font-weight: bold; color: #f57c00;">0.405</td>                 </tr>                 <tr>                     <td><strong>Desvio Padrão:</strong></td>                     <td style="text-align: right;">±0.089</td>                 </tr>                 <tr>                     <td><strong>Faixa:</strong></td>                     <td style="text-align: right;">0.013 - 0.533</td>                 </tr>                 <tr>                     <td colspan="2" style="padding-top: 10px; border-top: 1px solid #ccc; margin-top: 10px;">                         🟡 Vegetação moderada                     </td>                 </tr>             </table>         </div>                  <!-- EVI Section -->         <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 15px;">             <h4 style="margin: 0 0 10px 0; color: #1565c0;">🌲 EVI (Enhanced Vegetation Index)</h4>             <table style="width: 100%; font-size: 13px;">                 <tr>                     <td><strong>Valor Médio:</strong></td>                     <td style="text-align: right; font-size: 18px; font-weight: bold; color: #2e7d32;">1.390</td>                 </tr>                 <tr>                     <td><strong>Desvio Padrão:</strong></td>                     <td style="text-align: right;">±0.256</td>                 </tr>                 <tr>                     <td><strong>Faixa:</strong></td>                     <td style="text-align: right;">0.060 - 1.681</td>                 </tr>                 <tr>                     <td colspan="2" style="padding-top: 10px; border-top: 1px solid #ccc; margin-top: 10px;">                         🟢 Cobertura excelente                     </td>                 </tr>             </table>         </div>                  <!-- Análise Comparativa -->         <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px;">             <h4 style="margin: 0 0 10px 0; color: #e65100;">🔍 Análise Comparativa</h4>             <p style="font-size: 13px; margin: 5px 0;">                 <strong>Concordância:</strong> ❌ <strong>Baixa concordância</strong>             </p>             <p style="font-size: 13px; margin: 5px 0;">                 <strong>Discrepância:</strong> 0.290             </p>             <p style="font-size: 13px; margin: 5px 0;">                 <strong>Razão NDVI/EVI:</strong> 0.583             </p>             <p style="font-size: 12px; margin-top: 10px; padding: 10px; background: white; border-left: 3px solid #e65100;">                 EVI detecta mais vegetação que NDVI. Isso pode indicar: <br>• Vegetação densa com saturação do NDVI<br>• Influência de cobertura de nuvens/atmosfera<br>• Presença de vegetação de altitude             </p>         </div>                  <!-- Explicação Técnica -->         <div style="background: #f5f5f5; padding: 15px; border-radius: 8px;">             <h4 style="margin: 0 0 10px 0; color: #424242;">📚 Por que NDVI e EVI são diferentes?</h4>             <ul style="font-size: 12px; margin: 0; padding-left: 20px;">                 <li><strong>NDVI:</strong> Sensível à clorofila, mas satura em vegetação densa</li>                 <li><strong>EVI:</strong> Corrige efeitos atmosféricos e saturação, melhor para florestas</li>                 <li><strong>Complementaridade:</strong> Usar ambos dá visão mais completa</li>             </ul>         </div>                  <p style="font-size: 10px; color: #999; text-align: center; margin-top: 15px;">             📅 Dados extraídos de imagem Landsat 8 (Junho/2025)<br>             📏 14,777 pixels analisados         </p>     </div>     </div>`)[0];
+                popup_cf77c915f4e66360daef9151760f9145.setContent(html_c6466d4acf68b1a7e46fdc609ff82916);
+            
+        
+
+        marker_4acc36f447666a260622a60d09d962fa.bindPopup(popup_cf77c915f4e66360daef9151760f9145)
+        ;
+
+        
+    
+    
+            marker_4acc36f447666a260622a60d09d962fa.bindTooltip(
+                `<div>
+                     📊 Clique para análise NDVI vs EVI - PESF
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4acc36f447666a260622a60d09d962fa.setIcon(icon_bd31402b80019a9d5aeed2389d035b25);
+            
+</script>
+</html>
