@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_06944f0359cfd50edca4f10225a3397f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                top: 10px; left: 50px; width: 500px; height: 90px; 
+                background-color: white; border:2px solid grey; z-index:9999; 
+                font-size:14px; padding: 10px; opacity: 0.9;">
+        <h4 style="margin: 0; color: #2c5f2d;">📊 Análise de Série Temporal</h4>
+        <p style="margin: 5px 0; font-size: 12px;">
+            Evolução dos Índices de Vegetação (2020-2024)<br>
+            <strong>Clique nos marcadores para ver os gráficos de tendência</strong>
+        </p>
+    </div>
+    
+    
+    <div style="position: fixed; 
+                bottom: 50px; right: 10px; width: 200px; 
+                background-color: white; border:2px solid grey; z-index:9999; 
+                font-size:11px; padding: 10px; opacity: 0.9;">
+        <h5 style="margin: 0 0 10px 0;">📊 Análise de Tendências</h5>
+        <p style="margin: 5px 0;">
+            <strong>NDVI/EVI:</strong><br>
+            • > 0.7: Vegetação densa<br>
+            • 0.4-0.7: Vegetação moderada<br>
+            • < 0.4: Solo exposto<br><br>
+            <strong>Tendência:</strong><br>
+            • Valores crescentes: Recuperação<br>
+            • Valores decrescentes: Degradação
+        </p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_06944f0359cfd50edca4f10225a3397f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_06944f0359cfd50edca4f10225a3397f = L.map(
+                "map_06944f0359cfd50edca4f10225a3397f",
+                {
+                    center: [-28.125, -49.533],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_1c12422a1c258f894cddee4d8da0a8f7 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 8,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_1c12422a1c258f894cddee4d8da0a8f7.addTo(map_06944f0359cfd50edca4f10225a3397f);
+        
+    
+            var marker_a03d6cbb96e3a54745b86ee6dff93384 = L.marker(
+                [-28.167, -49.583],
+                {
+}
+            ).addTo(map_06944f0359cfd50edca4f10225a3397f);
+        
+    
+            var icon_2464d96633171165fd0ab002b8e9b34e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "chart-line",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d27f516cec55c53628aec457e41f5eaa = L.popup({
+  "maxWidth": 470,
+});
+
+        
+            
+                var html_3c753e3f53498cf0c9ba747d14c66899 = $(`<div id="html_3c753e3f53498cf0c9ba747d14c66899" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 450px;">         <h4 style="color: #2c5f2d; text-align: center;">             🏔️ Parque Nacional São Joaquim         </h4>         <h5 style="text-align: center; color: #666;">Evolução Temporal (2020-2024)</h5>         <hr>                  <div style="margin: 10px 0;">             <strong>📈 NDVI ao longo do tempo:</strong>             <div style="font-family: monospace; font-size: 11px; background: #f5f5f5; padding: 10px; margin-top: 5px;">                 2020: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.709<br>2021: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.706<br>2022: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.709<br>2023: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.686<br>2024: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.698             </div>         </div>                  <div style="margin: 10px 0;">             <strong>📈 EVI ao longo do tempo:</strong>             <div style="font-family: monospace; font-size: 11px; background: #f5f5f5; padding: 10px; margin-top: 5px;">                 2020: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.569<br>2021: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.566<br>2022: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.569<br>2023: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.546<br>2024: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.558             </div>         </div>                  <div style="margin-top: 15px; padding: 10px; background: #e8f5e9; border-radius: 5px;">             <strong>📊 Análise:</strong>             <p style="font-size: 11px; margin: 5px 0;">                 • Mudança NDVI: -0.011 (-1.6%)<br>                 • Mudança EVI: -0.011 (-1.9%)<br>                 • Tendência: Declínio             </p>         </div>     </div>     </div>`)[0];
+                popup_d27f516cec55c53628aec457e41f5eaa.setContent(html_3c753e3f53498cf0c9ba747d14c66899);
+            
+        
+
+        marker_a03d6cbb96e3a54745b86ee6dff93384.bindPopup(popup_d27f516cec55c53628aec457e41f5eaa)
+        ;
+
+        
+    
+    
+            marker_a03d6cbb96e3a54745b86ee6dff93384.bindTooltip(
+                `<div>
+                     📊 Clique para ver evolução temporal - PNSJ
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a03d6cbb96e3a54745b86ee6dff93384.setIcon(icon_2464d96633171165fd0ab002b8e9b34e);
+            
+    
+            var marker_badbbccc05a3f1f2eb4928c5d38bc285 = L.marker(
+                [-28.083, -49.483],
+                {
+}
+            ).addTo(map_06944f0359cfd50edca4f10225a3397f);
+        
+    
+            var icon_8dbd01168401cec2870709c4da35c05a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "chart-line",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_269afddcfcf4d7a74f1cfe5a702a7442 = L.popup({
+  "maxWidth": 470,
+});
+
+        
+            
+                var html_58e5c5ece80afb0d6ca5c5c347a528eb = $(`<div id="html_58e5c5ece80afb0d6ca5c5c347a528eb" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 450px;">         <h4 style="color: #1565c0; text-align: center;">             🏞️ Parque Estadual Serra Furada         </h4>         <h5 style="text-align: center; color: #666;">Evolução Temporal (2020-2024)</h5>         <hr>                  <div style="margin: 10px 0;">             <strong>📈 NDVI ao longo do tempo:</strong>             <div style="font-family: monospace; font-size: 11px; background: #f5f5f5; padding: 10px; margin-top: 5px;">                 2020: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.676<br>2021: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.693<br>2022: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.689<br>2023: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.623<br>2024: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.640             </div>         </div>                  <div style="margin: 10px 0;">             <strong>📈 EVI ao longo do tempo:</strong>             <div style="font-family: monospace; font-size: 11px; background: #f5f5f5; padding: 10px; margin-top: 5px;">                 2020: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.536<br>2021: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.553<br>2022: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.549<br>2023: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.483<br>2024: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 0.500             </div>         </div>                  <div style="margin-top: 15px; padding: 10px; background: #e3f2fd; border-radius: 5px;">             <strong>📊 Análise:</strong>             <p style="font-size: 11px; margin: 5px 0;">                 • Mudança NDVI: -0.036 (-5.3%)<br>                 • Mudança EVI: -0.036 (-6.7%)<br>                 • Tendência: Declínio             </p>         </div>     </div>     </div>`)[0];
+                popup_269afddcfcf4d7a74f1cfe5a702a7442.setContent(html_58e5c5ece80afb0d6ca5c5c347a528eb);
+            
+        
+
+        marker_badbbccc05a3f1f2eb4928c5d38bc285.bindPopup(popup_269afddcfcf4d7a74f1cfe5a702a7442)
+        ;
+
+        
+    
+    
+            marker_badbbccc05a3f1f2eb4928c5d38bc285.bindTooltip(
+                `<div>
+                     📊 Clique para ver evolução temporal - PESF
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_badbbccc05a3f1f2eb4928c5d38bc285.setIcon(icon_8dbd01168401cec2870709c4da35c05a);
+            
+</script>
+</html>
