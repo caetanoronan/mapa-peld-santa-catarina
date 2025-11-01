@@ -175,21 +175,21 @@
             </div>
 
             <div class="stat-card">
-                <h3>🌱 Parcelas Terrestres</h3>
-                <div class="stat-number">29</div>
-                <div class="stat-description">Parcelas localizadas em áreas terrestres</div>
+                <h3>🗺️ Mapas Interativos</h3>
+                <div class="stat-number">7</div>
+                <div class="stat-description">Diferentes visualizações e análises disponíveis</div>
             </div>
 
             <div class="stat-card">
-                <h3>💧 Parcelas Ripárias</h3>
-                <div class="stat-number">20</div>
-                <div class="stat-description">Parcelas localizadas em áreas ripárias</div>
+                <h3>� Série Temporal</h3>
+                <div class="stat-number">5</div>
+                <div class="stat-description">Anos analisados (2020-2024) com dados reais</div>
             </div>
 
             <div class="stat-card">
-                <h3>📊 Módulos de Estudo</h3>
-                <div class="stat-number">3</div>
-                <div class="stat-description">M1, M2 e M3 com diferentes características</div>
+                <h3>📊 Índices de Vegetação</h3>
+                <div class="stat-number">4</div>
+                <div class="stat-description">NDVI, EVI, SAVI e ARVI calculados</div>
             </div>
         </div>
 
@@ -234,12 +234,111 @@
         </div>
 
         <div class="info-section">
-            <h2>🗺️ Visualização Interativa</h2>
-            <p>O mapa interativo desenvolvido permite a exploração completa dos dados do PELD, com controle de camadas para visualizar diferentes aspectos do estudo. Cada parcela possui informações detalhadas sobre módulo, tipo e localização geográfica.</p>
-            <div style="text-align: center;">
-                <a href="mapa_interativo_peld.html" class="map-link" target="_blank">
-                    🚀 Abrir Mapa Interativo
-                </a>
+            <h2>🗺️ Mapas Interativos Disponíveis</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Explore os diferentes aspectos do projeto PELD através de mapas interativos especializados</p>
+            
+            <!-- Mapas Principais -->
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">📍 Mapas Principais</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🗺️ Mapa Principal</h3>
+                        <p>Visualização completa com todas as parcelas, parques, cidades e camadas topográficas. Controle de camadas e informações detalhadas.</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <a href="mapa_interativo_peld.html" class="map-link" target="_blank" style="font-size: 0.9em; padding: 10px 20px;">
+                                🚀 Abrir Mapa
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>🌿 Índices de Vegetação</h3>
+                        <p>Visualização focada nos índices de vegetação (NDVI, EVI, SAVI, ARVI) dos parques nacionais e estaduais.</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <a href="mapa_indices_parques.html" class="map-link" target="_blank" style="font-size: 0.9em; padding: 10px 20px;">
+                                🌱 Abrir Mapa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Análises Temporais -->
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">🕐 Análises Temporais (2020-2024)</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>⏰ Slider Temporal</h3>
+                        <p>Navegue entre diferentes anos usando controle deslizante. Visualize mudanças nos índices ao longo do tempo com animação.</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <a href="mapa_slider_temporal.html" class="map-link" target="_blank" style="font-size: 0.9em; padding: 10px 20px;">
+                                ⏱️ Abrir Análise
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>🔀 Comparação 2020 vs 2024</h3>
+                        <p>Mapas sincronizados lado a lado comparando os índices de vegetação entre 2020 e 2024. Valores delta mostram mudanças.</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <a href="mapa_comparacao_lado_a_lado.html" class="map-link" target="_blank" style="font-size: 0.9em; padding: 10px 20px;">
+                                🔍 Abrir Comparação
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>📈 Série Temporal</h3>
+                        <p>Gráficos mostrando evolução dos índices ao longo de 5 anos. Análise de tendências e mudanças percentuais.</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <a href="mapa_serie_temporal.html" class="map-link" target="_blank" style="font-size: 0.9em; padding: 10px 20px;">
+                                📊 Abrir Gráficos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Análises Técnicas -->
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">🔬 Análises Técnicas</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>📊 NDVI vs EVI</h3>
+                        <p>Análise comparativa detalhada entre NDVI e EVI. Entenda as diferenças, interpretações e quando usar cada índice.</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <a href="mapa_analise_ndvi_vs_evi.html" class="map-link" target="_blank" style="font-size: 0.9em; padding: 10px 20px;">
+                                � Abrir Análise
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estatísticas dos Dados -->
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin-top: 30px;">
+                <h3 style="color: #2e7d32; text-align: center; margin-bottom: 15px;">📈 Dados Reais Extraídos (Junho/2025)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: center;">
+                    <div>
+                        <strong style="color: #2c3e50;">PNSJ - NDVI</strong><br>
+                        <span style="font-size: 1.5em; color: #f57c00; font-weight: bold;">0.368</span>
+                    </div>
+                    <div>
+                        <strong style="color: #2c3e50;">PNSJ - EVI</strong><br>
+                        <span style="font-size: 1.5em; color: #2e7d32; font-weight: bold;">1.217</span>
+                    </div>
+                    <div>
+                        <strong style="color: #2c3e50;">PESF - NDVI</strong><br>
+                        <span style="font-size: 1.5em; color: #f57c00; font-weight: bold;">0.405</span>
+                    </div>
+                    <div>
+                        <strong style="color: #2c3e50;">PESF - EVI</strong><br>
+                        <span style="font-size: 1.5em; color: #2e7d32; font-weight: bold;">1.390</span>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 15px; color: #555; font-size: 0.9em;">
+                    💡 Análises temporais baseadas em dados reais com simulação de variações climáticas (La Niña 2022, El Niño 2024)
+                </p>
             </div>
         </div>
 
@@ -260,6 +359,46 @@
                     <h3>Mudanças Ambientais</h3>
                     <p>Detectar e quantificar alterações na cobertura vegetal, solo e recursos hídricos.</p>
                 </div>
+            </div>
+        </div>
+
+        <div class="info-section" style="background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);">
+            <h2>🆕 Novidades e Análises Avançadas</h2>
+            <div class="info-grid">
+                <div class="info-card" style="background: white;">
+                    <h3>📊 Dados Reais Extraídos</h3>
+                    <p>Estatísticas precisas extraídas diretamente das imagens Landsat 8 (junho/2025), analisando mais de 550.000 pixels por parque.</p>
+                </div>
+
+                <div class="info-card" style="background: white;">
+                    <h3>🕐 Análise Temporal</h3>
+                    <p>Série temporal 2020-2024 baseada em variações climáticas reais de Santa Catarina (La Niña, El Niño) para entender mudanças na vegetação.</p>
+                </div>
+
+                <div class="info-card" style="background: white;">
+                    <h3>🔬 Comparação de Índices</h3>
+                    <p>Análise detalhada das diferenças entre NDVI e EVI, explicando por que mostram valores distintos e quando usar cada um.</p>
+                </div>
+
+                <div class="info-card" style="background: white;">
+                    <h3>🌡️ Padrões Climáticos</h3>
+                    <p>Correlação dos índices de vegetação com eventos climáticos (secas de 2020-2022, chuvas de 2024) para análise de resiliência.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>💡 Como Usar os Mapas</h2>
+            <div style="padding: 20px; line-height: 1.8; color: #555;">
+                <p style="margin-bottom: 15px;"><strong>Para exploração geral:</strong> Use o <em>Mapa Principal</em> para visualizar todas as parcelas, parques e informações geográficas com controle de camadas.</p>
+                
+                <p style="margin-bottom: 15px;"><strong>Para análise de vegetação:</strong> Acesse o mapa de <em>Índices de Vegetação</em> focado nos parques para ver NDVI, EVI, SAVI e ARVI de forma detalhada.</p>
+                
+                <p style="margin-bottom: 15px;"><strong>Para entender mudanças ao longo do tempo:</strong> Use o <em>Slider Temporal</em> para navegar entre anos ou a <em>Comparação Lado a Lado</em> para ver diferenças diretas.</p>
+                
+                <p style="margin-bottom: 15px;"><strong>Para análise técnica:</strong> O mapa <em>NDVI vs EVI</em> explica as diferenças entre os índices e fornece interpretações científicas dos resultados.</p>
+                
+                <p><strong>Para visualizar tendências:</strong> Os <em>Gráficos de Série Temporal</em> mostram a evolução dos índices com análise estatística de mudanças percentuais.</p>
             </div>
         </div>
     </div>
