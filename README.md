@@ -140,6 +140,27 @@ Após publicar no GitHub Pages, os mapas estarão disponíveis em:
 - **Índices de Vegetação (Completo)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
 - **Índices de Vegetação (Parques)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_parques.html
 
+### Análises Temporais 🕐
+
+Novas visualizações comparativas de evolução temporal dos índices de vegetação (2020-2024):
+
+- **Slider Temporal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_slider_temporal.html
+  - Navegação temporal com controle deslizante
+  - Visualize mudanças ano a ano nos índices de vegetação
+  - Controles play/pause para animação automática
+
+- **Comparação Lado a Lado**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_comparacao_lado_a_lado.html
+  - Compare 2020 vs 2024 simultaneamente
+  - Mapas sincronizados para facilitar análise
+  - Visualize mudanças nos índices com valores delta
+
+- **Gráficos de Série Temporal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_serie_temporal.html
+  - Gráficos de evolução dos índices ao longo de 5 anos
+  - Análise de tendências (crescimento/declínio)
+  - Estatísticas de mudança percentual
+
+**Dados utilizados**: Série temporal simulada (2020-2024) para demonstração. Para análises com dados reais de satélite Landsat 8/9, utilize o script `baixar_landsat_temporal.py`.
+
 ### Como Ativar GitHub Pages:
 
 1. Vá para o repositório no GitHub
