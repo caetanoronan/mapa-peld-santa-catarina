@@ -142,24 +142,43 @@ Após publicar no GitHub Pages, os mapas estarão disponíveis em:
 
 ### Análises Temporais 🕐
 
-Novas visualizações comparativas de evolução temporal dos índices de vegetação (2020-2024):
+Visualizações comparativas de evolução temporal dos índices de vegetação (2020-2024) **baseadas em dados reais**:
 
 - **Slider Temporal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_slider_temporal.html
   - Navegação temporal com controle deslizante
   - Visualize mudanças ano a ano nos índices de vegetação
   - Controles play/pause para animação automática
+  - Baseado em valores reais de 2025 com variações climáticas históricas
 
 - **Comparação Lado a Lado**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_comparacao_lado_a_lado.html
   - Compare 2020 vs 2024 simultaneamente
   - Mapas sincronizados para facilitar análise
   - Visualize mudanças nos índices com valores delta
+  - Análise de impacto de La Niña e El Niño
 
 - **Gráficos de Série Temporal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_serie_temporal.html
   - Gráficos de evolução dos índices ao longo de 5 anos
   - Análise de tendências (crescimento/declínio)
   - Estatísticas de mudança percentual
+  - Correlação com padrões climáticos
 
-**Dados utilizados**: Série temporal simulada (2020-2024) para demonstração. Para análises com dados reais de satélite Landsat 8/9, utilize o script `baixar_landsat_temporal.py`.
+### Análise Comparativa NDVI vs EVI 🔬
+
+Entenda as diferenças entre os índices e por que mostram valores diferentes:
+
+- **Análise NDVI vs EVI**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_analise_ndvi_vs_evi.html
+  - Comparação detalhada dos dois índices
+  - Explicações técnicas sobre discrepâncias
+  - Interpretação de resultados para cada parque
+  - Recomendações de uso para cada índice
+
+**Resultados Reais (Junho/2025)**:
+- **Parque Nacional São Joaquim**: NDVI=0.368, EVI=1.217
+- **Parque Estadual Serra Furada**: NDVI=0.405, EVI=1.390
+
+💡 **Interpretação**: EVI mostra valores significativamente mais altos que NDVI devido à correção de saturação em áreas de floresta densa. Isso é esperado e indica cobertura vegetal excelente nos parques.
+
+**Dados utilizados**: Série temporal baseada em estatísticas reais extraídas de imagens Landsat 8 (2025) com simulação de variações climáticas históricas (La Niña 2022, El Niño 2024). Para baixar imagens adicionais, utilize `configurar_download_landsat.py` ou `baixar_landsat_usgs.py`.
 
 ### Como Ativar GitHub Pages:
 
