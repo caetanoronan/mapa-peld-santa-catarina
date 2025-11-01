@@ -190,6 +190,116 @@ Entenda as diferenças entre os índices e por que mostram valores diferentes:
 6. Clique em "Save"
 7. Aguarde alguns minutos para o deploy completar
 
-## Contato
+## 👨‍💻 Autor
 
-Projeto PELD - Biodiversidade de Santa Catarina
+**Ronan Armando Caetano**
+- Universidade Federal de Santa Catarina (UFSC)
+- Programa de Pesquisa Ecológica de Longa Duração (PELD)
+- Email: caetanoronan@gmail.com
+
+## 🤖 Assistência de Desenvolvimento
+
+Este projeto foi desenvolvido com assistência de **GitHub Copilot** (AI Assistant) para:
+- Automação de processamento de dados geoespaciais
+- Desenvolvimento de visualizações interativas
+- Análises estatísticas e temporais
+- Otimização de código Python
+
+## 📚 Referências e Software Utilizados
+
+### Linguagens e Frameworks
+- **Python 3.13** - Linguagem de programação principal
+  - Van Rossum, G., & Drake, F. L. (2009). Python 3 Reference Manual. Scotts Valley, CA: CreateSpace.
+
+### Bibliotecas Python
+
+#### Processamento Geoespacial
+- **GeoPandas 1.0+** - Manipulação de dados geoespaciais
+  - Jordahl, K., et al. (2020). geopandas/geopandas: v0.8.1. Zenodo. https://doi.org/10.5281/zenodo.3946761
+
+- **Rasterio 1.3+** - Leitura e processamento de dados raster
+  - Gillies, S., et al. (2013–2024). Rasterio: geospatial raster I/O for Python programmers. https://github.com/rasterio/rasterio
+
+- **Shapely 2.0+** - Manipulação de geometrias
+  - Gillies, S., et al. (2007–2024). Shapely: manipulation and analysis of geometric objects. https://github.com/shapely/shapely
+
+#### Visualização e Mapeamento
+- **Folium 0.17+** - Criação de mapas interativos
+  - Python Visualization Development Team (2024). Folium: Python Data, Leaflet.js Maps. https://python-visualization.github.io/folium/
+
+- **Leaflet.js 1.9+** - Biblioteca JavaScript para mapas interativos
+  - Agafonkin, V. (2024). Leaflet — an open-source JavaScript library for mobile-friendly interactive maps. https://leafletjs.com/
+
+#### Análise de Dados
+- **Pandas 2.0+** - Análise e manipulação de dados
+  - McKinney, W. (2010). Data Structures for Statistical Computing in Python. Proceedings of the 9th Python in Science Conference, 51-56.
+
+- **NumPy 1.26+** - Computação numérica
+  - Harris, C. R., et al. (2020). Array programming with NumPy. Nature, 585(7825), 357-362.
+
+- **Matplotlib 3.8+** - Visualização de dados
+  - Hunter, J. D. (2007). Matplotlib: A 2D Graphics Environment. Computing in Science & Engineering, 9(3), 90-95.
+
+### Dados de Satélite
+- **Landsat 8/9 Collection 2 Level-2** - Imagens de satélite e índices de vegetação
+  - USGS (2024). Landsat 8-9 OLI/TIRS Collection 2 Level-2. U.S. Geological Survey. https://www.usgs.gov/landsat-missions/landsat-collection-2
+
+### APIs e Serviços
+- **Google Earth Engine** - Processamento de imagens de satélite em nuvem
+  - Gorelick, N., et al. (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. Remote Sensing of Environment, 202, 18-27.
+
+- **USGS EarthExplorer** - Download de imagens Landsat
+  - USGS (2024). EarthExplorer. https://earthexplorer.usgs.gov/
+
+### Controle de Versão e Hospedagem
+- **Git** - Sistema de controle de versão
+  - Chacon, S., & Straub, B. (2014). Pro Git (2nd ed.). Apress.
+
+- **GitHub Pages** - Hospedagem de páginas estáticas
+  - GitHub, Inc. (2024). GitHub Pages Documentation. https://docs.github.com/en/pages
+
+### Índices de Vegetação Calculados
+
+#### NDVI (Normalized Difference Vegetation Index)
+- Rouse, J. W., et al. (1974). Monitoring vegetation systems in the Great Plains with ERTS. NASA Special Publication, 351, 309.
+- Fórmula: (NIR - Red) / (NIR + Red)
+
+#### EVI (Enhanced Vegetation Index)
+- Huete, A., et al. (2002). Overview of the radiometric and biophysical performance of the MODIS vegetation indices. Remote Sensing of Environment, 83(1-2), 195-213.
+- Fórmula: 2.5 × ((NIR - Red) / (NIR + 6 × Red - 7.5 × Blue + 1))
+
+#### SAVI (Soil Adjusted Vegetation Index)
+- Huete, A. R. (1988). A soil-adjusted vegetation index (SAVI). Remote Sensing of Environment, 25(3), 295-309.
+- Fórmula: ((NIR - Red) / (NIR + Red + L)) × (1 + L), onde L = 0.5
+
+#### ARVI (Atmospherically Resistant Vegetation Index)
+- Kaufman, Y. J., & Tanré, D. (1992). Atmospherically resistant vegetation index (ARVI) for EOS-MODIS. IEEE Transactions on Geoscience and Remote Sensing, 30(2), 261-270.
+- Fórmula: (NIR - (2 × Red - Blue)) / (NIR + (2 × Red - Blue))
+
+## 🏛️ Instituições
+
+- **Universidade Federal de Santa Catarina (UFSC)**
+- **Programa de Pesquisa Ecológica de Longa Duração (PELD)**
+- **ICMBio** - Instituto Chico Mendes de Conservação da Biodiversidade
+
+## 📄 Licença
+
+Este projeto foi desenvolvido para fins acadêmicos e de pesquisa no âmbito do Programa PELD-BISC (Biodiversidade de Santa Catarina).
+
+## 🙏 Agradecimentos
+
+- Equipe do PELD-BISC pela disponibilização dos dados
+- ICMBio pelos shapefiles dos parques
+- USGS pela disponibilização gratuita de imagens Landsat
+- Comunidade open-source pelos softwares utilizados
+
+## 📞 Contato
+
+**Ronan Armando Caetano**
+- Universidade Federal de Santa Catarina (UFSC)
+- Programa de Pesquisa Ecológica de Longa Duração (PELD)
+- Projeto PELD - Biodiversidade de Santa Catarina
+
+---
+
+*Desenvolvido com 💚 para conservação da biodiversidade de Santa Catarina*
