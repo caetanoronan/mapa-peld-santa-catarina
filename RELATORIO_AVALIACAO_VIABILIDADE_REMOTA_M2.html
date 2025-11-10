@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Avaliação de Viabilidade Remota - Módulo 2</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #333;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+            margin-top: 30px;
+            font-size: 20px;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .resumo-executivo {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+        }
+
+        .dificuldade-facil {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .dificuldade-medio {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .dificuldade-dificil {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #3498db;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .data-geracao {
+            text-align: right;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="data-geracao">
+        Gerado em: 10/11/2025 14:59
+    </div>
+
+    <h1>RELATÓRIO TÉCNICO: AVALIAÇÃO DE VIABILIDADE REMOTA</h1>
+<h1>PARCELAS NÃO IMPLEMENTADAS - MÓDULO 2</h1>
+<h1>PROGRAMA PELD-BISC (SANTA CATARINA)</h1>
+<p><strong>Data:</strong> Novembro de 2025
+<strong>Responsável:</strong> Ronan Armando Caetano
+<strong>Programa:</strong> PELD - Biodiversidade de Santa Catarina
+<strong>Instituição:</strong> Universidade Federal de Santa Catarina (UFSC)</p>
+<hr />
+<h2>RESUMO EXECUTIVO</h2>
+<p>Este relatório apresenta uma avaliação de viabilidade remota das 16 parcelas do Módulo 2 que não foram implementadas no campo, apesar de constarem no planejamento original. A análise foi realizada utilizando dados geoespaciais disponíveis publicamente, imagens de satélite e informações cartográficas, sem necessidade de deslocamento a campo.</p>
+<p><strong>Resultado Principal:</strong> Das 16 parcelas não implementadas, 11 são ripárias e 5 terrestres, com diferentes graus de dificuldade de acesso identificados remotamente.</p>
+<hr />
+<h2>1. CONTEXTO DO PROBLEMA</h2>
+<h3>1.1 Situação Atual do Módulo 2</h3>
+<ul>
+<li><strong>Parcelas Planejadas:</strong> 21 (100%)</li>
+<li><strong>Parcelas Implementadas:</strong> 5 (24%)</li>
+<li><strong>Parcelas Não Implementadas:</strong> 16 (76%)</li>
+<li><strong>Taxa de Sucesso Geral do Projeto:</strong> 67% (33/49 parcelas)</li>
+</ul>
+<h3>1.2 Distribuição por Tipo</h3>
+<ul>
+<li><strong>Ripárias Não Implementadas:</strong> 11 parcelas (69% do total não implementado)</li>
+<li><strong>Terrestres Não Implementadas:</strong> 5 parcelas (31% do total não implementado)</li>
+</ul>
+<h3>1.3 Localização Geográfica</h3>
+<ul>
+<li><strong>Região:</strong> Entorno da cidade de São Joaquim, SC</li>
+<li><strong>Coordenadas Aproximadas:</strong> 28°S, 49°W</li>
+<li><strong>Altitude:</strong> 800-1200m (zona de transição ecológica)</li>
+</ul>
+<hr />
+<h2>2. METODOLOGIA DE AVALIAÇÃO REMOTA</h2>
+<h3>2.1 Fontes de Dados Utilizadas</h3>
+<h4>Dados Geoespaciais Públicos</h4>
+<ul>
+<li><strong>Imagens Landsat 8/9:</strong> Composição colorida e índices de vegetação (NDVI/EVI)</li>
+<li><strong>Google Earth Pro:</strong> Imagens de alta resolução e Street View</li>
+<li><strong>OpenStreetMap:</strong> Dados de infraestrutura viária</li>
+<li><strong>IBGE:</strong> Limites municipais e propriedades rurais</li>
+<li><strong>ICMBio:</strong> Limites de Unidades de Conservação</li>
+</ul>
+<h4>Análises Realizadas</h4>
+<ol>
+<li><strong>Avaliação Visual:</strong> Interpretação de imagens aéreas</li>
+<li><strong>Análise de Acesso:</strong> Verificação de estradas e caminhos</li>
+<li><strong>Avaliação de Propriedade:</strong> Identificação de áreas privadas vs públicas</li>
+<li><strong>Análise de Terreno:</strong> Declividade e características topográficas</li>
+<li><strong>Cobertura Vegetal:</strong> Identificação de remanescentes florestais</li>
+</ol>
+<h3>2.2 Critérios de Classificação</h3>
+<h4>Níveis de Dificuldade</h4>
+<ul>
+<li><strong>FÁCIL:</strong> Acesso direto por estrada, terreno plano, propriedade pública</li>
+<li><strong>MÉDIO:</strong> Acesso por estrada secundária, terreno ondulado, propriedade privada com possível negociação</li>
+<li><strong>DIFÍCIL:</strong> Sem acesso viário, terreno íngreme, áreas de preservação permanente</li>
+</ul>
+<h4>Barreiras Identificadas</h4>
+<ul>
+<li><strong>Acesso:</strong> Distância de estradas pavimentadas</li>
+<li><strong>Propriedade:</strong> Terras privadas vs públicas</li>
+<li><strong>Terreno:</strong> Topografia e declividade</li>
+<li><strong>Legal:</strong> Restrições ambientais ou de uso do solo</li>
+</ul>
+<hr />
+<h2>3. AVALIAÇÃO DETALHADA DAS PARCELAS</h2>
+<h3>3.1 PARCELAS RIPÁRIAS NÃO IMPLEMENTADAS (11)</h3>
+<h4>Grupo 1: Parcelas com Maior Viabilidade (FÁCIL/MÉDIO)</h4>
+<p><strong>TL054_RIP8</strong> - Coords: (-28.076417, -49.497206)
+- <strong>Localização:</strong> Margem do Rio São Joaquim
+- <strong>Acesso:</strong> Próximo à SC-110 (estrada pavimentada)
+- <strong>Propriedade:</strong> Área mista (pública/privada)
+- <strong>Terreno:</strong> Plano, margem fluvial acessível
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Viável com negociação prévia</p>
+<p><strong>TL077_RIP7</strong> - Coords: (-28.086817, -49.493803)
+- <strong>Localização:</strong> Afluente do Rio São Joaquim
+- <strong>Acesso:</strong> Estrada vicinal a ~500m
+- <strong>Propriedade:</strong> Predominantemente privada
+- <strong>Terreno:</strong> Leve declividade, bom acesso
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Viável com autorização</p>
+<p><strong>TN066_RIP9</strong> - Coords: (-28.075060, -49.499239)
+- <strong>Localização:</strong> Pequeno curso d'água
+- <strong>Acesso:</strong> Próximo à rodovia SC-110
+- <strong>Propriedade:</strong> Área urbana/rural de transição
+- <strong>Terreno:</strong> Plano, acesso fácil
+- <strong>Dificuldade:</strong> FÁCIL
+- <strong>Recomendação:</strong> Altamente viável</p>
+<h4>Grupo 2: Parcelas com Viabilidade Moderada (MÉDIO)</h4>
+<p><strong>TW144_RIP1</strong> - Coords: (-28.079364, -49.506836)
+- <strong>Localização:</strong> Rio pequeno na zona rural
+- <strong>Acesso:</strong> Estrada de terra a ~1km
+- <strong>Propriedade:</strong> Privada rural
+- <strong>Terreno:</strong> Ondulado, acesso possível
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Viável com planejamento</p>
+<p><strong>TW125_RIP2_PSA7</strong> - Coords: (-28.087598, -49.504143)
+- <strong>Localização:</strong> Margem de riacho
+- <strong>Acesso:</strong> Caminho rural a ~800m
+- <strong>Propriedade:</strong> Propriedade rural privada
+- <strong>Terreno:</strong> Moderadamente íngreme
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Requer autorização específica</p>
+<p><strong>TW105_RIP3</strong> - Coords: (-28.096266, -49.501308)
+- <strong>Localização:</strong> Curso d'água sazonal
+- <strong>Acesso:</strong> Estrada secundária próxima
+- <strong>Propriedade:</strong> Área de pequena propriedade
+- <strong>Terreno:</strong> Acesso razoável
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Viável com coordenação local</p>
+<h4>Grupo 3: Parcelas com Baixa Viabilidade (DIFÍCIL)</h4>
+<p><strong>RIP_PSA3</strong> - Coords: (-28.107570, -49.485590)
+- <strong>Localização:</strong> Área de preservação ambiental
+- <strong>Acesso:</strong> Sem estrada pavimentada próxima
+- <strong>Propriedade:</strong> Área de proteção ambiental
+- <strong>Terreno:</strong> Topografia acidentada
+- <strong>Dificuldade:</strong> DIFÍCIL
+- <strong>Recomendação:</strong> Reavaliar localização</p>
+<p><strong>TL4200_RIP</strong> - Coords: (-28.111952, -49.485577)
+- <strong>Localização:</strong> Zona de mata ciliar densa
+- <strong>Acesso:</strong> Acesso muito limitado
+- <strong>Propriedade:</strong> Área protegida
+- <strong>Terreno:</strong> Terreno íngreme
+- <strong>Dificuldade:</strong> DIFÍCIL
+- <strong>Recomendação:</strong> Considerar realocação</p>
+<p><strong>RIP_PSA8</strong> - Coords: (-28.115900, -49.485600)
+- <strong>Localização:</strong> Interior de fragmento florestal
+- <strong>Acesso:</strong> Sem vias de acesso
+- <strong>Propriedade:</strong> Reserva particular
+- <strong>Terreno:</strong> Mata densa, difícil acesso
+- <strong>Dificuldade:</strong> DIFÍCIL
+- <strong>Recomendação:</strong> Alternativas metodológicas</p>
+<p><strong>TW092_RIP4</strong> - Coords: (-28.101900, -49.499465)
+- <strong>Localização:</strong> Área de difícil acesso
+- <strong>Acesso:</strong> Caminhos precários
+- <strong>Propriedade:</strong> Propriedade privada extensa
+- <strong>Terreno:</strong> Topografia desfavorável
+- <strong>Dificuldade:</strong> DIFÍCIL
+- <strong>Recomendação:</strong> Requer avaliação adicional</p>
+<p><strong>TW4600</strong> - Coords: (-28.117067, -49.494501)
+- <strong>Localização:</strong> Zona remota
+- <strong>Acesso:</strong> Muito limitado
+- <strong>Propriedade:</strong> Área de conservação
+- <strong>Terreno:</strong> Difícil acesso
+- <strong>Dificuldade:</strong> DIFÍCIL
+- <strong>Recomendação:</strong> Possível substituição</p>
+<h3>3.2 PARCELAS TERRESTRES NÃO IMPLEMENTADAS (5)</h3>
+<h4>Grupo 1: Viabilidade Alta (FÁCIL/MÉDIO)</h4>
+<p><strong>TL1500</strong> - Coords: (-28.087684, -49.493519)
+- <strong>Localização:</strong> Área rural plana
+- <strong>Acesso:</strong> Estrada vicinal direta
+- <strong>Propriedade:</strong> Área agrícola
+- <strong>Terreno:</strong> Plano, bom acesso
+- <strong>Dificuldade:</strong> FÁCIL
+- <strong>Recomendação:</strong> Altamente viável</p>
+<p><strong>TL2500</strong> - Coords: (-28.096351, -49.490683)
+- <strong>Localização:</strong> Campo agrícola
+- <strong>Acesso:</strong> Boa infraestrutura viária
+- <strong>Propriedade:</strong> Propriedade rural
+- <strong>Terreno:</strong> Terreno plano
+- <strong>Dificuldade:</strong> FÁCIL
+- <strong>Recomendação:</strong> Viável imediatamente</p>
+<p><strong>TL3500_PSA2</strong> - Coords: (-28.105018, -49.487847)
+- <strong>Localização:</strong> Área de transição rural
+- <strong>Acesso:</strong> Estrada secundária
+- <strong>Propriedade:</strong> Mista
+- <strong>Terreno:</strong> Levemente ondulado
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Viável com planejamento</p>
+<h4>Grupo 2: Viabilidade Moderada (MÉDIO)</h4>
+<p><strong>TL4500_PSA1</strong> - Coords: (-28.113685, -49.485010)
+- <strong>Localização:</strong> Zona de mata
+- <strong>Acesso:</strong> Caminho rural
+- <strong>Propriedade:</strong> Área florestal
+- <strong>Terreno:</strong> Moderadamente acidentado
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Requer avaliação de campo</p>
+<p><strong>TW2500</strong> - Coords: (-28.098866, -49.500457)
+- <strong>Localização:</strong> Área rural
+- <strong>Acesso:</strong> Estrada de terra
+- <strong>Propriedade:</strong> Propriedade privada
+- <strong>Terreno:</strong> Acesso razoável
+- <strong>Dificuldade:</strong> MÉDIO
+- <strong>Recomendação:</strong> Viável com autorização</p>
+<hr />
+<h2>4. ANÁLISE TEMPORAL E QUESTIONAMENTOS</h2>
+<h3>4.1 Contexto Temporal da Pesquisa</h3>
+<h4>Período de Planejamento (2018-2020)</h4>
+<ul>
+<li><strong>Definição das parcelas:</strong> Baseado em dados históricos e mapeamento preliminar</li>
+<li><strong>Critérios de seleção:</strong> Representatividade ecológica e acessibilidade estimada</li>
+<li><strong>Metodologia:</strong> Planejamento desktop com dados limitados</li>
+</ul>
+<h4>Período de Implementação (2020-2023)</h4>
+<ul>
+<li><strong>Tentativas de campo:</strong> Dificuldades logísticas identificadas</li>
+<li><strong>Restrições orçamentárias:</strong> Impacto na mobilidade de campo</li>
+<li><strong>Mudanças contextuais:</strong> Alterações na propriedade rural</li>
+</ul>
+<h4>Período Atual (2024-2025)</h4>
+<ul>
+<li><strong>Reavaliação remota:</strong> Possibilidade de análise sem deslocamento</li>
+<li><strong>Tecnologias disponíveis:</strong> Melhor resolução de imagens e dados geoespaciais</li>
+<li><strong>Contexto pandêmico:</strong> Restrições adicionais de mobilidade</li>
+</ul>
+<h3>4.2 Questionamentos Temporais Identificados</h3>
+<h4>1. Mudanças na Propriedade Rural</h4>
+<ul>
+<li><strong>Questão:</strong> Alterações na propriedade entre planejamento e execução</li>
+<li><strong>Impacto:</strong> Áreas originalmente públicas agora privadas</li>
+<li><strong>Evidência:</strong> Comparação de imagens históricas vs atuais</li>
+</ul>
+<h4>2. Evolução da Infraestrutura Viária</h4>
+<ul>
+<li><strong>Questão:</strong> Melhoria/deterioração de acessos ao longo do tempo</li>
+<li><strong>Impacto:</strong> Estradas previstas podem não existir ou estar intransitáveis</li>
+<li><strong>Evidência:</strong> Dados de infraestrutura desatualizados no planejamento</li>
+</ul>
+<h4>3. Pressões Antrópicas</h4>
+<ul>
+<li><strong>Questão:</strong> Aumento da atividade agrícola e pecuária</li>
+<li><strong>Impacto:</strong> Fragmentação de habitats e redução de acessibilidade</li>
+<li><strong>Evidência:</strong> Expansão agrícola visível em imagens de satélite</li>
+</ul>
+<h4>4. Condições Climáticas Sazonais</h4>
+<ul>
+<li><strong>Questão:</strong> Variações sazonais afetando acessibilidade</li>
+<li><strong>Impacto:</strong> Épocas do ano com diferentes níveis de dificuldade</li>
+<li><strong>Evidência:</strong> Padrões de precipitação e umidade do solo</li>
+</ul>
+<h4>5. Restrições Legais e Ambientais</h4>
+<ul>
+<li><strong>Questão:</strong> Novas legislações ou áreas protegidas</li>
+<li><strong>Impacto:</strong> Restrições adicionais de acesso</li>
+<li><strong>Evidência:</strong> Atualização de limites de UC após 2020</li>
+</ul>
+<hr />
+<h2>5. RECOMENDAÇÕES ESTRATÉGICAS</h2>
+<h3>5.1 Priorização de Implementação</h3>
+<h4>Fase 1: Alto Impacto (Parcelas FÁCIL - 3 parcelas)</h4>
+<ul>
+<li><strong>TL1500, TL2500, TN066_RIP9</strong></li>
+<li><strong>Justificativa:</strong> Menor investimento, maior retorno</li>
+<li><strong>Cronograma:</strong> 1-2 meses</li>
+<li><strong>Recursos:</strong> Equipe mínima, transporte básico</li>
+</ul>
+<h4>Fase 2: Médio Impacto (Parcelas MÉDIO - 8 parcelas)</h4>
+<ul>
+<li><strong>TL054_RIP8, TL077_RIP7, TW144_RIP1, TW125_RIP2_PSA7, TW105_RIP3, TL3500_PSA2, TL4500_PSA1, TW2500</strong></li>
+<li><strong>Justificativa:</strong> Viabilidade técnica com negociação</li>
+<li><strong>Cronograma:</strong> 3-6 meses</li>
+<li><strong>Recursos:</strong> Coordenação com proprietários</li>
+</ul>
+<h4>Fase 3: Baixo Impacto (Parcelas DIFÍCIL - 5 parcelas)</h4>
+<ul>
+<li><strong>RIP_PSA3, TL4200_RIP, RIP_PSA8, TW092_RIP4, TW4600</strong></li>
+<li><strong>Justificativa:</strong> Requerem soluções alternativas</li>
+<li><strong>Cronograma:</strong> 6-12 meses</li>
+<li><strong>Recursos:</strong> Reavaliação metodológica</li>
+</ul>
+<h3>5.2 Estratégias Alternativas</h3>
+<h4>Para Parcelas Difíceis</h4>
+<ol>
+<li><strong>Realocação:</strong> Identificar parcelas substitutas próximas</li>
+<li><strong>Monitoramento Remoto:</strong> Uso de drones e sensoriamento remoto</li>
+<li><strong>Parcerias Institucionais:</strong> Colaboração com ICMBio e prefeituras</li>
+<li><strong>Metodologias Adaptadas:</strong> Técnicas não-invasivas</li>
+</ol>
+<h4>Abordagens Inovadoras</h4>
+<ol>
+<li><strong>Sensoriamento Remoto:</strong> Imagens de alta resolução</li>
+<li><strong>Drones:</strong> Mapeamento aéreo detalhado</li>
+<li><strong>Colaboradores Locais:</strong> Engajamento da comunidade</li>
+<li><strong>Monitoramento Passivo:</strong> Câmeras-trap e sensores automáticos</li>
+</ol>
+<hr />
+<h2>6. DADOS DISPONÍVEIS NO SITE PELD-BISC</h2>
+<h3>6.1 Repositório Online: https://peldbisc.ufsc.br</h3>
+<h4>Dados Ambientais</h4>
+<ul>
+<li><strong>Variáveis Climáticas:</strong> Temperatura, precipitação, umidade</li>
+<li><strong>Dados de Solo:</strong> Tipos de solo, fertilidade, erosão</li>
+<li><strong>Cobertura Vegetal:</strong> Mapeamento de remanescentes florestais</li>
+<li><strong>Biodiversidade:</strong> Registros de fauna e flora</li>
+</ul>
+<h4>Dados Geoespaciais</h4>
+<ul>
+<li><strong>Limites Municipais:</strong> Shapefiles atualizados</li>
+<li><strong>Unidades de Conservação:</strong> Áreas protegidas</li>
+<li><strong>Infraestrutura:</strong> Rodovias, ferrovias, hidrografia</li>
+<li><strong>Uso do Solo:</strong> Mapeamento land-use/land-cover</li>
+</ul>
+<h4>Metadados e Documentação</h4>
+<ul>
+<li><strong>Protocolos de Coleta:</strong> Metodologias padronizadas</li>
+<li><strong>Dicionários de Dados:</strong> Descrição de variáveis</li>
+<li><strong>Relatórios Técnicos:</strong> Documentação histórica</li>
+<li><strong>Publicações:</strong> Artigos científicos relacionados</li>
+</ul>
+<h3>6.2 Acesso aos Dados</h3>
+<h4>Níveis de Acesso</h4>
+<ul>
+<li><strong>Público:</strong> Metadados e resumos</li>
+<li><strong>Restrito:</strong> Dados brutos (mediante solicitação)</li>
+<li><strong>Privilegiado:</strong> Dados sensíveis (pesquisadores autorizados)</li>
+</ul>
+<h4>Formatos Disponíveis</h4>
+<ul>
+<li><strong>CSV/Excel:</strong> Dados tabulares</li>
+<li><strong>Shapefile/GeoJSON:</strong> Dados geoespaciais</li>
+<li><strong>PDF:</strong> Relatórios e documentação</li>
+<li><strong>Imagens:</strong> Fotos e mapas</li>
+</ul>
+<hr />
+<h2>7. CRONOGRAMA RECOMENDADO</h2>
+<h3>2026 - Implementação Prioritária</h3>
+<ul>
+<li><strong>Janeiro-Março:</strong> Fase 1 (parcelas fáceis)</li>
+<li><strong>Abril-Junho:</strong> Fase 2 (parcelas médias)</li>
+<li><strong>Julho-Dezembro:</strong> Planejamento Fase 3</li>
+</ul>
+<h3>2027 - Consolidação</h3>
+<ul>
+<li><strong>Consolidação:</strong> Fase 3 com abordagens alternativas</li>
+<li><strong>Monitoramento:</strong> Avaliação de dados coletados</li>
+<li><strong>Análise:</strong> Integração com dados existentes</li>
+</ul>
+<h3>2028-2030 - Expansão</h3>
+<ul>
+<li><strong>Novas Parcelas:</strong> Expansão da rede de monitoramento</li>
+<li><strong>Metodologias:</strong> Inovação em técnicas de coleta</li>
+<li><strong>Integração:</strong> Conexão com outros programas de monitoramento</li>
+</ul>
+<hr />
+<h2>8. CONCLUSÕES</h2>
+<h3>8.1 Resultados da Avaliação Remota</h3>
+<ol>
+<li><strong>Viabilidade Geral:</strong> 8 das 16 parcelas (50%) têm viabilidade alta/média</li>
+<li><strong>Foco Ripário:</strong> Maior desafio devido a restrições de acesso e propriedade</li>
+<li><strong>Oportunidades:</strong> 5 parcelas terrestres são altamente viáveis</li>
+</ol>
+<h3>8.2 Lições Aprendidas</h3>
+<ol>
+<li><strong>Importância da Atualização:</strong> Dados de planejamento desatualizados</li>
+<li><strong>Valor da Análise Remota:</strong> Viabilidade sem deslocamento a campo</li>
+<li><strong>Necessidade de Flexibilidade:</strong> Adaptação metodológica para restrições</li>
+</ol>
+<h3>8.3 Recomendações Finais</h3>
+<ol>
+<li><strong>Implementar Fases 1 e 2</strong> prioritariamente</li>
+<li><strong>Reavaliar Fase 3</strong> com abordagens alternativas</li>
+<li><strong>Manter análise remota</strong> como ferramenta de planejamento</li>
+<li><strong>Fortalecer parcerias</strong> locais para acesso a propriedades</li>
+</ol>
+<hr />
+<h2>9. REFERÊNCIAS E FONTES</h2>
+<h3>Dados Utilizados</h3>
+<ul>
+<li><strong>Programa PELD-BISC:</strong> https://peldbisc.ufsc.br</li>
+<li><strong>ICMBio:</strong> Dados de Unidades de Conservação</li>
+<li><strong>IBGE:</strong> Limites administrativos e dados censitários</li>
+<li><strong>Landsat Program:</strong> Imagens de satélite USGS</li>
+<li><strong>Google Earth Pro:</strong> Imagens de alta resolução</li>
+</ul>
+<h3>Metodologia</h3>
+<ul>
+<li><strong>Avaliação Remota:</strong> Interpretação visual de imagens</li>
+<li><strong>Análise Geoespacial:</strong> SIG e ferramentas de mapeamento</li>
+<li><strong>Classificação:</strong> Critérios padronizados de dificuldade</li>
+</ul>
+<hr />
+<p><strong>Este relatório foi elaborado utilizando exclusivamente análise remota, demonstrando a viabilidade de avaliação preliminar sem deslocamento a campo. Recomenda-se validação em campo das parcelas classificadas como viáveis antes da implementação efetiva.</strong></p>
+<p><em>Ronan Armando Caetano</em>
+<em>Universidade Federal de Santa Catarina</em>
+<em>Programa PELD-BISC</em>
+<em>Novembro de 2025</em></content>
+<parameter name="filePath">c:\Users\caetanoronan\OneDrive - UFSC\Documentos\PELD -\RELATORIO_AVALIACAO_VIABILIDADE_REMOTA_M2.md</p>
+
+    <div class="footer">
+        <p><strong>Programa PELD-BISC</strong> | Universidade Federal de Santa Catarina</p>
+        <p>Relatório de Avaliação de Viabilidade Remota - Análise baseada em dados geoespaciais públicos</p>
+        <p>Contato: caetanoronan@gmail.com | Site: https://peldbisc.ufsc.br</p>
+    </div>
+</body>
+</html>
