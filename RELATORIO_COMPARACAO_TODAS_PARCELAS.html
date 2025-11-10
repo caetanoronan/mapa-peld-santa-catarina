@@ -5,11 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Comparação Completa de Todas as Parcelas</title>
     <style>
-        /* ColorBrewer BuGn Scheme */
+        /* Tema Claro (Padrão) */
         :root {
-            --bugn-1: #e5f5f9; /* Azul muito claro */
-            --bugn-2: #99d8c9; /* Verde-azulado médio */
-            --bugn-3: #2ca25f; /* Verde escuro */
+            --bg-primary: #e5f5f9; /* Azul muito claro */
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f8f9fa;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-accent: #2ca25f; /* Verde escuro */
+            --border-color: #ddd;
+            --shadow-color: rgba(0,0,0,0.1);
+            --bugn-1: #e5f5f9;
+            --bugn-2: #99d8c9;
+            --bugn-3: #2ca25f;
+            --table-header-bg: var(--bugn-2);
+            --table-header-text: white;
+            --table-row-hover: var(--bugn-2);
+            --card-bg: white;
+            --highlight-bg: linear-gradient(135deg, var(--bugn-1) 0%, var(--bugn-2) 50%, var(--bugn-3) 100%);
+            --highlight-text: white;
+        }
+
+        /* Tema Escuro */
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a; /* Cinza muito escuro */
+            --bg-secondary: #2d2d2d; /* Cinza escuro */
+            --bg-tertiary: #3a3a3a; /* Cinza médio */
+            --text-primary: #e0e0e0; /* Cinza claro */
+            --text-secondary: #b0b0b0; /* Cinza médio */
+            --text-accent: #4ade80; /* Verde claro */
+            --border-color: #555555;
+            --shadow-color: rgba(0,0,0,0.3);
+            --bugn-1: #2d2d2d;
+            --bugn-2: #4a4a4a;
+            --bugn-3: #4ade80;
+            --table-header-bg: #4a4a4a;
+            --table-header-text: #e0e0e0;
+            --table-row-hover: #4a4a4a;
+            --card-bg: #2d2d2d;
+            --highlight-bg: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 50%, #4ade80 100%);
+            --highlight-text: #e0e0e0;
+        }
+
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -17,21 +56,47 @@
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            color: #333;
-            background-color: var(--bugn-1);
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg-secondary);
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        /* Botão de Toggle Tema */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-accent);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
 
         h1 {
-            color: var(--bugn-3);
+            color: var(--text-accent);
             border-bottom: 3px solid var(--bugn-2);
             padding-bottom: 10px;
             text-align: center;
@@ -40,18 +105,18 @@
         }
 
         h2 {
-            color: var(--bugn-3);
+            color: var(--text-accent);
             border-left: 4px solid var(--bugn-2);
             padding-left: 15px;
             margin-top: 30px;
             font-size: 22px;
-            background: var(--bugn-1);
+            background: var(--bg-tertiary);
             padding: 10px 15px;
             border-radius: 5px;
         }
 
         h3 {
-            color: var(--bugn-3);
+            color: var(--text-accent);
             font-size: 18px;
             margin-top: 25px;
             border-bottom: 2px solid var(--bugn-2);
@@ -59,7 +124,7 @@
         }
 
         h4 {
-            color: var(--bugn-3);
+            color: var(--text-accent);
             font-size: 16px;
             margin-top: 20px;
         }
@@ -69,39 +134,44 @@
             border-collapse: collapse;
             margin: 20px 0;
             font-size: 14px;
-            background: white;
+            background: var(--card-bg);
             border-radius: 5px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px var(--shadow-color);
         }
 
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             padding: 12px;
             text-align: left;
         }
 
         th {
-            background: var(--bugn-2);
-            color: white;
+            background: var(--table-header-bg);
+            color: var(--table-header-text);
             font-weight: bold;
         }
 
         tr:nth-child(even) {
-            background-color: var(--bugn-1);
+            background-color: var(--bg-tertiary);
         }
 
         tr:hover {
-            background-color: var(--bugn-2);
-            color: white;
+            background-color: var(--table-row-hover);
+            color: var(--table-header-text);
         }
 
         .resumo-executivo {
-            background: linear-gradient(135deg, var(--bugn-1) 0%, var(--bugn-2) 100%);
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bugn-2) 100%);
             padding: 25px;
-            border-left: 4px solid var(--bugn-3);
+            border-left: 4px solid var(--text-accent);
             margin: 20px 0;
             border-radius: 8px;
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .resumo-executivo {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bugn-2) 100%);
         }
 
         .status-implemented {
@@ -114,6 +184,14 @@
             font-weight: bold;
         }
 
+        [data-theme="dark"] .status-implemented {
+            color: #4ade80;
+        }
+
+        [data-theme="dark"] .status-not-implemented {
+            color: #f87171;
+        }
+
         .metric-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -122,23 +200,23 @@
         }
 
         .metric-card {
-            background: white;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px var(--shadow-color);
             border-top: 4px solid var(--bugn-2);
         }
 
         .metric-value {
             font-size: 2.5rem;
             font-weight: bold;
-            color: var(--bugn-3);
+            color: var(--text-accent);
             margin: 10px 0;
         }
 
         .metric-label {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
@@ -148,8 +226,8 @@
             border-top: 2px solid var(--bugn-2);
             text-align: center;
             font-size: 12px;
-            color: #666;
-            background: var(--bugn-1);
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
             padding: 20px;
             border-radius: 8px;
         }
@@ -157,27 +235,68 @@
         .data-geracao {
             text-align: right;
             font-size: 12px;
-            color: var(--bugn-3);
+            color: var(--text-accent);
             margin-bottom: 20px;
         }
 
         .highlight-box {
-            background: linear-gradient(135deg, var(--bugn-1) 0%, var(--bugn-2) 50%, var(--bugn-3) 100%);
-            color: white;
+            background: var(--highlight-bg);
+            color: var(--highlight-text);
             padding: 20px;
             border-radius: 8px;
             margin: 20px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        [data-theme="dark"] .highlight-box {
+            background: var(--highlight-bg);
         }
 
         @media (max-width: 768px) {
             .metric-grid {
                 grid-template-columns: 1fr;
             }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+
+        /* Animações suaves */
+        .container {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos para elementos específicos no modo escuro */
+        [data-theme="dark"] code {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] a {
+            color: var(--text-accent);
+        }
+
+        [data-theme="dark"] a:hover {
+            color: #6ade94;
         }
     </style>
 </head>
 <body>
+    <!-- Botão de Toggle Tema -->
+    <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
+        🌙
+    </button>
+
     <div class="container">
         <div class="data-geracao">
             Gerado em: 10/11/2025 15:16
@@ -461,5 +580,41 @@
             <p>Contato: caetanoronan@gmail.com | Site: https://peldbisc.ufsc.br</p>
         </div>
     </div>
+
+    <script>
+        // Toggle do modo escuro
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Verificar se há preferência salva
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        // Função para alternar tema
+        function toggleTheme() {
+            const currentTheme = body.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Event listener para o botão
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Animação suave de entrada
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.container').style.opacity = '1';
+        });
+    </script>
 </body>
 </html>
