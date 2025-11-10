@@ -69,6 +69,99 @@ O arquivo `mapa_parcelas_ppbio_existentes.html` apresenta um mapa interativo foc
 - **Validação**: `Parcelas PPBio Atualizadas.pdf` (33 parcelas existentes)
 - **Mapeamento**: Correspondência entre códigos antigos e novos
 
+## Relatório de Avaliação de Viabilidade Remota - Módulo 2
+
+O arquivo `RELATORIO_AVALIACAO_VIABILIDADE_REMOTA_M2.md` apresenta uma avaliação completa de viabilidade das 16 parcelas do Módulo 2 que não foram implementadas, realizada exclusivamente por análise remota sem deslocamento a campo.
+
+### 📊 Resultados da Avaliação
+
+#### **Status Atual do Módulo 2:**
+- **Parcelas Planejadas:** 21 (100%)
+- **Parcelas Implementadas:** 5 (24%) ⚠️
+- **Parcelas Não Implementadas:** 16 (76%) - **Foco da análise**
+
+#### **Classificação por Dificuldade:**
+- **FÁCIL:** 3 parcelas (19%) - Alto potencial de implementação
+- **MÉDIO:** 8 parcelas (50%) - Viável com planejamento adequado
+- **DIFÍCIL:** 5 parcelas (31%) - Requerem soluções alternativas
+
+#### **Distribuição por Tipo:**
+- **Ripárias:** 11 parcelas (69%) - Maior desafio devido a restrições de acesso
+- **Terrestres:** 5 parcelas (31%) - Maior viabilidade relativa
+
+### 🔍 Metodologia de Avaliação Remota
+
+#### **Fontes de Dados Utilizadas:**
+- **Imagens Landsat 8/9:** Análise de cobertura vegetal e uso do solo
+- **Google Earth Pro:** Interpretação visual de alta resolução
+- **OpenStreetMap:** Infraestrutura viária e acesso
+- **IBGE/IBGE:** Limites municipais e propriedades
+- **ICMBio:** Unidades de Conservação e restrições ambientais
+
+#### **Critérios de Avaliação:**
+1. **Acesso:** Distância e qualidade de estradas
+2. **Propriedade:** Terras públicas vs privadas
+3. **Terreno:** Topografia e condições físicas
+4. **Legal:** Restrições ambientais e de uso do solo
+
+### 📋 Recomendações Estratégicas
+
+#### **Fase 1 - Prioridade Alta (3 parcelas FÁCIL):**
+- **TL1500, TL2500, TN066_RIP9**
+- **Investimento:** Baixo custo, alto retorno
+- **Cronograma:** 1-2 meses
+
+#### **Fase 2 - Prioridade Média (8 parcelas MÉDIO):**
+- **TL054_RIP8, TL077_RIP7, TW144_RIP1, TW125_RIP2_PSA7, TW105_RIP3, TL3500_PSA2, TL4500_PSA1, TW2500**
+- **Investimento:** Médio custo com negociação
+- **Cronograma:** 3-6 meses
+
+#### **Fase 3 - Prioridade Baixa (5 parcelas DIFÍCIL):**
+- **RIP_PSA3, TL4200_RIP, RIP_PSA8, TW092_RIP4, TW4600**
+- **Abordagens:** Realocação ou monitoramento remoto
+- **Cronograma:** 6-12 meses
+
+### ⏰ Questionamentos Temporais
+
+#### **Mudanças Contextuais Identificadas:**
+- **Propriedade Rural:** Áreas públicas viraram privadas (2018-2023)
+- **Infraestrutura:** Estradas previstas não existem ou deterioraram
+- **Atividades Agrícolas:** Expansão rural impactando acessibilidade
+- **Restrições Legais:** Novas áreas protegidas pós-2020
+
+#### **Lições Aprendidas:**
+- **Atualização de Dados:** Necessidade de reavaliação periódica
+- **Flexibilidade Metodológica:** Adaptação a restrições de campo
+- **Planejamento Realista:** Considerar barreiras não previstas
+
+### 🌐 Dados Disponíveis no PELD-BISC
+
+O relatório referencia o repositório online **https://peldbisc.ufsc.br** contendo:
+
+#### **Dados Ambientais:**
+- Variáveis climáticas (temperatura, precipitação, umidade)
+- Dados de solo (tipos, fertilidade, erosão)
+- Cobertura vegetal e mapeamento land-use
+
+#### **Dados Geoespaciais:**
+- Limites municipais e propriedades rurais
+- Unidades de Conservação (ICMBio)
+- Infraestrutura viária e hidrografia
+
+### 📄 Formatos Disponíveis
+
+- **`RELATORIO_AVALIACAO_VIABILIDADE_REMOTA_M2.md`**: Versão Markdown completa
+- **`RELATORIO_AVALIACAO_VIABILIDADE_REMOTA_M2.html`**: Versão formatada para web
+- **Script de Análise:** `analise_parcelas_m2.py` para replicação
+
+### 🎯 Conclusões
+
+A avaliação remota identificou que **8 das 16 parcelas (50%) têm viabilidade alta/média** para implementação, com foco prioritário nas parcelas terrestres e ripárias de acesso relativamente fácil. As parcelas classificadas como difíceis podem requerer **abordagens metodológicas alternativas** como monitoramento remoto ou realocação.
+
+**Este relatório demonstra a eficácia da análise remota como ferramenta de planejamento**, permitindo avaliação preliminar sem deslocamento a campo e otimizando recursos para implementação efetiva.
+
+---
+
 ## Dashboard PELD
 
 O arquivo `dashboard_peld.html` apresenta um painel interativo com estatísticas e informações sobre o projeto:
