@@ -39,6 +39,36 @@ O arquivo `mapa_interativo_peld.html` é um mapa interativo criado com Folium (b
 - **Cidades Afetadas pelo PARNA**: `Projeto_PARNA_PESF/Cidades_parna_sj_temp.shp`
 - **Limite Estadual de Santa Catarina**: `Organizacao Territorio/SC_UF_2024/SC_UF_2024.shp`
 
+## Mapa das Parcelas PPBio Existentes
+
+O arquivo `mapa_parcelas_ppbio_existentes.html` apresenta um mapa interativo focado exclusivamente nas parcelas PPBio que foram efetivamente implementadas no campo, baseado na validação cruzada entre dados de coordenadas e informações do PDF oficial.
+
+### Características:
+- **33 parcelas existentes** validadas contra dados oficiais
+- **Marcadores coloridos por módulo**: 
+  - 🔴 Módulo 1 (M01): 15 parcelas
+  - 🔵 Módulo 2 (M02): 5 parcelas  
+  - 🟢 Módulo 3 (M03): 13 parcelas
+- **Agrupamento inteligente**: MarkerCluster para melhor visualização
+- **Popups detalhados**: Nome antigo, código novo, tipo, módulo e coordenadas
+- **Legenda integrada**: Identificação visual dos módulos
+- **Centro otimizado**: Focado na região das parcelas
+
+### Distribuição das Parcelas:
+- **Por Tipo**: 24 terrestres + 9 ripárias
+- **Por Módulo**: Distribuição equilibrada entre os três módulos
+- **Validação**: Coordenadas verificadas contra PDF oficial do projeto
+
+### Como visualizar:
+- Abra o arquivo `mapa_parcelas_ppbio_existentes.html` em qualquer navegador web
+- Use o zoom para explorar agrupamentos de parcelas
+- Clique nos marcadores para ver informações detalhadas
+
+### Dados utilizados:
+- **Coordenadas**: `amb_csv/ppbio_sc-coordenadas_parcelas.csv` (49 parcelas totais)
+- **Validação**: `Parcelas PPBio Atualizadas.pdf` (33 parcelas existentes)
+- **Mapeamento**: Correspondência entre códigos antigos e novos
+
 ## Dashboard PELD
 
 O arquivo `dashboard_peld.html` apresenta um painel interativo com estatísticas e informações sobre o projeto:
@@ -137,6 +167,7 @@ O mapa é totalmente autônomo (HTML + JS + CSS embutidos), não requer servidor
 Após publicar no GitHub Pages, os mapas estarão disponíveis em:
 - **Mapa Principal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_interativo_peld.html
 - **Dashboard**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html
+- **Parcelas PPBio Existentes**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_parcelas_ppbio_existentes.html
 - **Índices de Vegetação (Completo)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
 - **Índices de Vegetação (Parques)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_parques.html
 
