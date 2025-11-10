@@ -24,6 +24,10 @@
             --card-bg: white;
             --highlight-bg: linear-gradient(135deg, var(--bugn-1) 0%, var(--bugn-2) 50%, var(--bugn-3) 100%);
             --highlight-text: white;
+            --tab-active-bg: var(--bugn-2);
+            --tab-active-text: white;
+            --tab-inactive-bg: var(--bg-tertiary);
+            --tab-inactive-text: var(--text-secondary);
         }
 
         /* Tema Escuro */
@@ -45,6 +49,10 @@
             --card-bg: #2d2d2d;
             --highlight-bg: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 50%, #4ade80 100%);
             --highlight-text: #e0e0e0;
+            --tab-active-bg: #4a4a4a;
+            --tab-active-text: #e0e0e0;
+            --tab-inactive-bg: #3a3a3a;
+            --tab-inactive-text: #b0b0b0;
         }
 
         * {
@@ -67,6 +75,54 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        /* Sistema de Abas */
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            background: var(--bg-secondary);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            background: var(--tab-inactive-bg);
+            color: var(--tab-inactive-text);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .tab-button:last-child {
+            border-right: none;
+        }
+
+        .tab-button:hover {
+            background: var(--tab-active-bg);
+            color: var(--tab-active-text);
+        }
+
+        .tab-button.active {
+            background: var(--tab-active-bg);
+            color: var(--tab-active-text);
+            border-bottom: 3px solid var(--text-accent);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         /* Botão de Toggle Tema */
@@ -264,6 +320,15 @@
                 height: 40px;
                 font-size: 16px;
             }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
         }
 
         /* Animações suaves */
@@ -305,274 +370,423 @@
         <h1>RELATÓRIO TÉCNICO: COMPARAÇÃO COMPLETA DE TODAS AS PARCELAS</h1>
         <h1>Programa PELD-BISC (Santa Catarina)</h1>
 
-        <div class="resumo-executivo">
-            <p>Este relatório apresenta uma análise completa e comparativa de todas as 49 parcelas do Programa PELD-BISC em Santa Catarina, distribuídas em 3 módulos. A análise inclui estatísticas gerais, distribuição geográfica, status de implementação e recomendações estratégicas para otimização do programa de monitoramento da biodiversidade.</p>
+        <!-- Sistema de Abas -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('resumo')">📊 Resumo Executivo</button>
+            <button class="tab-button" onclick="showTab('analise')">🔍 Análise Detalhada</button>
+            <button class="tab-button" onclick="showTab('recomendacoes')">🎯 Recomendações</button>
+            <button class="tab-button" onclick="showTab('dados')">📋 Dados & Metodologia</button>
+        </div>
 
-            <strong>Principais Descobertas:</strong>
+        <!-- Conteúdo das Abas -->
+
+        <!-- Aba 1: Resumo Executivo -->
+        <div id="resumo" class="tab-content active">
+            <div class="resumo-executivo">
+                <p>Este relatório apresenta uma análise completa e comparativa de todas as 49 parcelas do Programa PELD-BISC em Santa Catarina, distribuídas em 3 módulos. A análise inclui estatísticas gerais, distribuição geográfica, status de implementação e recomendações estratégicas para otimização do programa de monitoramento da biodiversidade.</p>
+
+                <strong>Principais Descobertas:</strong>
+                <ul>
+                    <li>Total: 49 parcelas (20 ripárias, 29 terrestres)</li>
+                    <li>Módulo 2: Maior concentração de parcelas não implementadas (16/21)</li>
+                    <li>Taxa de sucesso geral: 67% (33/49 parcelas implementadas)</li>
+                    <li>Desafio principal: Acesso a parcelas ripárias remotas</li>
+                </ul>
+            </div>
+
+            <h2>Métricas Principais</h2>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-value">49</div>
+                    <div class="metric-label">Total de Parcelas</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Módulos Ativos</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">67%</div>
+                    <div class="metric-label">Taxa de Sucesso</div>
+                </div>
+            </div>
+
+            <h3>Distribuição por Módulo</h3>
+            <table>
+                <tr>
+                    <th>Módulo</th>
+                    <th>Parcelas Planejadas</th>
+                    <th>Ripárias</th>
+                    <th>Terrestres</th>
+                    <th>Altitude (m)</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>M1</td>
+                    <td>15</td>
+                    <td>5</td>
+                    <td>10</td>
+                    <td>1400-1600</td>
+                    <td>Implementado</td>
+                </tr>
+                <tr>
+                    <td>M2</td>
+                    <td>21</td>
+                    <td>12</td>
+                    <td>9</td>
+                    <td>800-1200</td>
+                    <td>Parcial (24%)</td>
+                </tr>
+                <tr>
+                    <td>M3</td>
+                    <td>13</td>
+                    <td>3</td>
+                    <td>10</td>
+                    <td>1200-1400</td>
+                    <td>Não implementado</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Aba 2: Análise Detalhada -->
+        <div id="analise" class="tab-content">
+            <h2>Análise Detalhada por Módulo</h2>
+
+            <h3>Módulo 1 - Altitude: 1400-1600m</h3>
+            <p><strong>Status:</strong> Totalmente implementado | <strong>Composição:</strong> 5 ripárias, 10 terrestres</p>
+
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Status</th>
+                </tr>
+                <tr><td>TN4500</td><td>Terrestre</td><td>-28.157649</td><td>-49.650719</td><td>✅ Implementada</td></tr>
+                <tr><td>TN3500</td><td>Terrestre</td><td>-28.153369</td><td>-49.641754</td><td>✅ Implementada</td></tr>
+                <tr><td>TN2500</td><td>Terrestre</td><td>-28.149088</td><td>-49.632790</td><td>✅ Implementada</td></tr>
+                <tr><td>TN1500</td><td>Terrestre</td><td>-28.144807</td><td>-49.623826</td><td>✅ Implementada</td></tr>
+                <tr><td>TN0500</td><td>Terrestre</td><td>-28.140525</td><td>-49.614864</td><td>✅ Implementada</td></tr>
+                <tr><td>TS0500</td><td>Terrestre</td><td>-28.148458</td><td>-49.610008</td><td>✅ Implementada</td></tr>
+                <tr><td>TS1500</td><td>Terrestre</td><td>-28.152740</td><td>-49.618971</td><td>✅ Implementada</td></tr>
+                <tr><td>TS2500</td><td>Terrestre</td><td>-28.157021</td><td>-49.627935</td><td>✅ Implementada</td></tr>
+                <tr><td>TS3500</td><td>Terrestre</td><td>-28.161303</td><td>-49.636900</td><td>✅ Implementada</td></tr>
+                <tr><td>TS4500</td><td>Terrestre</td><td>-28.165583</td><td>-49.645866</td><td>✅ Implementada</td></tr>
+                <tr><td>TN4000</td><td>Ripária</td><td>-28.155132</td><td>-49.645446</td><td>✅ Implementada</td></tr>
+                <tr><td>TN1300</td><td>Ripária</td><td>-28.143389</td><td>-49.620858</td><td>✅ Implementada</td></tr>
+                <tr><td>TL0900</td><td>Ripária</td><td>-28.145200</td><td>-49.606211</td><td>✅ Implementada</td></tr>
+                <tr><td>TS0150</td><td>Ripária</td><td>-28.146659</td><td>-49.606245</td><td>✅ Implementada</td></tr>
+                <tr><td>TS1845</td><td>Ripária</td><td>-28.154223</td><td>-49.622065</td><td>✅ Implementada</td></tr>
+            </table>
+
+            <h3>Módulo 2 - Altitude: 800-1200m</h3>
+            <p><strong>Status:</strong> 5/21 implementadas (23.8%) | <strong>Composição:</strong> 12 ripárias, 9 terrestres</p>
+
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Status</th>
+                </tr>
+                <tr><td>TL054_RIP8</td><td>Ripária</td><td>-28.076417</td><td>-49.497206</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TL077_RIP7</td><td>Ripária</td><td>-28.086817</td><td>-49.493803</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TL1500</td><td>Terrestre</td><td>-28.087684</td><td>-49.493519</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TL2500</td><td>Terrestre</td><td>-28.096351</td><td>-49.490683</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TL3500_PSA2</td><td>Terrestre</td><td>-28.105018</td><td>-49.487847</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>RIP_PSA3</td><td>Ripária</td><td>-28.107570</td><td>-49.485590</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TL4200_RIP</td><td>Ripária</td><td>-28.111952</td><td>-49.485577</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TL4500_PSA1</td><td>Terrestre</td><td>-28.113685</td><td>-49.485010</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>RIP_PSA8</td><td>Ripária</td><td>-28.115900</td><td>-49.485600</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TN066_RIP9</td><td>Ripária</td><td>-28.075060</td><td>-49.499239</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TW144_RIP1</td><td>Ripária</td><td>-28.079364</td><td>-49.506836</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TW1500</td><td>Terrestre</td><td>-28.090199</td><td>-49.503293</td><td class="status-implemented">✅ Implementada</td></tr>
+                <tr><td>TW125_RIP2_PSA7</td><td>Ripária</td><td>-28.087598</td><td>-49.504143</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TW2500</td><td>Terrestre</td><td>-28.098866</td><td>-49.500457</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TW105_RIP3</td><td>Ripária</td><td>-28.096266</td><td>-49.501308</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TL400_PSA4</td><td>Terrestre</td><td>-28.079063</td><td>-49.496336</td><td class="status-implemented">✅ Implementada</td></tr>
+                <tr><td>TW092_RIP4</td><td>Ripária</td><td>-28.101900</td><td>-49.499465</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+                <tr><td>TW3500</td><td>Terrestre</td><td>-28.107533</td><td>-49.497621</td><td class="status-implemented">✅ Implementada</td></tr>
+                <tr><td>TW065_RIP5_PSA9</td><td>Ripária</td><td>-28.114034</td><td>-49.495494</td><td class="status-implemented">✅ Implementada</td></tr>
+                <tr><td>TW4500</td><td>Terrestre</td><td>-28.116201</td><td>-49.494785</td><td class="status-implemented">✅ Implementada</td></tr>
+                <tr><td>TW4600</td><td>Ripária</td><td>-28.117067</td><td>-49.494501</td><td class="status-not-implemented">❌ Não implementada</td></tr>
+            </table>
+
+            <h3>Módulo 3 - Altitude: 1200-1400m</h3>
+            <p><strong>Status:</strong> Não implementado | <strong>Composição:</strong> 3 ripárias, 10 terrestres</p>
+
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Status</th>
+                </tr>
+                <tr><td>T1</td><td>Terrestre</td><td>-28.183630</td><td>-49.385985</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T2</td><td>Terrestre</td><td>-28.177733</td><td>-49.394017</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T3</td><td>Terrestre</td><td>-28.174585</td><td>-49.386460</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T4</td><td>Terrestre</td><td>-28.185233</td><td>-49.402583</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T5</td><td>Terrestre</td><td>-28.192267</td><td>-49.389157</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T6</td><td>Terrestre</td><td>-28.153072</td><td>-49.389483</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T7</td><td>Terrestre</td><td>-28.123354</td><td>-49.414842</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T8</td><td>Terrestre</td><td>-28.174590</td><td>-49.405520</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T9</td><td>Terrestre</td><td>-28.137817</td><td>-49.420983</td><td>❓ Não avaliado</td></tr>
+                <tr><td>T10</td><td>Terrestre</td><td>-28.166967</td><td>-49.424650</td><td>❓ Não avaliado</td></tr>
+                <tr><td>R1</td><td>Ripária</td><td>-28.177551</td><td>-49.387597</td><td>❓ Não avaliado</td></tr>
+                <tr><td>R2</td><td>Ripária</td><td>-28.169808</td><td>-49.409346</td><td>❓ Não avaliado</td></tr>
+                <tr><td>R3</td><td>Ripária</td><td>-28.182885</td><td>-49.403460</td><td>❓ Não avaliado</td></tr>
+            </table>
+
+            <h2>Análise Comparativa</h2>
+
+            <div class="highlight-box">
+                <h4>Análise de Implementação por Tipo</h4>
+                <ul>
+                    <li><strong>Parcelas Ripárias:</strong> 20 total (40.8%) - Maior desafio logístico</li>
+                    <li><strong>Parcelas Terrestres:</strong> 29 total (59.2%) - Maior viabilidade</li>
+                    <li><strong>Módulo 2 - Ripárias:</strong> 1/12 implementadas (8.3%)</li>
+                    <li><strong>Módulo 2 - Terrestres:</strong> 4/9 implementadas (44.4%)</li>
+                </ul>
+            </div>
+
+            <h3>Distribuição Geográfica</h3>
+            <table>
+                <tr>
+                    <th>Módulo</th>
+                    <th>Latitude (min-max)</th>
+                    <th>Longitude (min-max)</th>
+                    <th>Centro Aproximado</th>
+                </tr>
+                <tr>
+                    <td>M1</td>
+                    <td>-28.166 a -28.141</td>
+                    <td>-49.651 a -49.606</td>
+                    <td>(-28.153, -49.628)</td>
+                </tr>
+                <tr>
+                    <td>M2</td>
+                    <td>-28.117 a -28.075</td>
+                    <td>-49.507 a -49.485</td>
+                    <td>(-28.096, -49.496)</td>
+                </tr>
+                <tr>
+                    <td>M3</td>
+                    <td>-28.192 a -28.123</td>
+                    <td>-49.425 a -49.386</td>
+                    <td>(-28.158, -49.405)</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Aba 3: Recomendações -->
+        <div id="recomendacoes" class="tab-content">
+            <h2>Recomendações Estratégicas</h2>
+
+            <div class="resumo-executivo">
+                <h4>Fase 1: Alto Impacto (3 parcelas FÁCIL)</h4>
+                <p><strong>TL1500, TL2500, TN066_RIP9</strong> - Menor investimento, maior retorno imediato</p>
+
+                <h4>Fase 2: Médio Impacto (8 parcelas MÉDIO)</h4>
+                <p>Parcelas terrestres e ripárias acessíveis com coordenação prévia</p>
+
+                <h4>Fase 3: Baixo Impacto (5 parcelas DIFÍCIL)</h4>
+                <p>Reavaliação necessária - considerar realocação ou metodologias alternativas</p>
+            </div>
+
+            <h3>Classificação por Dificuldade de Acesso (Módulo 2)</h3>
+            <table>
+                <tr>
+                    <th>Nível</th>
+                    <th>Características</th>
+                    <th>Quantidade</th>
+                    <th>Percentual</th>
+                </tr>
+                <tr>
+                    <td style="background-color: #d4edda; color: #155724; font-weight: bold;">FÁCIL</td>
+                    <td>Acesso direto, terreno plano</td>
+                    <td>3</td>
+                    <td>19%</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #fff3cd; color: #856404; font-weight: bold;">MÉDIO</td>
+                    <td>Acesso secundário, negociação</td>
+                    <td>8</td>
+                    <td>50%</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #f8d7da; color: #721c24; font-weight: bold;">DIFÍCIL</td>
+                    <td>Sem vias, terreno íngreme</td>
+                    <td>5</td>
+                    <td>31%</td>
+                </tr>
+            </table>
+
+            <h2>Estratégias para Expansão</h2>
+
+            <h3>Abordagens Inovadoras</h3>
             <ul>
-                <li>Total: 49 parcelas (20 ripárias, 29 terrestres)</li>
-                <li>Módulo 2: Maior concentração de parcelas não implementadas (16/21)</li>
-                <li>Taxa de sucesso geral: 67% (33/49 parcelas implementadas)</li>
-                <li>Desafio principal: Acesso a parcelas ripárias remotas</li>
+                <li><strong>Sensoriamento Remoto:</strong> Imagens de alta resolução e índices de vegetação</li>
+                <li><strong>Drones:</strong> Mapeamento aéreo detalhado para áreas remotas</li>
+                <li><strong>Monitoramento Passivo:</strong> Câmeras-trap e sensores automáticos</li>
+                <li><strong>Parcerias Locais:</strong> Engajamento de comunidades e proprietários</li>
+                <li><strong>Técnicas Não-Invasivas:</strong> Para áreas de preservação permanente</li>
             </ul>
-        </div>
 
-        <h2>1. Visão Geral do Programa</h2>
+            <h2>Conclusões e Próximos Passos</h2>
 
-        <div class="metric-grid">
-            <div class="metric-card">
-                <div class="metric-value">49</div>
-                <div class="metric-label">Total de Parcelas</div>
+            <div class="highlight-box">
+                <h4>Resultados Principais</h4>
+                <ol>
+                    <li><strong>Distribuição desigual:</strong> Módulo 2 concentra maior número de parcelas não implementadas</li>
+                    <li><strong>Desafio ripário:</strong> Maior dificuldade de acesso em parcelas junto a cursos d'água</li>
+                    <li><strong>Oportunidade terrestre:</strong> Parcelas terrestres oferecem maior viabilidade logística</li>
+                    <li><strong>Potencial de recuperação:</strong> 11 das 16 parcelas não implementadas têm viabilidade alta/média</li>
+                </ol>
             </div>
-            <div class="metric-card">
-                <div class="metric-value">3</div>
-                <div class="metric-label">Módulos Ativos</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">67%</div>
-                <div class="metric-label">Taxa de Sucesso</div>
-            </div>
-        </div>
 
-        <h3>Distribuição por Módulo</h3>
-        <table>
-            <tr>
-                <th>Módulo</th>
-                <th>Parcelas Planejadas</th>
-                <th>Ripárias</th>
-                <th>Terrestres</th>
-                <th>Altitude (m)</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>M1</td>
-                <td>15</td>
-                <td>5</td>
-                <td>10</td>
-                <td>1400-1600</td>
-                <td>Implementado</td>
-            </tr>
-            <tr>
-                <td>M2</td>
-                <td>21</td>
-                <td>12</td>
-                <td>9</td>
-                <td>800-1200</td>
-                <td>Parcial (24%)</td>
-            </tr>
-            <tr>
-                <td>M3</td>
-                <td>13</td>
-                <td>3</td>
-                <td>10</td>
-                <td>1200-1400</td>
-                <td>Não implementado</td>
-            </tr>
-        </table>
-
-        <h2>2. Análise Detalhada por Módulo</h2>
-
-        <h3>Módulo 1 - Altitude: 1400-1600m</h3>
-        <p><strong>Status:</strong> Totalmente implementado | <strong>Composição:</strong> 5 ripárias, 10 terrestres</p>
-
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Status</th>
-            </tr>
-            <tr><td>TN4500</td><td>Terrestre</td><td>-28.157649</td><td>-49.650719</td><td>✅ Implementada</td></tr>
-            <tr><td>TN3500</td><td>Terrestre</td><td>-28.153369</td><td>-49.641754</td><td>✅ Implementada</td></tr>
-            <tr><td>TN2500</td><td>Terrestre</td><td>-28.149088</td><td>-49.632790</td><td>✅ Implementada</td></tr>
-            <tr><td>TN1500</td><td>Terrestre</td><td>-28.144807</td><td>-49.623826</td><td>✅ Implementada</td></tr>
-            <tr><td>TN0500</td><td>Terrestre</td><td>-28.140525</td><td>-49.614864</td><td>✅ Implementada</td></tr>
-            <tr><td>TS0500</td><td>Terrestre</td><td>-28.148458</td><td>-49.610008</td><td>✅ Implementada</td></tr>
-            <tr><td>TS1500</td><td>Terrestre</td><td>-28.152740</td><td>-49.618971</td><td>✅ Implementada</td></tr>
-            <tr><td>TS2500</td><td>Terrestre</td><td>-28.157021</td><td>-49.627935</td><td>✅ Implementada</td></tr>
-            <tr><td>TS3500</td><td>Terrestre</td><td>-28.161303</td><td>-49.636900</td><td>✅ Implementada</td></tr>
-            <tr><td>TS4500</td><td>Terrestre</td><td>-28.165583</td><td>-49.645866</td><td>✅ Implementada</td></tr>
-            <tr><td>TN4000</td><td>Ripária</td><td>-28.155132</td><td>-49.645446</td><td>✅ Implementada</td></tr>
-            <tr><td>TN1300</td><td>Ripária</td><td>-28.143389</td><td>-49.620858</td><td>✅ Implementada</td></tr>
-            <tr><td>TL0900</td><td>Ripária</td><td>-28.145200</td><td>-49.606211</td><td>✅ Implementada</td></tr>
-            <tr><td>TS0150</td><td>Ripária</td><td>-28.146659</td><td>-49.606245</td><td>✅ Implementada</td></tr>
-            <tr><td>TS1845</td><td>Ripária</td><td>-28.154223</td><td>-49.622065</td><td>✅ Implementada</td></tr>
-        </table>
-
-        <h3>Módulo 2 - Altitude: 800-1200m</h3>
-        <p><strong>Status:</strong> 5/21 implementadas (23.8%) | <strong>Composição:</strong> 12 ripárias, 9 terrestres</p>
-
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Status</th>
-            </tr>
-            <tr><td>TL054_RIP8</td><td>Ripária</td><td>-28.076417</td><td>-49.497206</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TL077_RIP7</td><td>Ripária</td><td>-28.086817</td><td>-49.493803</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TL1500</td><td>Terrestre</td><td>-28.087684</td><td>-49.493519</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TL2500</td><td>Terrestre</td><td>-28.096351</td><td>-49.490683</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TL3500_PSA2</td><td>Terrestre</td><td>-28.105018</td><td>-49.487847</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>RIP_PSA3</td><td>Ripária</td><td>-28.107570</td><td>-49.485590</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TL4200_RIP</td><td>Ripária</td><td>-28.111952</td><td>-49.485577</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TL4500_PSA1</td><td>Terrestre</td><td>-28.113685</td><td>-49.485010</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>RIP_PSA8</td><td>Ripária</td><td>-28.115900</td><td>-49.485600</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TN066_RIP9</td><td>Ripária</td><td>-28.075060</td><td>-49.499239</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TW144_RIP1</td><td>Ripária</td><td>-28.079364</td><td>-49.506836</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TW1500</td><td>Terrestre</td><td>-28.090199</td><td>-49.503293</td><td class="status-implemented">✅ Implementada</td></tr>
-            <tr><td>TW125_RIP2_PSA7</td><td>Ripária</td><td>-28.087598</td><td>-49.504143</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TW2500</td><td>Terrestre</td><td>-28.098866</td><td>-49.500457</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TW105_RIP3</td><td>Ripária</td><td>-28.096266</td><td>-49.501308</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TL400_PSA4</td><td>Terrestre</td><td>-28.079063</td><td>-49.496336</td><td class="status-implemented">✅ Implementada</td></tr>
-            <tr><td>TW092_RIP4</td><td>Ripária</td><td>-28.101900</td><td>-49.499465</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-            <tr><td>TW3500</td><td>Terrestre</td><td>-28.107533</td><td>-49.497621</td><td class="status-implemented">✅ Implementada</td></tr>
-            <tr><td>TW065_RIP5_PSA9</td><td>Ripária</td><td>-28.114034</td><td>-49.495494</td><td class="status-implemented">✅ Implementada</td></tr>
-            <tr><td>TW4500</td><td>Terrestre</td><td>-28.116201</td><td>-49.494785</td><td class="status-implemented">✅ Implementada</td></tr>
-            <tr><td>TW4600</td><td>Ripária</td><td>-28.117067</td><td>-49.494501</td><td class="status-not-implemented">❌ Não implementada</td></tr>
-        </table>
-
-        <h3>Módulo 3 - Altitude: 1200-1400m</h3>
-        <p><strong>Status:</strong> Não implementado | <strong>Composição:</strong> 3 ripárias, 10 terrestres</p>
-
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Status</th>
-            </tr>
-            <tr><td>T1</td><td>Terrestre</td><td>-28.183630</td><td>-49.385985</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T2</td><td>Terrestre</td><td>-28.177733</td><td>-49.394017</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T3</td><td>Terrestre</td><td>-28.174585</td><td>-49.386460</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T4</td><td>Terrestre</td><td>-28.185233</td><td>-49.402583</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T5</td><td>Terrestre</td><td>-28.192267</td><td>-49.389157</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T6</td><td>Terrestre</td><td>-28.153072</td><td>-49.389483</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T7</td><td>Terrestre</td><td>-28.123354</td><td>-49.414842</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T8</td><td>Terrestre</td><td>-28.174590</td><td>-49.405520</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T9</td><td>Terrestre</td><td>-28.137817</td><td>-49.420983</td><td>❓ Não avaliado</td></tr>
-            <tr><td>T10</td><td>Terrestre</td><td>-28.166967</td><td>-49.424650</td><td>❓ Não avaliado</td></tr>
-            <tr><td>R1</td><td>Ripária</td><td>-28.177551</td><td>-49.387597</td><td>❓ Não avaliado</td></tr>
-            <tr><td>R2</td><td>Ripária</td><td>-28.169808</td><td>-49.409346</td><td>❓ Não avaliado</td></tr>
-            <tr><td>R3</td><td>Ripária</td><td>-28.182885</td><td>-49.403460</td><td>❓ Não avaliado</td></tr>
-        </table>
-
-        <h2>3. Análise Comparativa</h2>
-
-        <div class="highlight-box">
-            <h4>Análise de Implementação por Tipo</h4>
-            <ul>
-                <li><strong>Parcelas Ripárias:</strong> 20 total (40.8%) - Maior desafio logístico</li>
-                <li><strong>Parcelas Terrestres:</strong> 29 total (59.2%) - Maior viabilidade</li>
-                <li><strong>Módulo 2 - Ripárias:</strong> 1/12 implementadas (8.3%)</li>
-                <li><strong>Módulo 2 - Terrestres:</strong> 4/9 implementadas (44.4%)</li>
-            </ul>
-        </div>
-
-        <h3>Distribuição Geográfica</h3>
-        <table>
-            <tr>
-                <th>Módulo</th>
-                <th>Latitude (min-max)</th>
-                <th>Longitude (min-max)</th>
-                <th>Centro Aproximado</th>
-            </tr>
-            <tr>
-                <td>M1</td>
-                <td>-28.166 a -28.141</td>
-                <td>-49.651 a -49.606</td>
-                <td>(-28.153, -49.628)</td>
-            </tr>
-            <tr>
-                <td>M2</td>
-                <td>-28.117 a -28.075</td>
-                <td>-49.507 a -49.485</td>
-                <td>(-28.096, -49.496)</td>
-            </tr>
-            <tr>
-                <td>M3</td>
-                <td>-28.192 a -28.123</td>
-                <td>-49.425 a -49.386</td>
-                <td>(-28.158, -49.405)</td>
-            </tr>
-        </table>
-
-        <h2>4. Análise de Viabilidade Remota (Módulo 2)</h2>
-
-        <h3>Classificação por Dificuldade de Acesso</h3>
-        <table>
-            <tr>
-                <th>Nível</th>
-                <th>Características</th>
-                <th>Quantidade</th>
-                <th>Percentual</th>
-            </tr>
-            <tr>
-                <td style="background-color: #d4edda; color: #155724; font-weight: bold;">FÁCIL</td>
-                <td>Acesso direto, terreno plano</td>
-                <td>3</td>
-                <td>19%</td>
-            </tr>
-            <tr>
-                <td style="background-color: #fff3cd; color: #856404; font-weight: bold;">MÉDIO</td>
-                <td>Acesso secundário, negociação</td>
-                <td>8</td>
-                <td>50%</td>
-            </tr>
-            <tr>
-                <td style="background-color: #f8d7da; color: #721c24; font-weight: bold;">DIFÍCIL</td>
-                <td>Sem vias, terreno íngreme</td>
-                <td>5</td>
-                <td>31%</td>
-            </tr>
-        </table>
-
-        <h3>Recomendações Estratégicas</h3>
-
-        <div class="resumo-executivo">
-            <h4>Fase 1: Alto Impacto (3 parcelas FÁCIL)</h4>
-            <p><strong>TL1500, TL2500, TN066_RIP9</strong> - Menor investimento, maior retorno imediato</p>
-
-            <h4>Fase 2: Médio Impacto (8 parcelas MÉDIO)</h4>
-            <p>Parcelas terrestres e ripárias acessíveis com coordenação prévia</p>
-
-            <h4>Fase 3: Baixo Impacto (5 parcelas DIFÍCIL)</h4>
-            <p>Reavaliação necessária - considerar realocação ou metodologias alternativas</p>
-        </div>
-
-        <h2>5. Estratégias para Expansão</h2>
-
-        <h3>Abordagens Inovadoras</h3>
-        <ul>
-            <li><strong>Sensoriamento Remoto:</strong> Imagens de alta resolução e índices de vegetação</li>
-            <li><strong>Drones:</strong> Mapeamento aéreo detalhado para áreas remotas</li>
-            <li><strong>Monitoramento Passivo:</strong> Câmeras-trap e sensores automáticos</li>
-            <li><strong>Parcerias Locais:</strong> Engajamento de comunidades e proprietários</li>
-            <li><strong>Técnicas Não-Invasivas:</strong> Para áreas de preservação permanente</li>
-        </ul>
-
-        <h2>6. Conclusões</h2>
-
-        <div class="highlight-box">
-            <h4>Resultados Principais</h4>
+            <h4>Próximos Passos Recomendados</h4>
             <ol>
-                <li><strong>Distribuição desigual:</strong> Módulo 2 concentra maior número de parcelas não implementadas</li>
-                <li><strong>Desafio ripário:</strong> Maior dificuldade de acesso em parcelas junto a cursos d'água</li>
-                <li><strong>Oportunidade terrestre:</strong> Parcelas terrestres oferecem maior viabilidade logística</li>
-                <li><strong>Potencial de recuperação:</strong> 11 das 16 parcelas não implementadas têm viabilidade alta/média</li>
+                <li><strong>Implementar Fase 1</strong> do Módulo 2 (parcelas de alta viabilidade)</li>
+                <li><strong>Reavaliar Fase 3</strong> com abordagens metodológicas alternativas</li>
+                <li><strong>Expandir programa</strong> com tecnologias inovadoras de monitoramento</li>
+                <li><strong>Fortalecer parcerias</strong> locais para acesso a propriedades privadas</li>
             </ol>
         </div>
 
-        <h4>Próximos Passos Recomendados</h4>
-        <ol>
-            <li><strong>Implementar Fase 1</strong> do Módulo 2 (parcelas de alta viabilidade)</li>
-            <li><strong>Reavaliar Fase 3</strong> com abordagens metodológicas alternativas</li>
-            <li><strong>Expandir programa</strong> com tecnologias inovadoras de monitoramento</li>
-            <li><strong>Fortalecer parcerias</strong> locais para acesso a propriedades privadas</li>
-        </ol>
+        <!-- Aba 4: Dados & Metodologia -->
+        <div id="dados" class="tab-content">
+            <h2>Fontes de Dados e Metodologia</h2>
+
+            <div class="resumo-executivo">
+                <h4>Base de Dados</h4>
+                <p>Este relatório foi gerado a partir da análise sistemática dos dados geoespaciais do Programa PELD-BISC, utilizando coordenadas GPS precisas e informações de implementação coletadas em campo.</p>
+            </div>
+
+            <h3>Arquivos de Dados Utilizados</h3>
+            <table>
+                <tr>
+                    <th>Arquivo</th>
+                    <th>Descrição</th>
+                    <th>Localização</th>
+                    <th>Formato</th>
+                </tr>
+                <tr>
+                    <td><code>ppbio_sc-coordenadas_parcelas.csv</code></td>
+                    <td>Coordenadas geográficas e metadados de todas as 49 parcelas</td>
+                    <td><code>amb_csv/</code></td>
+                    <td>CSV (latin-1)</td>
+                </tr>
+                <tr>
+                    <td><code>RELATORIO_AVALIACAO_VIABILIDADE_REMOTA_M2.md</code></td>
+                    <td>Análise detalhada de viabilidade do Módulo 2</td>
+                    <td>Diretório raiz</td>
+                    <td>Markdown</td>
+                </tr>
+                <tr>
+                    <td><code>RELATORIO_COMPARACAO_TODAS_PARCELAS.md</code></td>
+                    <td>Versão Markdown completa do relatório</td>
+                    <td>Diretório raiz</td>
+                    <td>Markdown</td>
+                </tr>
+            </table>
+
+            <h3>Metodologia de Análise</h3>
+
+            <h4>1. Coleta de Dados</h4>
+            <ul>
+                <li><strong>Coordenadas GPS:</strong> Precisão de ±5 metros</li>
+                <li><strong>Status de Implementação:</strong> Verificação em campo e registros administrativos</li>
+                <li><strong>Classificação por Tipo:</strong> Ripária (margem de rios) vs Terrestre (interior florestal)</li>
+                <li><strong>Avaliação de Acesso:</strong> Baseada em vias existentes e terreno</li>
+            </ul>
+
+            <h4>2. Processamento de Dados</h4>
+            <ul>
+                <li><strong>Linguagem:</strong> Python 3.8+ com bibliotecas pandas, numpy</li>
+                <li><strong>Análise Geoespacial:</strong> Cálculos de distância e distribuição</li>
+                <li><strong>Validação:</strong> Comparação entre fontes de dados (PDF vs CSV)</li>
+                <li><strong>Visualização:</strong> Folium para mapas interativos</li>
+            </ul>
+
+            <h4>3. Critérios de Classificação</h4>
+            <table>
+                <tr>
+                    <th>Nível de Dificuldade</th>
+                    <th>Critérios</th>
+                    <th>Exemplos</th>
+                </tr>
+                <tr>
+                    <td style="background-color: #d4edda; color: #155724; font-weight: bold;">FÁCIL</td>
+                    <td>Acesso direto por estrada pavimentada, terreno plano</td>
+                    <td>TL1500, TL2500</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #fff3cd; color: #856404; font-weight: bold;">MÉDIO</td>
+                    <td>Estrada de terra ou acesso secundário, negociação necessária</td>
+                    <td>TW2500, TW092_RIP4</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #f8d7da; color: #721c24; font-weight: bold;">DIFÍCIL</td>
+                    <td>Sem vias de acesso, terreno íngreme ou áreas remotas</td>
+                    <td>TL054_RIP8, TW4600</td>
+                </tr>
+            </table>
+
+            <h3>Scripts e Ferramentas Utilizadas</h3>
+
+            <h4>Scripts Python Principais</h4>
+            <ul>
+                <li><code>gerar_relatorio_comparacao_completa.py</code> - Geração automática do relatório</li>
+                <li><code>create_map_ppbio_parcels.py</code> - Criação de mapas interativos</li>
+                <li><code>analise_parcelas_m2.py</code> - Análise específica do Módulo 2</li>
+                <li><code>compare_pdf_csv.py</code> - Validação de consistência dos dados</li>
+            </ul>
+
+            <h4>Bibliotecas Python</h4>
+            <ul>
+                <li><strong>pandas:</strong> Manipulação e análise de dados tabulares</li>
+                <li><strong>folium:</strong> Geração de mapas interativos</li>
+                <li><strong>PyPDF2/pdfplumber:</strong> Extração de texto de PDFs</li>
+                <li><strong>matplotlib/seaborn:</strong> Visualização de dados</li>
+            </ul>
+
+            <h3>Validação e Qualidade dos Dados</h3>
+
+            <div class="highlight-box">
+                <h4>Controles de Qualidade Implementados</h4>
+                <ul>
+                    <li>✅ <strong>Consistência:</strong> Comparação entre múltiplas fontes de dados</li>
+                    <li>✅ <strong>Precisão:</strong> Validação de coordenadas GPS</li>
+                    <li>✅ <strong>Completude:</strong> Verificação de dados ausentes</li>
+                    <li>✅ <strong>Atualização:</strong> Dados validados em novembro/2025</li>
+                </ul>
+            </div>
+
+            <h3>Acesso aos Dados</h3>
+
+            <h4>Repositório GitHub</h4>
+            <p>Todos os dados, scripts e relatórios estão disponíveis no repositório público:</p>
+            <p><strong>🔗 https://github.com/caetanoronan/mapa-peld-santa-catarina</strong></p>
+
+            <h4>Arquivos Disponíveis</h4>
+            <ul>
+                <li><strong>Dados brutos:</strong> <code>amb_csv/ppbio_sc-coordenadas_parcelas.csv</code></li>
+                <li><strong>Relatórios:</strong> Versões Markdown e HTML</li>
+                <li><strong>Mapas:</strong> Arquivos HTML interativos</li>
+                <li><strong>Scripts:</strong> Código Python para reprodução das análises</li>
+            </ul>
+
+            <h4>Contato e Suporte</h4>
+            <p>Para dúvidas sobre os dados ou metodologia:</p>
+            <ul>
+                <li><strong>Email:</strong> caetanoronan@gmail.com</li>
+                <li><strong>Site:</strong> https://peldbisc.ufsc.br</li>
+                <li><strong>Instituição:</strong> Universidade Federal de Santa Catarina</li>
+            </ul>
+        </div>
 
         <div class="footer">
             <p><strong>Programa PELD-BISC</strong> | Universidade Federal de Santa Catarina</p>
@@ -582,6 +796,23 @@
     </div>
 
     <script>
+        // Sistema de Abas
+        function showTab(tabId) {
+            // Esconder todas as abas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Remover classe active de todos os botões
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            // Mostrar aba selecionada
+            document.getElementById(tabId).classList.add('active');
+
+            // Ativar botão correspondente
+            event.target.classList.add('active');
+        }
+
         // Toggle do modo escuro
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
