@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Comparação: Mapa PELD Completo vs Existentes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .comparison-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container {
+            position: relative;
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .map-title {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #fff;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 8px;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid;
+        }
+
+        .module-m1 { border-left-color: #dc3545; }
+        .module-m2 { border-left-color: #007bff; }
+        .module-m3 { border-left-color: #28a745; }
+
+        .implementation-rate {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .legend {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border: 2px solid #ff8c42;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .alert-custom {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border: 1px solid #fdcb6e;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="display-4 text-dark mb-2">
+                    <i class="fas fa-map-marked-alt text-primary"></i>
+                    Comparação: Mapas PELD Santa Catarina
+                </h1>
+                <p class="lead text-muted">Análise comparativa entre planejamento e implementação real</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Statistics Overview -->
+        <div class="comparison-section">
+            <div class="text-center mb-4">
+                <h2 class="h1 text-dark">
+                    <i class="fas fa-chart-bar text-primary"></i>
+                    Visão Geral da Implementação
+                </h2>
+                <p class="text-muted">Comparação entre parcelas planejadas e efetivamente implementadas</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="stats-card">
+                        <h4 class="text-center mb-3">
+                            <i class="fas fa-drafting-compass"></i>
+                            Mapa Original (Planejamento)
+                        </h4>
+                        <div class="metric-box">
+                            <strong>Total de Parcelas:</strong> 49
+                        </div>
+                        <div class="metric-box">
+                            <strong>Módulo 1:</strong> 15 parcelas
+                        </div>
+                        <div class="metric-box">
+                            <strong>Módulo 2:</strong> 21 parcelas
+                        </div>
+                        <div class="metric-box">
+                            <strong>Módulo 3:</strong> 13 parcelas
+                        </div>
+                        <div class="metric-box">
+                            <strong>Terrestres:</strong> 29 | <strong>Ripárias:</strong> 20
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="stats-card">
+                        <h4 class="text-center mb-3">
+                            <i class="fas fa-check-circle"></i>
+                            Mapa Existentes (Realidade)
+                        </h4>
+                        <div class="metric-box">
+                            <strong>Total de Parcelas:</strong> 33
+                        </div>
+                        <div class="metric-box">
+                            <strong>Módulo 1:</strong> 15 parcelas
+                        </div>
+                        <div class="metric-box">
+                            <strong>Módulo 2:</strong> 5 parcelas
+                        </div>
+                        <div class="metric-box">
+                            <strong>Módulo 3:</strong> 13 parcelas
+                        </div>
+                        <div class="metric-box">
+                            <strong>Terrestres:</strong> 24 | <strong>Ripárias:</strong> 9
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Diferença Crítica
+                    </h4>
+                    <p class="mb-0"><strong>16 parcelas planejadas não foram encontradas no campo</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Implementation Rates -->
+        <div class="comparison-section">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-percentage text-success"></i>
+                Taxas de Implementação por Módulo
+            </h2>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="module-card module-m1">
+                        <h4 class="text-center">
+                            <i class="fas fa-circle text-danger"></i>
+                            Módulo 1
+                        </h4>
+                        <div class="implementation-rate text-danger">100%</div>
+                        <p class="text-center text-muted">15/15 parcelas implementadas</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-danger" style="width: 100%"></div>
+                        </div>
+                        <p class="mt-2"><strong>Status:</strong> <span class="badge bg-success">COMPLETAMENTE IMPLEMENTADO</span></p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="module-card module-m2">
+                        <h4 class="text-center">
+                            <i class="fas fa-circle text-primary"></i>
+                            Módulo 2
+                        </h4>
+                        <div class="implementation-rate text-primary">24%</div>
+                        <p class="text-center text-muted">5/21 parcelas implementadas</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-primary" style="width: 24%"></div>
+                        </div>
+                        <p class="mt-2"><strong>Status:</strong> <span class="badge bg-warning">NECESSITA ATENÇÃO</span></p>
+                        <small class="text-muted">16 parcelas pendentes</small>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="module-card module-m3">
+                        <h4 class="text-center">
+                            <i class="fas fa-circle text-success"></i>
+                            Módulo 3
+                        </h4>
+                        <div class="implementation-rate text-success">100%</div>
+                        <p class="text-center text-muted">13/13 parcelas implementadas</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-success" style="width: 100%"></div>
+                        </div>
+                        <p class="mt-2"><strong>Status:</strong> <span class="badge bg-success">COMPLETAMENTE IMPLEMENTADO</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Comparison -->
+        <div class="comparison-section">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-map-marked-alt text-primary"></i>
+                Comparação Visual dos Mapas
+            </h2>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="legend-dot" style="background-color: #dc3545;"></span>
+                    <span>Módulo 1 (100%)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background-color: #007bff;"></span>
+                    <span>Módulo 2 (24%)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background-color: #28a745;"></span>
+                    <span>Módulo 3 (100%)</span>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div>
+                    <div class="map-container">
+                        <div class="map-title">
+                            <i class="fas fa-drafting-compass"></i>
+                            Mapa Original - Planejamento Completo (49 parcelas)
+                        </div>
+                        <iframe
+                            src="mapa_interativo_peld.html"
+                            width="100%"
+                            height="100%"
+                            frameborder="0"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="text-center">
+                        <a href="mapa_interativo_peld.html" class="btn-custom" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            Ver Mapa Completo
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="map-container">
+                        <div class="map-title">
+                            <i class="fas fa-check-circle"></i>
+                            Mapa Existentes - Implementação Real (33 parcelas)
+                        </div>
+                        <iframe
+                            src="mapa_parcelas_ppbio_existentes.html"
+                            width="100%"
+                            height="100%"
+                            frameborder="0"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="text-center">
+                        <a href="mapa_parcelas_ppbio_existentes.html" class="btn-custom" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            Ver Mapa Existentes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis and Recommendations -->
+        <div class="comparison-section">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-chart-line text-info"></i>
+                Análise e Recomendações
+            </h2>
+
+            <div class="highlight-box">
+                <h4 class="text-center mb-3">
+                    <i class="fas fa-lightbulb text-warning"></i>
+                    Principais Descobertas
+                </h4>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check-circle text-success"></i> <strong>Módulos 1 e 3:</strong> 100% implementados - sucesso consolidado</li>
+                    <li><i class="fas fa-exclamation-triangle text-warning"></i> <strong>Módulo 2:</strong> Apenas 24% implementado - foco prioritário</li>
+                    <li><i class="fas fa-water text-info"></i> <strong>Parcelas Ripárias:</strong> 45% implementado - desafio significativo</li>
+                    <li><i class="fas fa-tree text-success"></i> <strong>Parcelas Terrestres:</strong> 83% implementado - bom progresso</li>
+                </ul>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4 class="text-danger">
+                        <i class="fas fa-times-circle"></i>
+                        Desafios Identificados
+                    </h4>
+                    <ul>
+                        <li>Módulo 2 com baixa taxa de implementação</li>
+                        <li>Dificuldades específicas em áreas ripárias</li>
+                        <li>16 parcelas planejadas não localizadas no campo</li>
+                        <li>Possíveis barreiras de acesso e propriedade</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h4 class="text-success">
+                        <i class="fas fa-check-circle"></i>
+                        Recomendações
+                    </h4>
+                    <ul>
+                        <li>Priorizar implementação do Módulo 2</li>
+                        <li>Revisar estratégias para áreas ripárias</li>
+                        <li>Avaliar viabilidade de parcelas não implementadas</li>
+                        <li>Manter foco nos módulos já bem-sucedidos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-5 mb-4">
+            <div class="alert alert-light">
+                <h5 class="mb-2">
+                    <i class="fas fa-info-circle text-primary"></i>
+                    Sobre Esta Análise
+                </h5>
+                <p class="mb-2">
+                    Esta comparação foi realizada validando os dados do CSV de coordenadas contra a documentação oficial PPBio.
+                    O objetivo é fornecer uma visão clara do progresso real do Programa PELD em Santa Catarina.
+                </p>
+                <small class="text-muted">
+                    Análise realizada em novembro de 2025 | Dados validados contra documentação oficial
+                </small>
+            </div>
+
+            <div class="mt-4">
+                <a href="comparacao_mapas_peld.md" class="btn-custom me-2">
+                    <i class="fas fa-file-alt"></i>
+                    Ver Análise Detalhada
+                </a>
+                <a href="dashboard_peld.html" class="btn-custom">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Ir para Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Animate progress bars on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.progress-fill');
+                    progressBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe all module cards
+        document.querySelectorAll('.module-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html></content>
+<parameter name="filePath">c:\Users\caetanoronan\OneDrive - UFSC\Documentos\PELD -\comparacao_mapas_visual.html
