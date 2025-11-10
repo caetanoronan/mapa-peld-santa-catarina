@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1312089a5ee5d39982b8725331ba2d10 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed;
+     bottom: 50px; left: 50px; width: 180px; height: 120px;
+     background-color: white; border:2px solid grey; z-index:9999;
+     font-size:14px; padding: 10px">
+<p><b>Legenda - Parcelas PPBio</b></p>
+<p><span style="color:red;">●</span> Módulo 1 (M01)</p>
+<p><span style="color:blue;">●</span> Módulo 2 (M02)</p>
+<p><span style="color:green;">●</span> Módulo 3 (M03)</p>
+<p><b>Total: 33</b> parcelas</p>
+</div>
+    
+<h3 align="center" style="font-size:20px"><b>Mapa das Parcelas PPBio Existentes - Santa Catarina</b></h3>
+    
+            <div class="folium-map" id="map_1312089a5ee5d39982b8725331ba2d10" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1312089a5ee5d39982b8725331ba2d10 = L.map(
+                "map_1312089a5ee5d39982b8725331ba2d10",
+                {
+                    center: [-28.133452709387754, -49.51054805755102],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_f2194a234eed8a967abd7d5c15db14af = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_f2194a234eed8a967abd7d5c15db14af.addTo(map_1312089a5ee5d39982b8725331ba2d10);
+        
+    
+            var marker_cluster_4af033bd12ec01d6906cb8799e1e06bf = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_013246c2b20ccd7303668d35cefa329e = L.circleMarker(
+                [-28.15764911, -49.65071931],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_6b74e55e0a8f82a9382b5623d7abccb6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_41935da292813c6919288ef8ff369980 = $(`<div id="html_41935da292813c6919288ef8ff369980" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TN4500</b><br>     <b>Código Novo: M01T05</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.157649, -49.650719     </div>`)[0];
+                popup_6b74e55e0a8f82a9382b5623d7abccb6.setContent(html_41935da292813c6919288ef8ff369980);
+            
+        
+
+        circle_marker_013246c2b20ccd7303668d35cefa329e.bindPopup(popup_6b74e55e0a8f82a9382b5623d7abccb6)
+        ;
+
+        
+    
+    
+            var circle_marker_925970989ff0c0ef761fe79336d19535 = L.circleMarker(
+                [-28.15336888, -49.6417543],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_91218e07449f22ba7f6b1cfa555e843e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a21c5c064afc02e876186154ef53c552 = $(`<div id="html_a21c5c064afc02e876186154ef53c552" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TN3500</b><br>     <b>Código Novo: M01T04</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.153369, -49.641754     </div>`)[0];
+                popup_91218e07449f22ba7f6b1cfa555e843e.setContent(html_a21c5c064afc02e876186154ef53c552);
+            
+        
+
+        circle_marker_925970989ff0c0ef761fe79336d19535.bindPopup(popup_91218e07449f22ba7f6b1cfa555e843e)
+        ;
+
+        
+    
+    
+            var circle_marker_f157c401dc73bb73ea483f4eda81e632 = L.circleMarker(
+                [-28.14908809, -49.63279004],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_72f2d134189a0edf1b5f9845f4a77c33 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3392a155bdee4f7a5ab4e0eaf50df2f3 = $(`<div id="html_3392a155bdee4f7a5ab4e0eaf50df2f3" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TN2500</b><br>     <b>Código Novo: M01T03</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.149088, -49.632790     </div>`)[0];
+                popup_72f2d134189a0edf1b5f9845f4a77c33.setContent(html_3392a155bdee4f7a5ab4e0eaf50df2f3);
+            
+        
+
+        circle_marker_f157c401dc73bb73ea483f4eda81e632.bindPopup(popup_72f2d134189a0edf1b5f9845f4a77c33)
+        ;
+
+        
+    
+    
+            var circle_marker_e5f54a17eabe39262f90ff6e4d52c2f1 = L.circleMarker(
+                [-28.14480674, -49.6238265],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_1f1883ec46956da842987c07effab568 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dabca8b883d5e6bb041202cbeb709216 = $(`<div id="html_dabca8b883d5e6bb041202cbeb709216" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TN1500</b><br>     <b>Código Novo: M01T02</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.144807, -49.623826     </div>`)[0];
+                popup_1f1883ec46956da842987c07effab568.setContent(html_dabca8b883d5e6bb041202cbeb709216);
+            
+        
+
+        circle_marker_e5f54a17eabe39262f90ff6e4d52c2f1.bindPopup(popup_1f1883ec46956da842987c07effab568)
+        ;
+
+        
+    
+    
+            var circle_marker_89f326833db3ae126f3b5b25867284e9 = L.circleMarker(
+                [-28.14052481, -49.6148637],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_d36090de0e71320cae4380b0e4f59601 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_97488451f3807c67b7f1f14d3879c63c = $(`<div id="html_97488451f3807c67b7f1f14d3879c63c" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TN0500</b><br>     <b>Código Novo: M01T01</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.140525, -49.614864     </div>`)[0];
+                popup_d36090de0e71320cae4380b0e4f59601.setContent(html_97488451f3807c67b7f1f14d3879c63c);
+            
+        
+
+        circle_marker_89f326833db3ae126f3b5b25867284e9.bindPopup(popup_d36090de0e71320cae4380b0e4f59601)
+        ;
+
+        
+    
+    
+            var circle_marker_e5ed1dd7c887a2d72948d799cd6f1e7a = L.circleMarker(
+                [-28.14845756, -49.61000822],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_510c33d1b6fa5aca5f12eb6d851c4b6a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2881804b61c53f295c9961ad941ff526 = $(`<div id="html_2881804b61c53f295c9961ad941ff526" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TS0500</b><br>     <b>Código Novo: M01T06</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.148458, -49.610008     </div>`)[0];
+                popup_510c33d1b6fa5aca5f12eb6d851c4b6a.setContent(html_2881804b61c53f295c9961ad941ff526);
+            
+        
+
+        circle_marker_e5ed1dd7c887a2d72948d799cd6f1e7a.bindPopup(popup_510c33d1b6fa5aca5f12eb6d851c4b6a)
+        ;
+
+        
+    
+    
+            var circle_marker_d8d429af2397106f6ce42cf240326049 = L.circleMarker(
+                [-28.1527398, -49.61897147],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_8ba2c4382091b0c917755235aa2e2a9c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_07af347d73a495a46e03852f5d68bd2d = $(`<div id="html_07af347d73a495a46e03852f5d68bd2d" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TS1500</b><br>     <b>Código Novo: M01T07</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.152740, -49.618971     </div>`)[0];
+                popup_8ba2c4382091b0c917755235aa2e2a9c.setContent(html_07af347d73a495a46e03852f5d68bd2d);
+            
+        
+
+        circle_marker_d8d429af2397106f6ce42cf240326049.bindPopup(popup_8ba2c4382091b0c917755235aa2e2a9c)
+        ;
+
+        
+    
+    
+            var circle_marker_131db9e4fe8435f38fb930829180f12b = L.circleMarker(
+                [-28.15702149, -49.62793544],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_52c3476dfca35587be7189c4676e71a5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4ee39218b89a9ad19427d39914e76779 = $(`<div id="html_4ee39218b89a9ad19427d39914e76779" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TS2500</b><br>     <b>Código Novo: M01T08</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.157021, -49.627935     </div>`)[0];
+                popup_52c3476dfca35587be7189c4676e71a5.setContent(html_4ee39218b89a9ad19427d39914e76779);
+            
+        
+
+        circle_marker_131db9e4fe8435f38fb930829180f12b.bindPopup(popup_52c3476dfca35587be7189c4676e71a5)
+        ;
+
+        
+    
+    
+            var circle_marker_655e110707e8990ca52473b40e6bbe49 = L.circleMarker(
+                [-28.16130261, -49.63690015],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_f84ebe94ee9d441f6e9ad6a5c5064fa1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7d85a8713405dd3bd8a1855a42c64ebb = $(`<div id="html_7d85a8713405dd3bd8a1855a42c64ebb" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TS3500</b><br>     <b>Código Novo: M01T09</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.161303, -49.636900     </div>`)[0];
+                popup_f84ebe94ee9d441f6e9ad6a5c5064fa1.setContent(html_7d85a8713405dd3bd8a1855a42c64ebb);
+            
+        
+
+        circle_marker_655e110707e8990ca52473b40e6bbe49.bindPopup(popup_f84ebe94ee9d441f6e9ad6a5c5064fa1)
+        ;
+
+        
+    
+    
+            var circle_marker_eb19987539bbf0e1f874c231480acd80 = L.circleMarker(
+                [-28.16558317, -49.64586558],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_a34c1720c39d52813a3b70c1964df230 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_826ed23b5d7fcf6f45ef5a2dacad729d = $(`<div id="html_826ed23b5d7fcf6f45ef5a2dacad729d" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TS4500</b><br>     <b>Código Novo: M01T10</b><br>     Tipo: Terrestre<br>     Módulo: M1<br>     Coordenadas: -28.165583, -49.645866     </div>`)[0];
+                popup_a34c1720c39d52813a3b70c1964df230.setContent(html_826ed23b5d7fcf6f45ef5a2dacad729d);
+            
+        
+
+        circle_marker_eb19987539bbf0e1f874c231480acd80.bindPopup(popup_a34c1720c39d52813a3b70c1964df230)
+        ;
+
+        
+    
+    
+            var circle_marker_5211b52278309be967a459ec1c65b191 = L.circleMarker(
+                [-28.15513165, -49.64544621],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_c0ef0dbc06b46e9e7a453df2eb740647 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_17b8b18d0822ff5455855ba488b6ea3d = $(`<div id="html_17b8b18d0822ff5455855ba488b6ea3d" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TN4000</b><br>     <b>Código Novo: M01R02</b><br>     Tipo: Ripária<br>     Módulo: M1<br>     Coordenadas: -28.155132, -49.645446     </div>`)[0];
+                popup_c0ef0dbc06b46e9e7a453df2eb740647.setContent(html_17b8b18d0822ff5455855ba488b6ea3d);
+            
+        
+
+        circle_marker_5211b52278309be967a459ec1c65b191.bindPopup(popup_c0ef0dbc06b46e9e7a453df2eb740647)
+        ;
+
+        
+    
+    
+            var circle_marker_ad3a57e3f25e3b7a13fde3e7ecd584f3 = L.circleMarker(
+                [-28.14338879, -49.62085783],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_9fd5a9a5978834b6d2529a6f550ffa36 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_845adfbff0ec1ad543796717d10f8f53 = $(`<div id="html_845adfbff0ec1ad543796717d10f8f53" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TN1300</b><br>     <b>Código Novo: M01R01</b><br>     Tipo: Ripária<br>     Módulo: M1<br>     Coordenadas: -28.143389, -49.620858     </div>`)[0];
+                popup_9fd5a9a5978834b6d2529a6f550ffa36.setContent(html_845adfbff0ec1ad543796717d10f8f53);
+            
+        
+
+        circle_marker_ad3a57e3f25e3b7a13fde3e7ecd584f3.bindPopup(popup_9fd5a9a5978834b6d2529a6f550ffa36)
+        ;
+
+        
+    
+    
+            var circle_marker_67800de6dbf68589360499ff21b01256 = L.circleMarker(
+                [-28.1451995, -49.6062105],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_037bf888be7266b3ec9d1e0a9e5ac2b2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7402b2cbee51c95eb85ae86aeaa3cd6e = $(`<div id="html_7402b2cbee51c95eb85ae86aeaa3cd6e" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TL0900</b><br>     <b>Código Novo: M01R05</b><br>     Tipo: Ripária<br>     Módulo: M1<br>     Coordenadas: -28.145200, -49.606211     </div>`)[0];
+                popup_037bf888be7266b3ec9d1e0a9e5ac2b2.setContent(html_7402b2cbee51c95eb85ae86aeaa3cd6e);
+            
+        
+
+        circle_marker_67800de6dbf68589360499ff21b01256.bindPopup(popup_037bf888be7266b3ec9d1e0a9e5ac2b2)
+        ;
+
+        
+    
+    
+            var circle_marker_663ee72647b2c4940969d3e40b9a07c1 = L.circleMarker(
+                [-28.14665941, -49.60624506],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_e111b430872a2623416e2ab129176e0f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_05147a84df78e50116604f6cc6273be2 = $(`<div id="html_05147a84df78e50116604f6cc6273be2" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TS0150</b><br>     <b>Código Novo: M01R03</b><br>     Tipo: Ripária<br>     Módulo: M1<br>     Coordenadas: -28.146659, -49.606245     </div>`)[0];
+                popup_e111b430872a2623416e2ab129176e0f.setContent(html_05147a84df78e50116604f6cc6273be2);
+            
+        
+
+        circle_marker_663ee72647b2c4940969d3e40b9a07c1.bindPopup(popup_e111b430872a2623416e2ab129176e0f)
+        ;
+
+        
+    
+    
+            var circle_marker_baf5a42cadcf48c6cf4ae9d2e835f463 = L.circleMarker(
+                [-28.15422346, -49.62206546],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_faaab68d80baca76a8fce9209f27e042 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8d5fd6d956598547bd62618043810fb7 = $(`<div id="html_8d5fd6d956598547bd62618043810fb7" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TS1845</b><br>     <b>Código Novo: M01R04</b><br>     Tipo: Ripária<br>     Módulo: M1<br>     Coordenadas: -28.154223, -49.622065     </div>`)[0];
+                popup_faaab68d80baca76a8fce9209f27e042.setContent(html_8d5fd6d956598547bd62618043810fb7);
+            
+        
+
+        circle_marker_baf5a42cadcf48c6cf4ae9d2e835f463.bindPopup(popup_faaab68d80baca76a8fce9209f27e042)
+        ;
+
+        
+    
+    
+            var circle_marker_189213e4f2cfd8f955ade6680a2c0c5f = L.circleMarker(
+                [-28.090199, -49.503293],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_0d2cd432e1faf11aec81cd27f8f88a8e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dda736f4d537f1e43fa8d5dc00da2057 = $(`<div id="html_dda736f4d537f1e43fa8d5dc00da2057" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TW1500</b><br>     <b>Código Novo: M02T02</b><br>     Tipo: Terrestre<br>     Módulo: M2<br>     Coordenadas: -28.090199, -49.503293     </div>`)[0];
+                popup_0d2cd432e1faf11aec81cd27f8f88a8e.setContent(html_dda736f4d537f1e43fa8d5dc00da2057);
+            
+        
+
+        circle_marker_189213e4f2cfd8f955ade6680a2c0c5f.bindPopup(popup_0d2cd432e1faf11aec81cd27f8f88a8e)
+        ;
+
+        
+    
+    
+            var circle_marker_ddb8c70e803b5e5706238c2c74133498 = L.circleMarker(
+                [-28.079063, -49.496336],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_399c433067b021d3820b8412c7fdf0f5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_171033623efff3a7cbaefbd1b815a24e = $(`<div id="html_171033623efff3a7cbaefbd1b815a24e" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TL400_PSA4</b><br>     <b>Código Novo: M02T06</b><br>     Tipo: Terrestre<br>     Módulo: M2<br>     Coordenadas: -28.079063, -49.496336     </div>`)[0];
+                popup_399c433067b021d3820b8412c7fdf0f5.setContent(html_171033623efff3a7cbaefbd1b815a24e);
+            
+        
+
+        circle_marker_ddb8c70e803b5e5706238c2c74133498.bindPopup(popup_399c433067b021d3820b8412c7fdf0f5)
+        ;
+
+        
+    
+    
+            var circle_marker_a2b021f270760919dff17ab7bf3dc2a7 = L.circleMarker(
+                [-28.107533, -49.497621],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_67909e2ff102daf2655987f2c8872c87 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4e029c3083b39f2cee4eb0cd922078d7 = $(`<div id="html_4e029c3083b39f2cee4eb0cd922078d7" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TW3500</b><br>     <b>Código Novo: M02T04</b><br>     Tipo: Terrestre<br>     Módulo: M2<br>     Coordenadas: -28.107533, -49.497621     </div>`)[0];
+                popup_67909e2ff102daf2655987f2c8872c87.setContent(html_4e029c3083b39f2cee4eb0cd922078d7);
+            
+        
+
+        circle_marker_a2b021f270760919dff17ab7bf3dc2a7.bindPopup(popup_67909e2ff102daf2655987f2c8872c87)
+        ;
+
+        
+    
+    
+            var circle_marker_fdd4492c2971bf65d7c3ad31ea7d4cc8 = L.circleMarker(
+                [-28.114034, -49.495494],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_3a9c9fc249bdd0960d1f94d88e713c98 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cedef07f923a7448d6a682e8017df557 = $(`<div id="html_cedef07f923a7448d6a682e8017df557" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TW065_RIP5_PSA9</b><br>     <b>Código Novo: M02R01</b><br>     Tipo: Ripária<br>     Módulo: M2<br>     Coordenadas: -28.114034, -49.495494     </div>`)[0];
+                popup_3a9c9fc249bdd0960d1f94d88e713c98.setContent(html_cedef07f923a7448d6a682e8017df557);
+            
+        
+
+        circle_marker_fdd4492c2971bf65d7c3ad31ea7d4cc8.bindPopup(popup_3a9c9fc249bdd0960d1f94d88e713c98)
+        ;
+
+        
+    
+    
+            var circle_marker_0da1eb2206e918d0909f5fcb2522790a = L.circleMarker(
+                [-28.116201, -49.494785],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_aa255b613565ad15a55fa1581afc44e9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3c2ddc1b7c04e1bb94c0c02512ae812c = $(`<div id="html_3c2ddc1b7c04e1bb94c0c02512ae812c" style="width: 100.0%; height: 100.0%;">     <b>Parcela: TW4500</b><br>     <b>Código Novo: M02T05</b><br>     Tipo: Terrestre<br>     Módulo: M2<br>     Coordenadas: -28.116201, -49.494785     </div>`)[0];
+                popup_aa255b613565ad15a55fa1581afc44e9.setContent(html_3c2ddc1b7c04e1bb94c0c02512ae812c);
+            
+        
+
+        circle_marker_0da1eb2206e918d0909f5fcb2522790a.bindPopup(popup_aa255b613565ad15a55fa1581afc44e9)
+        ;
+
+        
+    
+    
+            var circle_marker_feed4a637c001e8385cac4cc148dd3d4 = L.circleMarker(
+                [-28.18363003, -49.38598501],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_826ce00e2c91b91536aeca15fa536948 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_77c2bf7491b15dae4951fb0782c16bdb = $(`<div id="html_77c2bf7491b15dae4951fb0782c16bdb" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T1</b><br>     <b>Código Novo: M03T01</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.183630, -49.385985     </div>`)[0];
+                popup_826ce00e2c91b91536aeca15fa536948.setContent(html_77c2bf7491b15dae4951fb0782c16bdb);
+            
+        
+
+        circle_marker_feed4a637c001e8385cac4cc148dd3d4.bindPopup(popup_826ce00e2c91b91536aeca15fa536948)
+        ;
+
+        
+    
+    
+            var circle_marker_503a7216dc03f8d4760367e07f34f3c4 = L.circleMarker(
+                [-28.17773333, -49.39401667],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_90b8fe3b6613766e8aaa896a21b92a69 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9265e16759b35d28a37f6f03a6529719 = $(`<div id="html_9265e16759b35d28a37f6f03a6529719" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T2</b><br>     <b>Código Novo: M03T02</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.177733, -49.394017     </div>`)[0];
+                popup_90b8fe3b6613766e8aaa896a21b92a69.setContent(html_9265e16759b35d28a37f6f03a6529719);
+            
+        
+
+        circle_marker_503a7216dc03f8d4760367e07f34f3c4.bindPopup(popup_90b8fe3b6613766e8aaa896a21b92a69)
+        ;
+
+        
+    
+    
+            var circle_marker_09aa665d414e04751ffe59e0a81efd12 = L.circleMarker(
+                [-28.17458493, -49.38645989],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_e6602bc06f9f48f65934e6cefc128234 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7e82eab0cc4fbeb34d44f120544a6482 = $(`<div id="html_7e82eab0cc4fbeb34d44f120544a6482" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T3</b><br>     <b>Código Novo: M03T03</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.174585, -49.386460     </div>`)[0];
+                popup_e6602bc06f9f48f65934e6cefc128234.setContent(html_7e82eab0cc4fbeb34d44f120544a6482);
+            
+        
+
+        circle_marker_09aa665d414e04751ffe59e0a81efd12.bindPopup(popup_e6602bc06f9f48f65934e6cefc128234)
+        ;
+
+        
+    
+    
+            var circle_marker_f4846703cc66d35c94629601706c8832 = L.circleMarker(
+                [-28.18523333, -49.40258333],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_ea88fb57246fade74ac205042233cbdd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5577f1dfc69a411b4e97e7d8996db6dc = $(`<div id="html_5577f1dfc69a411b4e97e7d8996db6dc" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T4</b><br>     <b>Código Novo: M03T04</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.185233, -49.402583     </div>`)[0];
+                popup_ea88fb57246fade74ac205042233cbdd.setContent(html_5577f1dfc69a411b4e97e7d8996db6dc);
+            
+        
+
+        circle_marker_f4846703cc66d35c94629601706c8832.bindPopup(popup_ea88fb57246fade74ac205042233cbdd)
+        ;
+
+        
+    
+    
+            var circle_marker_5e1a27d19856c9e7b6085c0b6c17cfa8 = L.circleMarker(
+                [-28.19226683, -49.38915681],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_8b7bd46530e042cd55a9ace0e15801c3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_afaeeec4d130e19b1e90d593a88b8957 = $(`<div id="html_afaeeec4d130e19b1e90d593a88b8957" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T5</b><br>     <b>Código Novo: M03T05</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.192267, -49.389157     </div>`)[0];
+                popup_8b7bd46530e042cd55a9ace0e15801c3.setContent(html_afaeeec4d130e19b1e90d593a88b8957);
+            
+        
+
+        circle_marker_5e1a27d19856c9e7b6085c0b6c17cfa8.bindPopup(popup_8b7bd46530e042cd55a9ace0e15801c3)
+        ;
+
+        
+    
+    
+            var circle_marker_438723791ee0510343138182b350dd40 = L.circleMarker(
+                [-28.15307244, -49.38948304],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_6f1b32c1ffc762d27b4f82c899633b6c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1df1a7fab37e588c8aa836f263219f84 = $(`<div id="html_1df1a7fab37e588c8aa836f263219f84" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T6</b><br>     <b>Código Novo: M03T06</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.153072, -49.389483     </div>`)[0];
+                popup_6f1b32c1ffc762d27b4f82c899633b6c.setContent(html_1df1a7fab37e588c8aa836f263219f84);
+            
+        
+
+        circle_marker_438723791ee0510343138182b350dd40.bindPopup(popup_6f1b32c1ffc762d27b4f82c899633b6c)
+        ;
+
+        
+    
+    
+            var circle_marker_81efc1e3fcf3c1eea2f4647b942f2da5 = L.circleMarker(
+                [-28.12335416, -49.41484168],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_8863815ffb6c61010d5ef440d9a5d1ba = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4b727f7ffba1d833726580b0a73f33e5 = $(`<div id="html_4b727f7ffba1d833726580b0a73f33e5" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T7</b><br>     <b>Código Novo: M03T07</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.123354, -49.414842     </div>`)[0];
+                popup_8863815ffb6c61010d5ef440d9a5d1ba.setContent(html_4b727f7ffba1d833726580b0a73f33e5);
+            
+        
+
+        circle_marker_81efc1e3fcf3c1eea2f4647b942f2da5.bindPopup(popup_8863815ffb6c61010d5ef440d9a5d1ba)
+        ;
+
+        
+    
+    
+            var circle_marker_0f6a7ff2f783c53adb9ffa41fcc1cfff = L.circleMarker(
+                [-28.17459036, -49.40552023],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_6876fd84cc414b9e73e131f70a56bd64 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6ae00f3580e8483500728401bace67d3 = $(`<div id="html_6ae00f3580e8483500728401bace67d3" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T8</b><br>     <b>Código Novo: M03T08</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.174590, -49.405520     </div>`)[0];
+                popup_6876fd84cc414b9e73e131f70a56bd64.setContent(html_6ae00f3580e8483500728401bace67d3);
+            
+        
+
+        circle_marker_0f6a7ff2f783c53adb9ffa41fcc1cfff.bindPopup(popup_6876fd84cc414b9e73e131f70a56bd64)
+        ;
+
+        
+    
+    
+            var circle_marker_fed881f272dc8179122c0988bdb8ad81 = L.circleMarker(
+                [-28.13781666, -49.42098333],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_92d07bdb0ceed60ec4519d2fc80e526c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2097091fa0f1200b7f5cc943a406fe50 = $(`<div id="html_2097091fa0f1200b7f5cc943a406fe50" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T9</b><br>     <b>Código Novo: M03T09</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.137817, -49.420983     </div>`)[0];
+                popup_92d07bdb0ceed60ec4519d2fc80e526c.setContent(html_2097091fa0f1200b7f5cc943a406fe50);
+            
+        
+
+        circle_marker_fed881f272dc8179122c0988bdb8ad81.bindPopup(popup_92d07bdb0ceed60ec4519d2fc80e526c)
+        ;
+
+        
+    
+    
+            var circle_marker_0e35100ca4708f4caeea21d2e4b71c38 = L.circleMarker(
+                [-28.16696667, -49.42465],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_620e23a4683e953e902201b87cf6f13d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ab3e4043a339bbce84bd7cc04266ec57 = $(`<div id="html_ab3e4043a339bbce84bd7cc04266ec57" style="width: 100.0%; height: 100.0%;">     <b>Parcela: T10</b><br>     <b>Código Novo: M03T10</b><br>     Tipo: Terrestre<br>     Módulo: M3<br>     Coordenadas: -28.166967, -49.424650     </div>`)[0];
+                popup_620e23a4683e953e902201b87cf6f13d.setContent(html_ab3e4043a339bbce84bd7cc04266ec57);
+            
+        
+
+        circle_marker_0e35100ca4708f4caeea21d2e4b71c38.bindPopup(popup_620e23a4683e953e902201b87cf6f13d)
+        ;
+
+        
+    
+    
+            var circle_marker_d697abd148e5fb9448176ce6bb1994ce = L.circleMarker(
+                [-28.17755066, -49.38759685],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_ada0cf5f701e0d99d3e072fc254b7c30 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_10d92cdbcf0ffbe206565a492604af27 = $(`<div id="html_10d92cdbcf0ffbe206565a492604af27" style="width: 100.0%; height: 100.0%;">     <b>Parcela: R1</b><br>     <b>Código Novo: M03R01</b><br>     Tipo: Ripária<br>     Módulo: M3<br>     Coordenadas: -28.177551, -49.387597     </div>`)[0];
+                popup_ada0cf5f701e0d99d3e072fc254b7c30.setContent(html_10d92cdbcf0ffbe206565a492604af27);
+            
+        
+
+        circle_marker_d697abd148e5fb9448176ce6bb1994ce.bindPopup(popup_ada0cf5f701e0d99d3e072fc254b7c30)
+        ;
+
+        
+    
+    
+            var circle_marker_dd817a5fa076dd7e7edeef3ebada1a8c = L.circleMarker(
+                [-28.16980829, -49.40934553],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_5de91171aee42f9c773b1f14beb6b2dc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_73f8120dda9a7e00279e7469ec59561f = $(`<div id="html_73f8120dda9a7e00279e7469ec59561f" style="width: 100.0%; height: 100.0%;">     <b>Parcela: R2</b><br>     <b>Código Novo: M03R02</b><br>     Tipo: Ripária<br>     Módulo: M3<br>     Coordenadas: -28.169808, -49.409346     </div>`)[0];
+                popup_5de91171aee42f9c773b1f14beb6b2dc.setContent(html_73f8120dda9a7e00279e7469ec59561f);
+            
+        
+
+        circle_marker_dd817a5fa076dd7e7edeef3ebada1a8c.bindPopup(popup_5de91171aee42f9c773b1f14beb6b2dc)
+        ;
+
+        
+    
+    
+            var circle_marker_e714ffcf54b59f873f9fab8a3d4f8da4 = L.circleMarker(
+                [-28.182885, -49.40345968],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_4af033bd12ec01d6906cb8799e1e06bf);
+        
+    
+        var popup_066fef2be1f10af0e2b878bfe2740b12 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2c8cfac5681342175ee303eadc3ec7ad = $(`<div id="html_2c8cfac5681342175ee303eadc3ec7ad" style="width: 100.0%; height: 100.0%;">     <b>Parcela: R3</b><br>     <b>Código Novo: M03R03</b><br>     Tipo: Ripária<br>     Módulo: M3<br>     Coordenadas: -28.182885, -49.403460     </div>`)[0];
+                popup_066fef2be1f10af0e2b878bfe2740b12.setContent(html_2c8cfac5681342175ee303eadc3ec7ad);
+            
+        
+
+        circle_marker_e714ffcf54b59f873f9fab8a3d4f8da4.bindPopup(popup_066fef2be1f10af0e2b878bfe2740b12)
+        ;
+
+        
+    
+    
+            marker_cluster_4af033bd12ec01d6906cb8799e1e06bf.addTo(map_1312089a5ee5d39982b8725331ba2d10);
+        
+</script>
+</html>
