@@ -1,6 +1,6 @@
 
 // Dados PPBio carregados do CSV
-window.ppbioData = [
+const ppbioData = [
   {
     "Antigo": "TN0500",
     "Novo": "M01T01",

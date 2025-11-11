@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Função Específica</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="dados_ppBio.js"></script>
+</head>
+<body>
+    <h1>Teste de Função Específica: Distribuição de Altitude</h1>
+    <div id="debug-output"></div>
+    <div id="test-chart" style="width: 800px; height: 400px;"></div>
+
+    <script>
+        function createAltitudeDistribution(data) {
+            console.log('Criando gráfico de distribuição de altitude com', data.length, 'registros');
+            const altitudes = data.map(d => d.Altitude).filter(d => !isNaN(d) && d > 0);
+            console.log('Altitudes válidas encontradas:', altitudes.length);
+            console.log('Primeiras 10 altitudes:', altitudes.slice(0, 10));
+
+            if (altitudes.length === 0) {
+                console.warn('Nenhuma altitude válida encontrada!');
+                document.getElementById('debug-output').innerHTML = '<p style="color: red;">Nenhuma altitude válida encontrada!</p>';
+                return;
+            }
+
+            const trace = {
+                x: altitudes,
+                type: 'histogram',
+                nbinsx: 20,
+                marker: {color: '#2E8B57'},
+                name: 'Altitude'
+            };
+
+            const layout = {
+                title: 'Distribuição de Altitude das Parcelas PPBio',
+                xaxis: {title: 'Altitude (m)'},
+                yaxis: {title: 'Número de Parcelas'},
+                showlegend: false,
+                height: 400
+            };
+
+            console.log('Criando gráfico Plotly...');
+            Plotly.newPlot('test-chart', [trace], layout);
+            console.log('Gráfico criado com sucesso!');
+            document.getElementById('debug-output').innerHTML = '<p style="color: green;">Gráfico criado com sucesso!</p>';
+        }
+
+        function testFunction() {
+            const output = document.getElementById('debug-output');
+
+            if (window.ppbioData && window.ppbioData.length > 0) {
+                output.innerHTML += `<p style="color: green;">✅ Dados carregados: ${window.ppbioData.length} registros</p>`;
+                createAltitudeDistribution(window.ppbioData);
+            } else {
+                output.innerHTML += `<p style="color: red;">❌ Dados não carregados!</p>`;
+            }
+        }
+
+        window.addEventListener('load', testFunction);
+    </script>
+</body>
+</html>

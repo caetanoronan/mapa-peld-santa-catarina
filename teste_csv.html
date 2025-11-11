@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de Carregamento CSV</title>
+</head>
+<body>
+    <h1>Teste de Carregamento dos Dados PPBio</h1>
+    <div id="output"></div>
+
+    <script>
+        async function testLoadData() {
+            try {
+                const response = await fetch('analise_integrada_pdf_csv.csv');
+                const csvText = await response.text();
+                console.log('CSV carregado, tamanho:', csvText.length);
+
+                const lines = csvText.split('\n');
+                console.log('Número de linhas:', lines.length);
+                console.log('Primeiras 5 linhas:');
+                for (let i = 0; i < Math.min(5, lines.length); i++) {
+                    console.log(`Linha ${i}:`, lines[i]);
+                }
+
+                const data = parseCSV(csvText);
+                console.log('Dados parseados:', data.length, 'registros');
+
+                if (data.length > 0) {
+                    console.log('Primeiro registro:', data[0]);
+                    console.log('Campos disponíveis:', Object.keys(data[0]));
+                }
+
+                // Testar filtros
+                const filtered = filterData(data, {module: 'M01'});
+                console.log('Dados filtrados por M01:', filtered.length, 'registros');
+
+                document.getElementById('output').innerHTML = `
+                    <p>✅ CSV carregado com sucesso!</p>
+                    <p>Total de registros: ${data.length}</p>
+                    <p>Registros filtrados por M01: ${filtered.length}</p>
+                    <p>Primeiro registro: ${JSON.stringify(data[0], null, 2)}</p>
+                `;
+
+            } catch (error) {
+                console.error('Erro:', error);
+                document.getElementById('output').innerHTML = `<p>❌ Erro: ${error.message}</p>`;
+            }
+        }
+
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n').filter(line => line.trim() !== '');
+            if (lines.length === 0) return [];
+
+            const headers = lines[0].split(',').map(h => h.trim());
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                if (values.length === headers.length) {
+                    const row = {};
+                    headers.forEach((header, index) => {
+                        let value = values[index] ? values[index].trim() : '';
+                        // Remover aspas se existirem
+                        if (value.startsWith('"') && value.endsWith('"')) {
+                            value = value.slice(1, -1);
+                        }
+                        // Converter números
+                        if (!isNaN(value) && value !== '') {
+                            value = parseFloat(value);
+                        }
+                        row[header] = value;
+                    });
+                    data.push(row);
+                }
+            }
+            return data;
+        }
+
+        function filterData(data, filters) {
+            return data.filter(row => {
+                if (filters.module && filters.module !== 'all') {
+                    if (row.Mod != filters.module) return false;
+                }
+                return true;
+            });
+        }
+
+        testLoadData();
+    </script>
+</body>
+</html>

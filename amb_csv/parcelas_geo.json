@@ -1,0 +1,838 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.65071931,
+          -28.15764911
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN4500",
+        "nome_novo": "M01T05",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.6417543,
+          -28.15336888
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN3500",
+        "nome_novo": "M01T04",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.63279004,
+          -28.14908809
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN2500",
+        "nome_novo": "M01T03",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.6238265,
+          -28.14480674
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN1500",
+        "nome_novo": "M01T02",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.6148637,
+          -28.14052481
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN0500",
+        "nome_novo": "M01T01",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.61000822,
+          -28.14845756
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TS0500",
+        "nome_novo": "M01T06",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.61897147,
+          -28.1527398
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TS1500",
+        "nome_novo": "M01T07",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.62793544,
+          -28.15702149
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TS2500",
+        "nome_novo": "M01T08",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.63690015,
+          -28.16130261
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TS3500",
+        "nome_novo": "M01T09",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.64586558,
+          -28.16558317
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TS4500",
+        "nome_novo": "M01T10",
+        "module": "M1",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.64544621,
+          -28.15513165
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN4000",
+        "nome_novo": "M01R02",
+        "module": "M1",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.62085783,
+          -28.14338879
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN1300",
+        "nome_novo": "M01R01",
+        "module": "M1",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.6062105,
+          -28.1451995
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL0900",
+        "nome_novo": "M01R05",
+        "module": "M1",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.60624506,
+          -28.14665941
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TS0150",
+        "nome_novo": "M01R03",
+        "module": "M1",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.62206546,
+          -28.15422346
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TS1845",
+        "nome_novo": "M01R04",
+        "module": "M1",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.497206,
+          -28.076417
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL054_RIP8",
+        "nome_novo": "TL054_RIP8",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.493803,
+          -28.086817
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL077_RIP7",
+        "nome_novo": "TL077_RIP7",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.493519,
+          -28.087684
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL1500",
+        "nome_novo": "M02T07",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "NÃO"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.490683,
+          -28.096351
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL2500",
+        "nome_novo": "M02T08",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "NÃO"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.487847,
+          -28.105018
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL3500_PSA2",
+        "nome_novo": "TL3500_PSA2",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.48559,
+          -28.10757
+        ]
+      },
+      "properties": {
+        "nome_antigo": "RIP_PSA3",
+        "nome_novo": "RIP_PSA3",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.485577,
+          -28.111952
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL4200_RIP",
+        "nome_novo": "TL4200_RIP",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.48501,
+          -28.113685
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL4500_PSA1",
+        "nome_novo": "TL4500_PSA1",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.4856,
+          -28.1159
+        ]
+      },
+      "properties": {
+        "nome_antigo": "RIP_PSA8",
+        "nome_novo": "RIP_PSA8",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.499239,
+          -28.07506
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TN066_RIP9",
+        "nome_novo": "TN066_RIP9",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.506836,
+          -28.079364
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW144_RIP1",
+        "nome_novo": "TW144_RIP1",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.503293,
+          -28.090199
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW1500",
+        "nome_novo": "M02T02",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.504143,
+          -28.087598
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW125_RIP2_PSA7",
+        "nome_novo": "TW125_RIP2_PSA7",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.500457,
+          -28.098866
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW2500",
+        "nome_novo": "M02T03",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "NÃO"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.501308,
+          -28.096266
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW105_RIP3",
+        "nome_novo": "TW105_RIP3",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.496336,
+          -28.079063
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TL400_PSA4",
+        "nome_novo": "M02T06",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.499465,
+          -28.1019
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW092_RIP4",
+        "nome_novo": "TW092_RIP4",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.497621,
+          -28.107533
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW3500",
+        "nome_novo": "M02T04",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.495494,
+          -28.114034
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW065_RIP5_PSA9",
+        "nome_novo": "M02R01",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.494785,
+          -28.116201
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW4500",
+        "nome_novo": "M02T05",
+        "module": "M2",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.494501,
+          -28.117067
+        ]
+      },
+      "properties": {
+        "nome_antigo": "TW4600",
+        "nome_novo": "TW4600",
+        "module": "M2",
+        "type": "Ripária",
+        "existencia": "NAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.38598501,
+          -28.18363003
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T1",
+        "nome_novo": "M03T01",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.39401667,
+          -28.17773333
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T2",
+        "nome_novo": "M03T02",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.38645989,
+          -28.17458493
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T3",
+        "nome_novo": "M03T03",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.40258333,
+          -28.18523333
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T4",
+        "nome_novo": "M03T04",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.38915681,
+          -28.19226683
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T5",
+        "nome_novo": "M03T05",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.38948304,
+          -28.15307244
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T6",
+        "nome_novo": "M03T06",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.41484168,
+          -28.12335416
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T7",
+        "nome_novo": "M03T07",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.40552023,
+          -28.17459036
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T8",
+        "nome_novo": "M03T08",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.42098333,
+          -28.13781666
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T9",
+        "nome_novo": "M03T09",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.42465,
+          -28.16696667
+        ]
+      },
+      "properties": {
+        "nome_antigo": "T10",
+        "nome_novo": "M03T10",
+        "module": "M3",
+        "type": "Terrestre",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.38759685,
+          -28.17755066
+        ]
+      },
+      "properties": {
+        "nome_antigo": "R1",
+        "nome_novo": "M03R01",
+        "module": "M3",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.40934553,
+          -28.16980829
+        ]
+      },
+      "properties": {
+        "nome_antigo": "R2",
+        "nome_novo": "M03R02",
+        "module": "M3",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -49.40345968,
+          -28.182885
+        ]
+      },
+      "properties": {
+        "nome_antigo": "R3",
+        "nome_novo": "M03R03",
+        "module": "M3",
+        "type": "Ripária",
+        "existencia": "SIM"
+      }
+    }
+  ]
+}

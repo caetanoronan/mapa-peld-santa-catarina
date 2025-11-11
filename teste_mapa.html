@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interativo PPBio - Santa Catarina</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e7d5b;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border: 2px solid #4a9b7a;
+        }
+
+        .custom-marker {
+            border: none !important;
+            background: none !important;
+        }
+
+        /* Estilos personalizados para clusters */
+        .marker-cluster-small {
+            background-color: rgba(46, 139, 87, 0.6);
+            border: 2px solid rgba(46, 139, 87, 0.8);
+        }
+        .marker-cluster-small div {
+            background-color: rgba(46, 139, 87, 0.8);
+            border-radius: 50%;
+        }
+
+        .marker-cluster-medium {
+            background-color: rgba(50, 205, 50, 0.6);
+            border: 2px solid rgba(50, 205, 50, 0.8);
+        }
+        .marker-cluster-medium div {
+            background-color: rgba(50, 205, 50, 0.8);
+        }
+
+        .marker-cluster-large {
+            background-color: rgba(144, 238, 144, 0.6);
+            border: 2px solid rgba(144, 238, 144, 0.8);
+        }
+        .marker-cluster-large div {
+            background-color: rgba(144, 238, 144, 0.8);
+        }
+
+        .marker-cluster {
+            border-radius: 50% !important;
+        }
+        .marker-cluster div {
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            color: white;
+            font-size: 12px;
+        }
+
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+        }
+
+        .leaflet-popup-content {
+            margin: 8px 12px;
+        }
+
+        .stats-panel {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e7d5b;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗺️ Mapa Interativo PPBio - Santa Catarina</h1>
+
+    <div class="stats-panel">
+        <div class="stat-item">
+            <div class="stat-number" id="total-parcels">0</div>
+            <div class="stat-label">Parcelas</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="total-modules">3</div>
+            <div class="stat-label">Módulos</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="vegetation-types">4</div>
+            <div class="stat-label">Tipos Vegetação</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="altitude-range">470-1670m</div>
+            <div class="stat-label">Faixa Altimétrica</div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="coordenadas_ppBio.js"></script>
+    <script src="dados_ppBio.js"></script>
+    <script>
+        // Variáveis globais
+        let ppbioMap;
+        let parcelMarkers = [];
+        let legendControl;
+        let markerClusterGroup;
+        let searchControl;
+
+        // Função para criar camadas GeoJSON
+        function createGeoJsonLayer(filename, color, opacity, weight) {
+            // Usar fetch para carregar o GeoJSON
+            return fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao carregar ${filename}: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(`GeoJSON carregado: ${filename}`, data.features ? data.features.length : 0, 'features');
+
+                    return L.geoJSON(data, {
+                        style: {
+                            color: color,
+                            weight: weight,
+                            opacity: opacity,
+                            fillOpacity: opacity * 0.3
+                        },
+                        onEachFeature: function(feature, layer) {
+                            let popupContent = `<strong>${filename.replace('.geojson', '').replace(/_/g, ' ')}</strong>`;
+                            if (feature.properties) {
+                                if (feature.properties.name) {
+                                    popupContent = `<strong>${feature.properties.name}</strong>`;
+                                } else if (feature.properties.NOME) {
+                                    popupContent = `<strong>${feature.properties.NOME}</strong>`;
+                                } else if (feature.properties.nome) {
+                                    popupContent = `<strong>${feature.properties.nome}</strong>`;
+                                }
+                            }
+                            layer.bindPopup(popupContent);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`Erro ao carregar camada ${filename}:`, error);
+                    // Retornar uma camada vazia em caso de erro
+                    return L.layerGroup();
+                });
+        }
+
+        // Função para adicionar legenda ao mapa
+        function addLegend() {
+            if (legendControl) {
+                ppbioMap.removeControl(legendControl);
+            }
+
+            legendControl = L.control({position: 'bottomright'});
+
+            legendControl.onAdd = function(map) {
+                const div = L.DomUtil.create('div', 'legend-control');
+                div.innerHTML = `
+                    <div style="background: white; padding: 10px; border-radius: 5px; box-shadow: 0 0 15px rgba(0,0,0,0.2); max-width: 180px;">
+                        <h6 style="margin: 0 0 8px 0; color: #2E8B57; font-size: 14px; font-weight: bold;">🌿 Tipos de Vegetação</h6>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: #228B22; border: 1px solid #fff;"></div>
+                                <span style="font-size: 12px;">FOM</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: #32CD32; border: 1px solid #fff;"></div>
+                                <span style="font-size: 12px;">FOD</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: #90EE90; border: 1px solid #fff;"></div>
+                                <span style="font-size: 12px;">CAMPO</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: #98FB98; border: 1px solid #fff;"></div>
+                                <span style="font-size: 12px;">FOM-CAMPO</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee;">
+                            <div style="font-size: 11px; color: #666; text-align: center;">
+                                ${parcelMarkers.length} parcelas visíveis
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return div;
+            };
+
+            legendControl.addTo(ppbioMap);
+        }
+
+        // Função para carregar camadas GeoJSON
+        async function loadGeoJsonLayers() {
+            const overlayMaps = {};
+
+            try {
+                console.log('Carregando camadas GeoJSON...');
+
+                // Carregar cada camada GeoJSON
+                const layers = await Promise.all([
+                    createGeoJsonLayer('parque_nacional_sj.geojson', '#228B22', 0.7, 2),
+                    createGeoJsonLayer('parque_estadual_serra_furada.geojson', '#32CD32', 0.6, 2),
+                    createGeoJsonLayer('parque_limite.geojson', '#90EE90', 0.5, 3),
+                    createGeoJsonLayer('limite_santa_catarina.geojson', '#FF6347', 0.8, 2),
+                    createGeoJsonLayer('cidades_afetadas.geojson', '#FFD700', 0.6, 1)
+                ]);
+
+                // Adicionar camadas ao objeto overlayMaps
+                overlayMaps["🌿 Parque Nacional São Joaquim"] = layers[0];
+                overlayMaps["🏔️ Parque Estadual Serra Furada"] = layers[1];
+                overlayMaps["🏞️ Limite Parque"] = layers[2];
+                overlayMaps["🇧🇷 Limite Santa Catarina"] = layers[3];
+                overlayMaps["🏙️ Cidades Afetadas"] = layers[4];
+
+                console.log('Todas as camadas GeoJSON carregadas com sucesso!');
+                return overlayMaps;
+
+            } catch (error) {
+                console.error('Erro ao carregar camadas GeoJSON:', error);
+                return {};
+            }
+        }
+        function addSearchControl() {
+            searchControl = L.control({position: 'topleft'});
+
+            searchControl.onAdd = function(map) {
+                const div = L.DomUtil.create('div', 'search-control');
+                div.innerHTML = `
+                    <div style="background: white; padding: 8px; border-radius: 5px; box-shadow: 0 0 15px rgba(0,0,0,0.2); min-width: 200px;">
+                        <input type="text" id="parcel-search" placeholder="🔍 Buscar parcela ou módulo..."
+                               style="width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; font-size: 12px;">
+                        <div id="search-results" style="max-height: 150px; overflow-y: auto; margin-top: 5px; display: none;"></div>
+                    </div>
+                `;
+
+                // Prevenir que cliques no controle propaguem para o mapa
+                L.DomEvent.disableClickPropagation(div);
+                L.DomEvent.disableScrollPropagation(div);
+
+                return div;
+            };
+
+            searchControl.addTo(ppbioMap);
+
+            // Adicionar funcionalidade de busca
+            setTimeout(() => {
+                const searchInput = document.getElementById('parcel-search');
+                const resultsDiv = document.getElementById('search-results');
+
+                searchInput.addEventListener('input', function(e) {
+                    const query = e.target.value.toLowerCase().trim();
+                    resultsDiv.innerHTML = '';
+                    resultsDiv.style.display = 'none';
+
+                    if (query.length < 2) return;
+
+                    const matches = [];
+                    if (window.ppbioCoordenadas) {
+                        window.ppbioCoordenadas.forEach(coord => {
+                            if (coord.name.toLowerCase().includes(query) ||
+                                coord.module.toLowerCase().includes(query) ||
+                                coord.type.toLowerCase().includes(query)) {
+                                matches.push(coord);
+                            }
+                        });
+                    }
+
+                    if (matches.length > 0) {
+                        resultsDiv.style.display = 'block';
+                        matches.slice(0, 10).forEach(coord => {
+                            const resultDiv = document.createElement('div');
+                            resultDiv.style.cssText = 'padding: 4px 8px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 12px;';
+                            resultDiv.innerHTML = `<strong>${coord.name}</strong> - Módulo ${coord.module} (${coord.type})`;
+                            resultDiv.addEventListener('click', () => {
+                                // Encontrar o marcador correspondente
+                                const marker = parcelMarkers.find(m => {
+                                    const latlng = m.getLatLng();
+                                    return Math.abs(latlng.lat - coord.lat) < 0.0001 &&
+                                           Math.abs(latlng.lng - coord.long) < 0.0001;
+                                });
+
+                                if (marker) {
+                                    // Zoom para o marcador e abrir popup
+                                    ppbioMap.setView([coord.lat, coord.long], 15);
+                                    marker.openPopup();
+                                }
+
+                                // Limpar busca
+                                searchInput.value = '';
+                                resultsDiv.style.display = 'none';
+                            });
+                            resultDiv.addEventListener('mouseenter', () => {
+                                resultDiv.style.backgroundColor = '#f0f8f0';
+                            });
+                            resultDiv.addEventListener('mouseleave', () => {
+                                resultDiv.style.backgroundColor = 'transparent';
+                            });
+                            resultsDiv.appendChild(resultDiv);
+                        });
+                    }
+                });
+
+                // Fechar resultados ao clicar fora
+                document.addEventListener('click', function(e) {
+                    if (!div.contains(e.target)) {
+                        resultsDiv.style.display = 'none';
+                    }
+                });
+            }, 100);
+        }
+
+        // Função principal para criar o mapa
+        async function createMap() {
+            console.log('Criando mapa PPBio melhorado...');
+
+            // Inicializar mapa
+            ppbioMap = L.map('map').setView([-28.5, -49.5], 8);
+
+            // Adicionar controle de zoom
+            L.control.zoom({position: 'topright'}).addTo(ppbioMap);
+
+            // Mapas base
+            const baseMaps = {
+                "OpenStreetMap": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors',
+                    maxZoom: 18
+                }),
+                "Satélite": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+                    maxZoom: 18
+                }),
+                "Terreno": L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+                    maxZoom: 17
+                })
+            };
+
+            // Adicionar camada base padrão
+            baseMaps["OpenStreetMap"].addTo(ppbioMap);
+
+            // Carregar camadas contextuais
+            console.log('Aguardando carregamento das camadas GeoJSON...');
+            const overlayMaps = await loadGeoJsonLayers();
+            console.log('Camadas GeoJSON carregadas:', Object.keys(overlayMaps));
+
+            // Adicionar controle de camadas
+            L.control.layers(baseMaps, overlayMaps, {position: 'topright'}).addTo(ppbioMap);
+
+            // Adicionar controles personalizados
+            addSearchControl();
+            addLegend();
+
+            // Criar marcadores
+            createMarkers();
+
+            console.log('Mapa PPBio criado com sucesso!');
+        }
+
+        // Função para criar marcadores
+        function createMarkers() {
+            console.log('Criando marcadores...');
+
+            // Limpar marcadores existentes
+            if (markerClusterGroup) {
+                ppbioMap.removeLayer(markerClusterGroup);
+            }
+            parcelMarkers = [];
+            markerClusterGroup = L.markerClusterGroup({
+                chunkedLoading: true,
+                maxClusterRadius: 50,
+                iconCreateFunction: function(cluster) {
+                    const childCount = cluster.getChildCount();
+                    let className = 'marker-cluster-small';
+                    if (childCount < 10) {
+                        className = 'marker-cluster-small';
+                    } else if (childCount < 100) {
+                        className = 'marker-cluster-medium';
+                    } else {
+                        className = 'marker-cluster-large';
+                    }
+                    return new L.DivIcon({
+                        html: '<div><span>' + childCount + '</span></div>',
+                        className: 'marker-cluster ' + className,
+                        iconSize: new L.Point(40, 40)
+                    });
+                }
+            });
+
+            if (window.ppbioCoordenadas) {
+                window.ppbioCoordenadas.forEach(coord => {
+                    // Encontrar dados ecológicos correspondentes
+                    const ecologicalData = window.ppbioData ? window.ppbioData.find(d =>
+                        d.Antigo === coord.name || d.Plot === coord.name
+                    ) : null;
+
+                    // Definir cor baseada no tipo de vegetação
+                    let markerColor = '#2E8B57'; // Verde padrão
+                    if (ecologicalData && ecologicalData['tipo.veg']) {
+                        switch(ecologicalData['tipo.veg']) {
+                            case 'FOM': markerColor = '#228B22'; break;
+                            case 'FOD': markerColor = '#32CD32'; break;
+                            case 'CAMPO': markerColor = '#90EE90'; break;
+                            case 'FOM-CAMPO': markerColor = '#98FB98'; break;
+                        }
+                    }
+
+                    // Criar ícone personalizado
+                    const customIcon = L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="background-color: ${markerColor}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.3);"></div>`,
+                        iconSize: [12, 12],
+                        iconAnchor: [6, 6]
+                    });
+
+                    // Criar popup com informações
+                    const vegType = ecologicalData ? ecologicalData['tipo.veg'] || 'N/A' : 'N/A';
+                    const altitude = ecologicalData ? ecologicalData.Altitude || 'N/A' : 'N/A';
+                    const biomass = ecologicalData ? ((ecologicalData.Biom1 + ecologicalData.Biom2 + ecologicalData.Biom3 + ecologicalData.Biom4) / 4).toFixed(1) : 'N/A';
+
+                    const popupContent = `
+                        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 250px; line-height: 1.4;">
+                            <div style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9); padding: 12px; border-radius: 8px 8px 0 0; border-bottom: 2px solid #4a9b7a;">
+                                <h6 style="margin: 0; color: #2e7d5b; font-size: 16px; font-weight: bold;">
+                                    📍 Parcela ${coord.name}
+                                </h6>
+                                <div style="font-size: 12px; color: #666; margin-top: 2px;">
+                                    Módulo ${coord.module} • ${coord.type}
+                                </div>
+                            </div>
+                            <div style="padding: 12px; background: white;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+                                    <div style="background: #f8f9fa; padding: 6px; border-radius: 4px; text-align: center;">
+                                        <div style="font-size: 10px; color: #666; text-transform: uppercase; font-weight: bold;">Vegetação</div>
+                                        <div style="font-size: 12px; color: #2e7d5b; font-weight: bold;">${vegType}</div>
+                                    </div>
+                                    <div style="background: #f8f9fa; padding: 6px; border-radius: 4px; text-align: center;">
+                                        <div style="font-size: 10px; color: #666; text-transform: uppercase; font-weight: bold;">Altitude</div>
+                                        <div style="font-size: 12px; color: #2e7d5b; font-weight: bold;">${altitude}m</div>
+                                    </div>
+                                </div>
+                                <div style="background: #f0f8f0; padding: 8px; border-radius: 4px; margin-bottom: 8px;">
+                                    <div style="font-size: 10px; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 2px;">Biomassa Média</div>
+                                    <div style="font-size: 14px; color: #2e7d5b; font-weight: bold;">${biomass}%</div>
+                                </div>
+                                <div style="font-size: 11px; color: #888; border-top: 1px solid #eee; padding-top: 8px;">
+                                    <div>📍 <strong>Lat:</strong> ${coord.lat.toFixed(6)}</div>
+                                    <div>📍 <strong>Lon:</strong> ${coord.long.toFixed(6)}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Criar marcador
+                    const marker = L.marker([coord.lat, coord.long], {icon: customIcon})
+                        .bindPopup(popupContent);
+
+                    parcelMarkers.push(marker);
+                    markerClusterGroup.addLayer(marker);
+                });
+
+                // Adicionar o grupo de clusters ao mapa
+                ppbioMap.addLayer(markerClusterGroup);
+
+                // Atualizar estatísticas
+                document.getElementById('total-parcels').textContent = parcelMarkers.length;
+
+                console.log('Adicionados', parcelMarkers.length, 'marcadores ao mapa (com clustering)');
+            } else {
+                console.warn('Coordenadas PPBio não encontradas!');
+            }
+        }
+
+        // Inicializar mapa quando a página carregar
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Página carregada, inicializando mapa...');
+            console.log('Coordenadas:', window.ppbioCoordenadas ? window.ppbioCoordenadas.length : 0);
+            console.log('Dados ecológicos:', window.ppbioData ? window.ppbioData.length : 0);
+
+            await createMap();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard PPBio - Análise Ecológica de Parcelas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <style>
+        :root {
+            --color-1: #edf8fb;
+            --color-2: #b2e2e2;
+            --color-3: #66c2a4;
+        }
+
+        body {
+            background-color: var(--color-1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background-color: var(--color-3) !important;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: var(--color-2);
+            border-bottom: 2px solid var(--color-3);
+            font-weight: bold;
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--color-3);
+            font-weight: 600;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: var(--color-3);
+            color: white;
+        }
+
+        .conceptual-explanation {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-left: 4px solid var(--color-3);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .chart-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .accessibility-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .filter-controls {
+            background-color: var(--color-2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter-controls select, .filter-controls input {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chart-section {
+            transition: all 0.3s ease;
+        }
+
+        .chart-section.hidden {
+            display: none;
+        }
+
+        .form-select:focus {
+            border-color: var(--color-3);
+            box-shadow: 0 0 0 0.2rem rgba(74, 155, 122, 0.25);
+        }
+
+        .form-select.active-filter {
+            border-color: var(--color-3);
+            background-color: rgba(74, 155, 122, 0.1);
+            font-weight: bold;
+        }
+
+        .btn-filter {
+            background-color: var(--color-3);
+            border-color: var(--color-3);
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-filter:hover {
+            background-color: #4a9b7a;
+            border-color: #4a9b7a;
+            transform: translateY(-1px);
+        }
+
+        .btn-filter:active {
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            color: var(--color-3);
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <strong>🌿 Dashboard PPBio - Santa Catarina</strong>
+            </a>
+            <span class="navbar-text">
+                Análise Ecológica de Parcelas - PELD
+            </span>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="stats-summary">
+            <h1 class="text-center mb-4">📊 Análise Integrada dos Dados PPBio</h1>
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <h3>45</h3>
+                    <p>Parcelas Catalogadas</p>
+                </div>
+                <div class="col-md-3">
+                    <h3>385</h3>
+                    <p>Registros Ecológicos</p>
+                </div>
+                <div class="col-md-3">
+                    <h3>470-1670m</h3>
+                    <p>Faixa Altimétrica</p>
+                </div>
+                <div class="col-md-3">
+                    <h3>4</h3>
+                    <p>Tipos de Vegetação</p>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="altitude-tab" data-bs-toggle="tab" data-bs-target="#altitude" type="button" role="tab" aria-controls="altitude" aria-selected="true">
+                    🏔️ Altitude
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vegetacao-tab" data-bs-toggle="tab" data-bs-target="#vegetacao" type="button" role="tab" aria-controls="vegetacao" aria-selected="false">
+                    🌳 Vegetação
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="biomassa-tab" data-bs-toggle="tab" data-bs-target="#biomassa" type="button" role="tab" aria-controls="biomassa" aria-selected="false">
+                    🌱 Biomassa
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="correlacoes-tab" data-bs-toggle="tab" data-bs-target="#correlacoes" type="button" role="tab" aria-controls="correlacoes" aria-selected="false">
+                    📈 Correlações
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="solo-tab" data-bs-toggle="tab" data-bs-target="#solo" type="button" role="tab" aria-controls="solo" aria-selected="false">
+                    🌍 Solo
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="mapa-tab" data-bs-toggle="tab" data-bs-target="#mapa" type="button" role="tab" aria-controls="mapa" aria-selected="false">
+                    🗺️ Mapa
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4" id="dashboardTabsContent">
+            <!-- Altitude Tab -->
+            <div class="tab-pane fade show active" id="altitude" role="tabpanel" aria-labelledby="altitude-tab">
+                <div class="filter-controls">
+                    <h5>🎛️ Filtros Interativos</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="altitude-module-filter" class="form-label">Módulo:</label>
+                            <select id="altitude-module-filter" class="form-select">
+                                <option value="all">Todos os módulos</option>
+                                <option value="M01">M01</option>
+                                <option value="M02">M02</option>
+                                <option value="M03">M03</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="altitude-range-filter" class="form-label">Faixa Altimétrica:</label>
+                            <select id="altitude-range-filter" class="form-select">
+                                <option value="all">Todas as altitudes</option>
+                                <option value="low">Baixa (< 1000m)</option>
+                                <option value="medium">Média (1000-1600m)</option>
+                                <option value="high">Alta (> 1600m)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="altitude-vegetation-filter" class="form-label">Tipo de Vegetação:</label>
+                            <select id="altitude-vegetation-filter" class="form-select">
+                                <option value="all">Todos os tipos</option>
+                                <option value="FOM">FOM</option>
+                                <option value="FOD">FOD</option>
+                                <option value="CAMPO">CAMPO</option>
+                                <option value="FOM-CAMPO">FOM-CAMPO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="reset-altitude-filters" class="btn btn-filter btn-sm mt-2">🔄 Resetar Filtros</button>
+                </div>
+
+                <div class="chart-section" data-module="all" data-altitude="all" data-vegetation="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Distribuição de Altitude
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Gradiente Altitudinal</h5>
+                                <p>A altitude é um dos principais fatores que determinam a distribuição da vegetação em regiões montanhosas. Este gráfico mostra como as parcelas PPBio estão distribuídas ao longo do gradiente altitudinal de Santa Catarina, revelando dois domínios ecológicos distintos: as florestas de baixa altitude e os ecossistemas de altitude do Planalto Catarinense.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="distribuicao_altitude.png" alt="Histograma mostrando a distribuição de frequência das altitudes das parcelas PPBio, com duas concentrações principais em baixas e médias altitudes" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> O histograma usa 20 bins para representar a distribuição contínua de altitude. As barras mostram frequência absoluta de parcelas por faixa altimétrica.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-section" data-module="specific" data-altitude="all" data-vegetation="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Altitude por Módulo
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Variação Espacial por Módulo</h5>
+                                <p>Os módulos PPBio representam diferentes regiões geográficas. Este boxplot revela como cada módulo ocupa posições distintas no gradiente altitudinal, refletindo a heterogeneidade ambiental de Santa Catarina e a estratégia de amostragem para capturar essa variabilidade.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="boxplot_altitude_modulo.png" alt="Boxplot comparando as distribuições de altitude entre os módulos M01, M02 e M03, mostrando diferenças significativas nas medianas" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> Cada box representa a distribuição estatística (quartis) da altitude. M03 mostra valores consistentemente mais baixos, indicando localização em terrenos mais acessíveis.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vegetação Tab -->
+            <div class="tab-pane fade" id="vegetacao" role="tabpanel" aria-labelledby="vegetacao-tab">
+                <div class="filter-controls">
+                    <h5>🎛️ Filtros Interativos</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="vegetation-module-filter" class="form-label">Módulo:</label>
+                            <select id="vegetation-module-filter" class="form-select">
+                                <option value="all">Todos os módulos</option>
+                                <option value="M01">M01</option>
+                                <option value="M02">M02</option>
+                                <option value="M03">M03</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="vegetation-type-filter" class="form-label">Tipo de Vegetação:</label>
+                            <select id="vegetation-type-filter" class="form-select">
+                                <option value="all">Todos os tipos</option>
+                                <option value="FOM">FOM</option>
+                                <option value="FOD">FOD</option>
+                                <option value="CAMPO">CAMPO</option>
+                                <option value="FOM-CAMPO">FOM-CAMPO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="vegetation-altitude-filter" class="form-label">Faixa Altimétrica:</label>
+                            <select id="vegetation-altitude-filter" class="form-select">
+                                <option value="all">Todas as altitudes</option>
+                                <option value="low">Baixa (< 1000m)</option>
+                                <option value="medium">Média (1000-1600m)</option>
+                                <option value="high">Alta (> 1600m)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="reset-vegetation-filters" class="btn btn-filter btn-sm mt-2">🔄 Resetar Filtros</button>
+                </div>
+
+                <div class="chart-section" data-module="all" data-vegetation="all" data-altitude="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Tipos de Vegetação
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Classificação Florística</h5>
+                                <p>A vegetação brasileira é classificada em tipos que refletem condições ambientais específicas. Este gráfico mostra a predominância dos diferentes tipos de vegetação nas parcelas PPBio, destacando a importância da Floresta Ombrófila Mista (FOM) como formação vegetal característica do Planalto Catarinense.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="barras_tipos_vegetacao.png" alt="Gráfico de barras mostrando a frequência de quatro tipos de vegetação: FOM, FOD, FOM-CAMPO e CAMPO, com FOM sendo o mais frequente" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> As barras representam contagens absolutas. FOM aparece em 175 registros, FOD em 145, FOM-CAMPO em 30 e CAMPO em 20.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-section" data-module="all" data-vegetation="all" data-altitude="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Altitude por Tipo de Vegetação
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Zonação Vegetacional</h5>
+                                <p>A distribuição altitudinal da vegetação revela padrões de zonação ecológica. Este gráfico mostra como diferentes tipos vegetacionais ocupam faixas altimétricas específicas, demonstrando a influência da altitude na composição florística e estrutura da vegetação.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="stripplot_altitude_vegetacao.png" alt="Gráfico de dispersão mostrando pontos de altitude para cada tipo de vegetação, revelando padrões de zonação altitudinal" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> Cada ponto representa uma medição individual. FOD restrita a altitudes <1000m, FOM distribuída em altitudes médias-altas, CAMPO em altitudes elevadas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biomassa Tab -->
+            <div class="tab-pane fade" id="biomassa" role="tabpanel" aria-labelledby="biomassa-tab">
+                <div class="filter-controls">
+                    <h5>🎛️ Filtros Interativos</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="biomass-module-filter" class="form-label">Módulo:</label>
+                            <select id="biomass-module-filter" class="form-select">
+                                <option value="all">Todos os módulos</option>
+                                <option value="M01">M01</option>
+                                <option value="M02">M02</option>
+                                <option value="M03">M03</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="biomass-stratum-filter" class="form-label">Estrato:</label>
+                            <select id="biomass-stratum-filter" class="form-select">
+                                <option value="all">Todos os estratos</option>
+                                <option value="Biom1">Estrato Superior</option>
+                                <option value="Biom2">Estrato Médio-Alto</option>
+                                <option value="Biom3">Estrato Médio</option>
+                                <option value="Biom4">Estrato Inferior</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="biomass-vegetation-filter" class="form-label">Tipo de Vegetação:</label>
+                            <select id="biomass-vegetation-filter" class="form-select">
+                                <option value="all">Todos os tipos</option>
+                                <option value="FOM">FOM</option>
+                                <option value="FOD">FOD</option>
+                                <option value="CAMPO">CAMPO</option>
+                                <option value="FOM-CAMPO">FOM-CAMPO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="reset-biomass-filters" class="btn btn-filter btn-sm mt-2">🔄 Resetar Filtros</button>
+                </div>
+
+                <div class="chart-section" data-module="all" data-stratum="all" data-vegetation="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Altitude vs Biomassa
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Produtividade e Altitude</h5>
+                                <p>A biomassa vegetal reflete a produtividade do ecossistema. Este scatter plot investiga como a altitude influencia a biomassa do estrato superior da vegetação, revelando possíveis padrões de produtividade ao longo do gradiente altitudinal.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="scatter_altitude_biomassa.png" alt="Gráfico de dispersão com pontos azuis mostrando relação entre altitude e biomassa, com linha de tendência vermelha tracejada" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> Correlação de Pearson = 0.148 (positiva fraca). A linha vermelha mostra a tendência linear ajustada aos dados.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-section" data-module="all" data-stratum="all" data-vegetation="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Biomassa por Estrato Vegetal
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Estrutura Vertical da Floresta</h5>
+                                <p>As florestas têm estrutura vertical complexa dividida em estratos. Este boxplot compara a biomassa entre os quatro estratos vegetais, revelando como a cobertura vegetal está distribuída verticalmente e identificando possíveis gaps ou concentrações em determinados níveis.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="boxplot_biomassa_estrato.png" alt="Boxplot mostrando distribuição de biomassa para quatro estratos vegetais, com médias similares entre estratos" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> Cada box mostra quartis da biomassa (%). Biom1 (superior): média 17.75%, Biom2: 17.84%, Biom3: 16.92%, Biom4 (inferior): 16.54%.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Correlações Tab -->
+            <div class="tab-pane fade" id="correlacoes" role="tabpanel" aria-labelledby="correlacoes-tab">
+                <div class="filter-controls">
+                    <h5>🎛️ Filtros Interativos</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="correlation-module-filter" class="form-label">Módulo:</label>
+                            <select id="correlation-module-filter" class="form-select">
+                                <option value="all">Todos os módulos</option>
+                                <option value="M01">M01</option>
+                                <option value="M02">M02</option>
+                                <option value="M03">M03</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="correlation-variables-filter" class="form-label">Variáveis Foco:</label>
+                            <select id="correlation-variables-filter" class="form-select">
+                                <option value="all">Todas as variáveis</option>
+                                <option value="biomass">Foco em Biomassa</option>
+                                <option value="altitude">Foco em Altitude</option>
+                                <option value="structure">Foco em Estrutura</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="reset-correlation-filters" class="btn btn-filter btn-sm mt-2">🔄 Resetar Filtros</button>
+                </div>
+
+                <div class="chart-section" data-module="all" data-variables="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Matriz de Correlação Ecológica
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Inter-relações Ecológicas</h5>
+                                <p>As variáveis ecológicas não atuam isoladamente. Esta matriz de correlação revela como altitude, biomassa, cobertura de dossel e altura máxima das árvores se relacionam, fornecendo insights sobre os mecanismos ecológicos que estruturam os ecossistemas florestais de Santa Catarina.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="heatmap_correlacao.png" alt="Heatmap colorido mostrando correlações entre 7 variáveis ecológicas, com valores numéricos em cada célula" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> Escala de cores: vermelho (correlação negativa) para azul (positiva). Valores > 0.7 indicam correlações fortes. Biomassa entre estratos mostra alta correlação positiva (0.89-0.92).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solo Tab -->
+            <div class="tab-pane fade" id="solo" role="tabpanel" aria-labelledby="solo-tab">
+                <div class="filter-controls">
+                    <h5>🎛️ Filtros Interativos</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="soil-module-filter" class="form-label">Módulo:</label>
+                            <select id="soil-module-filter" class="form-select">
+                                <option value="all">Todos os módulos</option>
+                                <option value="M01">M01</option>
+                                <option value="M02">M02</option>
+                                <option value="M03">M03</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="soil-depth-filter" class="form-label">Profundidade:</label>
+                            <select id="soil-depth-filter" class="form-select">
+                                <option value="all">Todas as profundidades</option>
+                                <option value="shallow">Rasa (< 25cm)</option>
+                                <option value="medium">Média (25-40cm)</option>
+                                <option value="deep">Profunda (> 40cm)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="reset-soil-filters" class="btn btn-filter btn-sm mt-2">🔄 Resetar Filtros</button>
+                </div>
+
+                <div class="chart-section" data-module="all" data-depth="all">
+                    <div class="card">
+                        <div class="card-header">
+                            Profundidade do Solo por Quadrante
+                        </div>
+                        <div class="card-body">
+                            <div class="conceptual-explanation">
+                                <h5>🎯 Conceito: Heterogeneidade Edáfica</h5>
+                                <p>A profundidade do solo é crucial para o desenvolvimento vegetal. Este gráfico mostra a profundidade média do solo em quatro quadrantes de medição, revelando a variabilidade espacial do substrato e suas implicações para a distribuição da vegetação e produtividade dos ecossistemas.</p>
+                            </div>
+                            <div class="chart-container">
+                                <img src="barras_profundidade_solo.png" alt="Gráfico de barras mostrando profundidade média do solo em centímetros para quatro quadrantes, com valores próximos a 32cm" class="img-fluid">
+                            </div>
+                            <div class="accessibility-note">
+                                <strong>♿ Acessibilidade:</strong> Valores em cm: Prof1=32.3, Prof2=31.5, Prof3=31.8, Prof4=31.8. Variação baixa indica solo relativamente homogêneo nas parcelas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Mapa Tab -->
+            <div class="tab-pane fade" id="mapa" role="tabpanel" aria-labelledby="mapa-tab">
+                <div class="card">
+                    <div class="card-header">Mapa Interativo - Parcelas PPBio</div>
+                    <div class="card-body">
+                        <div class="stats-panel" style="margin-bottom:12px; display:flex; gap:12px;">
+                            <div style="flex:1; text-align:center; background:#fff; padding:8px; border-radius:6px;">Parcelas: <strong id="map-total-parcels">0</strong></div>
+                            <div style="flex:1; text-align:center; background:#fff; padding:8px; border-radius:6px;">Módulos: <strong id="map-total-modules">3</strong></div>
+                        </div>
+                        <div id="dashboard-map" style="height:600px; width:100%; border-radius:8px; border:1px solid #ddd;"></div>
+                    </div>
+                </div>
+            </div>
+
+        <footer class="mt-5 text-center text-muted">
+            <hr>
+            <p>Dashboard gerado em 10 de novembro de 2025 | Programa PPBio - PELD Santa Catarina</p>
+            <p>Desenvolvido com foco em acessibilidade e interpretação científica dos dados ecológicos</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet + MarkerCluster + data scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="coordenadas_ppBio.js"></script>
+    <script src="dados_ppBio.js"></script>
+
+    <script>
+    (function(){
+        // Código isolado para o mapa no dashboard
+        let mapDashboard, markerCluster;
+
+        function createGeoJsonLayer(filename, color, opacity, weight) {
+            return fetch(filename)
+                .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(data => L.geoJSON(data, {
+                    style: { color: color, weight: weight, opacity: opacity, fillOpacity: opacity * 0.3 },
+                    onEachFeature: function(feat, layer){
+                        const props = feat.properties || {};
+                        const name = props.name || props.NOME || props.nome || filename.replace('.geojson','');
+                        layer.bindPopup('<strong>' + name + '</strong>');
+                    }
+                }))
+                .catch(err => { console.error('Erro carregar', filename, err); return L.layerGroup(); });
+        }
+
+        async function loadGeoJsonLayers(){
+            const keys = [
+                ["🌿 Parque Nacional São Joaquim","parque_nacional_sj.geojson", '#228B22',0.7,2],
+                ["🏔️ Parque Estadual Serra Furada","parque_estadual_serra_furada.geojson", '#32CD32',0.6,2],
+                ["🏞️ Limite Parque","parque_limite.geojson", '#90EE90',0.5,3],
+                ["🇧🇷 Limite Santa Catarina","limite_santa_catarina.geojson", '#FF6347',0.8,2],
+                ["🏙️ Cidades Afetadas","cidades_afetadas.geojson", '#FFD700',0.6,1]
+            ];
+            const promises = keys.map(k => createGeoJsonLayer(k[1], k[2], k[3], k[4]));
+            const layers = await Promise.all(promises);
+            const overlay = {};
+            keys.forEach((k,i) => overlay[k[0]] = layers[i]);
+            return overlay;
+        }
+
+        function addLegend(map){
+            const legend = L.control({position:'bottomright'});
+            legend.onAdd = function(){
+                const div = L.DomUtil.create('div','info legend');
+                div.style.background = 'white'; div.style.padding = '8px'; div.style.borderRadius='6px';
+                div.innerHTML = '<b>Tipos de Vegetação</b><br/>' +
+                    '<div><span style="display:inline-block;width:12px;height:12px;background:#228B22;margin-right:6px;border-radius:50%"></span>FOM</div>'+
+                    '<div><span style="display:inline-block;width:12px;height:12px;background:#32CD32;margin-right:6px;border-radius:50%"></span>FOD</div>'+
+                    '<div><span style="display:inline-block;width:12px;height:12px;background:#90EE90;margin-right:6px;border-radius:50%"></span>CAMPO</div>'+
+                    '<div style="margin-top:6px;text-align:center;">Parcelas: <span id="legend-count">0</span></div>';
+                return div;
+            };
+            legend.addTo(map);
+        }
+
+        function addSearchControl(map){
+            const control = L.control({position:'topleft'});
+            control.onAdd = function(){
+                const div = L.DomUtil.create('div','search-control');
+                div.innerHTML = '<input id="map-search" placeholder="🔍 Buscar parcela..." style="padding:6px;border:1px solid #ccc;border-radius:4px;width:180px">';
+                L.DomEvent.disableClickPropagation(div);
+                return div;
+            };
+            control.addTo(map);
+            setTimeout(()=>{
+                const inp = document.getElementById('map-search');
+                if(!inp) return;
+                inp.addEventListener('input', function(e){
+                    const q = e.target.value.toLowerCase().trim();
+                    if(q.length<2) return;
+                    const found = (window.ppbioCoordenadas||[]).find(c=> (c.name||'').toLowerCase().includes(q) );
+                    if(found){ map.setView([found.lat, found.long], 14); }
+                });
+            },100);
+        }
+
+        function createMarkers(map){
+            if(markerCluster) map.removeLayer(markerCluster);
+            markerCluster = L.markerClusterGroup({chunkedLoading:true});
+            const arr = window.ppbioCoordenadas || [];
+            arr.forEach(coord => {
+                const d = (window.ppbioData||[]).find(x => x.Antigo === coord.name || x.Plot === coord.name) || {};
+                let color = '#2E8B57';
+                if(d['tipo.veg']){
+                    if(d['tipo.veg']==='FOM') color='#228B22';
+                    if(d['tipo.veg']==='FOD') color='#32CD32';
+                    if(d['tipo.veg']==='CAMPO') color='#90EE90';
+                }
+                const icon = L.divIcon({className:'custom-marker', html:`<div style="width:12px;height:12px;border-radius:50%;background:${color};border:2px solid #fff"></div>`, iconSize:[12,12], iconAnchor:[6,6]});
+                const m = L.marker([coord.lat, coord.long], {icon:icon}).bindPopup(`<strong>Parcela ${coord.name}</strong><br>Módulo ${coord.module}`);
+                markerCluster.addLayer(m);
+            });
+            map.addLayer(markerCluster);
+            document.getElementById('map-total-parcels').textContent = (arr.length||0);
+            const legendCount = document.getElementById('legend-count'); if(legendCount) legendCount.textContent = (arr.length||0);
+        }
+
+        async function initDashboardMap(){
+            try{
+                mapDashboard = L.map('dashboard-map').setView([-28.5, -49.5], 8);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, attribution:'© OpenStreetMap contributors'}).addTo(mapDashboard);
+                addSearchControl(mapDashboard);
+                addLegend(mapDashboard);
+                createMarkers(mapDashboard);
+                const overlays = await loadGeoJsonLayers();
+                L.control.layers(null, overlays, {position:'topright'}).addTo(mapDashboard);
+                console.log('Dashboard map inicializado com overlays:', Object.keys(overlays));
+            }catch(e){ console.error('Erro inicializar mapa do dashboard', e); }
+        }
+
+        // Inicializar o mapa quando a página e dados estiverem prontos
+        window.addEventListener('load', function(){
+            // aguardar que dados (dados_ppBio.js e coordenadas_ppBio.js) sejam avaliados
+            setTimeout(()=>{ initDashboardMap(); }, 200);
+        });
+    })();
+    </script>
+    <script>
+        // Mapeamento de filtros para atributos data
+        const filterMappings = {
+            'altitude': {
+                'altitude-module-filter': 'module',
+                'altitude-range-filter': 'altitude',
+                'altitude-vegetation-filter': 'vegetation'
+            },
+            'vegetacao': {
+                'vegetation-module-filter': 'module',
+                'vegetation-type-filter': 'vegetation',
+                'vegetation-altitude-filter': 'altitude'
+            },
+            'biomassa': {
+                'biomass-module-filter': 'module',
+                'biomass-stratum-filter': 'stratum',
+                'biomass-vegetation-filter': 'vegetation'
+            },
+            'correlacoes': {
+                'correlation-module-filter': 'module',
+                'correlation-variables-filter': 'variables'
+            },
+            'solo': {
+                'soil-module-filter': 'module',
+                'soil-depth-filter': 'depth'
+            }
+        };
+
+        // Função para aplicar filtros
+        function applyFilters(tabId) {
+            const sections = document.querySelectorAll(`#${tabId} .chart-section`);
+            const filters = {};
+
+            // Coletar valores dos filtros da aba atual
+            const tabElement = document.getElementById(tabId);
+            const selects = tabElement.querySelectorAll('select');
+
+            selects.forEach(select => {
+                const mapping = filterMappings[tabId];
+                if (mapping && mapping[select.id]) {
+                    filters[mapping[select.id]] = select.value;
+                    // Adicionar classe visual para filtros ativos
+                    if (select.value !== 'all') {
+                        select.classList.add('active-filter');
+                    } else {
+                        select.classList.remove('active-filter');
+                    }
+                }
+            });
+
+            // Aplicar filtros
+            sections.forEach(section => {
+                let show = true;
+
+                // Verificar se há algum filtro específico selecionado
+                const hasSpecificFilter = Object.values(filters).some(value => value !== 'all');
+
+                // Verificar cada atributo de dados
+                for (const [filterName, filterValue] of Object.entries(filters)) {
+                    if (filterValue !== 'all') {
+                        const sectionValue = section.getAttribute(`data-${filterName}`) || 'all';
+                        if (sectionValue === 'specific') {
+                            // Gráficos marcados como 'specific' são mostrados quando há filtros específicos
+                            show = true;
+                        } else if (sectionValue !== 'all' && !sectionValue.includes(filterValue)) {
+                            show = false;
+                            break;
+                        }
+                    }
+                }
+
+                // Se nenhum filtro específico está selecionado, mostrar apenas gráficos gerais (data-*="all")
+                if (!hasSpecificFilter) {
+                    const sectionModule = section.getAttribute('data-module') || 'all';
+                    if (sectionModule === 'specific') {
+                        show = false;
+                    }
+                }
+
+                if (show) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        // Função para resetar filtros
+        function resetFilters(tabId) {
+            const tabElement = document.getElementById(tabId);
+            const selects = tabElement.querySelectorAll('select');
+
+            selects.forEach(select => {
+                select.value = 'all';
+                select.classList.remove('active-filter');
+            });
+
+            applyFilters(tabId);
+        }
+
+        // Adicionar event listeners quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtros da aba Altitude
+            document.getElementById('altitude-module-filter').addEventListener('change', () => applyFilters('altitude'));
+            document.getElementById('altitude-range-filter').addEventListener('change', () => applyFilters('altitude'));
+            document.getElementById('altitude-vegetation-filter').addEventListener('change', () => applyFilters('altitude'));
+            document.getElementById('reset-altitude-filters').addEventListener('click', () => resetFilters('altitude'));
+
+            // Filtros da aba Vegetação
+            document.getElementById('vegetation-module-filter').addEventListener('change', () => applyFilters('vegetacao'));
+            document.getElementById('vegetation-type-filter').addEventListener('change', () => applyFilters('vegetacao'));
+            document.getElementById('vegetation-altitude-filter').addEventListener('change', () => applyFilters('vegetacao'));
+            document.getElementById('reset-vegetation-filters').addEventListener('click', () => resetFilters('vegetacao'));
+
+            // Filtros da aba Biomassa
+            document.getElementById('biomass-module-filter').addEventListener('change', () => applyFilters('biomassa'));
+            document.getElementById('biomass-stratum-filter').addEventListener('change', () => applyFilters('biomassa'));
+            document.getElementById('biomass-vegetation-filter').addEventListener('change', () => applyFilters('biomassa'));
+            document.getElementById('reset-biomass-filters').addEventListener('click', () => resetFilters('biomassa'));
+
+            // Filtros da aba Correlações
+            document.getElementById('correlation-module-filter').addEventListener('change', () => applyFilters('correlacoes'));
+            document.getElementById('correlation-variables-filter').addEventListener('change', () => applyFilters('correlacoes'));
+            document.getElementById('reset-correlation-filters').addEventListener('click', () => resetFilters('correlacoes'));
+
+            // Filtros da aba Solo
+            document.getElementById('soil-module-filter').addEventListener('change', () => applyFilters('solo'));
+            document.getElementById('soil-depth-filter').addEventListener('change', () => applyFilters('solo'));
+            document.getElementById('reset-soil-filters').addEventListener('click', () => resetFilters('solo'));
+
+            // Aplicar filtros iniciais (todos mostrando)
+            applyFilters('altitude');
+            applyFilters('vegetacao');
+            applyFilters('biomassa');
+            applyFilters('correlacoes');
+            applyFilters('solo');
+        });
+
+        // Adicionar funcionalidade de navegação por teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                const tabs = document.querySelectorAll('#dashboardTabs .nav-link');
+                const activeTab = document.querySelector('#dashboardTabs .nav-link.active');
+                const currentIndex = Array.from(tabs).indexOf(activeTab);
+
+                let newIndex;
+                if (e.key === 'ArrowLeft') {
+                    newIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+                } else {
+                    newIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+                }
+
+                tabs[newIndex].click();
+            }
+        });
+    </script>
+</body>
+</html>
