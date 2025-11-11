@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Dashboard PPBio</title>
+</head>
+<body>
+    <h1>Teste de Carregamento do Dashboard</h1>
+    <div id="status"></div>
+    <div id="data-info"></div>
+
+    <script src="dados_ppBio.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusDiv = document.getElementById('status');
+            const dataDiv = document.getElementById('data-info');
+
+            if (typeof ppbioData !== 'undefined') {
+                statusDiv.innerHTML = '<p style="color: green;">✅ Dados carregados com sucesso!</p>';
+                dataDiv.innerHTML = `
+                    <p><strong>Total de registros:</strong> ${ppbioData.length}</p>
+                    <p><strong>Primeiro registro:</strong></p>
+                    <pre>${JSON.stringify(ppbioData[0], null, 2)}</pre>
+                    <p><strong>Campos disponíveis:</strong> ${Object.keys(ppbioData[0]).join(', ')}</p>
+                `;
+
+                // Testar filtros
+                const filtered = ppbioData.filter(row => row.Mod === 1.0);
+                dataDiv.innerHTML += `<p><strong>Registros do módulo 1:</strong> ${filtered.length}</p>`;
+
+                // Testar tipos de vegetação
+                const vegTypes = [...new Set(ppbioData.map(d => d['tipo.veg']).filter(v => v))];
+                dataDiv.innerHTML += `<p><strong>Tipos de vegetação:</strong> ${vegTypes.join(', ')}</p>`;
+
+            } else {
+                statusDiv.innerHTML = '<p style="color: red;">❌ Dados não carregados!</p>';
+            }
+        });
+    </script>
+</body>
+</html>
