@@ -1,6 +1,6 @@
 
 // Dados PPBio carregados do CSV
-const ppbioData = [
+window.ppbioData = [
   {
     "Antigo": "TN0500",
     "Novo": "M01T01",
@@ -26348,4 +26348,4 @@ const ppbioData = [
   }
 ];
 
-console.log('Dados PPBio carregados:', ppbioData.length, 'registros');
+console.log('Dados PPBio carregados:', window.ppbioData.length, 'registros');

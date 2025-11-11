@@ -98,6 +98,27 @@
             margin-bottom: 0;
         }
 
+        .chart-container {
+            min-height: 400px;
+            width: 100%;
+            position: relative;
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .chart-container:empty::after {
+            content: "Carregando gráfico...";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            font-style: italic;
+        }
+
         /* Estilos para o mapa Leaflet */
         .leaflet-popup-content-wrapper {
             border-radius: 8px;
@@ -630,29 +651,31 @@
 
         // Função para inicializar dados (agora usa dados já carregados)
         function initializeData() {
-            console.log('Inicializando dados...');
+            console.log('=== INICIALIZANDO DADOS ===');
+            console.log('Verificando se window.ppbioData existe...');
             console.log('window.ppbioData existe:', typeof window.ppbioData);
+            console.log('window.ppbioData é array:', Array.isArray(window.ppbioData));
             console.log('Dados PPBio disponíveis:', window.ppbioData ? window.ppbioData.length : 0, 'registros');
 
             if (window.ppbioData && window.ppbioData.length > 0) {
                 ppbioData = window.ppbioData;
-                console.log('Dados inicializados com sucesso:', ppbioData.length, 'registros');
+                console.log('✅ Dados inicializados com sucesso:', ppbioData.length, 'registros');
 
                 if (ppbioData.length > 0) {
                     console.log('Primeiro registro:', ppbioData[0]);
                     console.log('Campos disponíveis:', Object.keys(ppbioData[0]));
                 }
 
-                console.log('Chamando initializeCharts...');
-                initializeCharts();
-                console.log('Gráficos inicializados com sucesso!');
+                console.log('Chamando initializeCharts em 100ms...');
+                setTimeout(() => {
+                    console.log('Agora chamando initializeCharts...');
+                    initializeCharts();
+                }, 100);
+                console.log('✅ Função initializeData concluída!');
             } else {
-                console.error('Dados PPBio não encontrados!');
-                document.body.innerHTML += `<div style="color: red; padding: 20px; background: #ffe6e6; margin: 20px; border-radius: 5px;">
-                    <h3>Erro: Dados não encontrados</h3>
-                    <p>Os dados PPBio não foram carregados corretamente.</p>
-                    <p>Verifique se o arquivo dados_ppBio.js está sendo carregado.</p>
-                </div>`;
+                console.error('❌ Dados PPBio não encontrados!');
+                console.log('Tentando novamente em 500ms...');
+                setTimeout(() => initializeData(), 500);
             }
         }
 
@@ -700,11 +723,32 @@
         // Funções para criar gráficos
         function createAltitudeDistribution(data) {
             console.log('Criando gráfico de distribuição de altitude com', data.length, 'registros');
-            const altitudes = data.map(d => d.Altitude).filter(d => !isNaN(d) && d > 0);
+            const altitudes = data.map(d => d.Altitude).filter(d => {
+                const num = parseFloat(d);
+                return !isNaN(num) && num > 0 && isFinite(num);
+            });
             console.log('Altitudes válidas encontradas:', altitudes.length);
+            console.log('Primeiras 5 altitudes:', altitudes.slice(0, 5));
 
             if (altitudes.length === 0) {
                 console.warn('Nenhuma altitude válida encontrada!');
+                // Criar um gráfico vazio com mensagem
+                const layout = {
+                    title: 'Distribuição de Altitude das Parcelas PPBio',
+                    xaxis: {title: 'Altitude (m)'},
+                    yaxis: {title: 'Número de Parcelas'},
+                    annotations: [{
+                        text: 'Nenhum dado válido encontrado',
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.5,
+                        y: 0.5,
+                        showarrow: false,
+                        font: {size: 14, color: 'red'}
+                    }],
+                    height: 400
+                };
+                Plotly.newPlot('altitude-distribution-chart', [], layout);
                 return;
             }
 
@@ -724,16 +768,55 @@
                 height: 400
             };
 
-            Plotly.newPlot('altitude-distribution-chart', [trace], layout);
+            console.log('Chamando Plotly.newPlot para altitude-distribution-chart...');
+            try {
+                Plotly.newPlot('altitude-distribution-chart', [trace], layout);
+                console.log('Gráfico de distribuição de altitude criado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao criar gráfico de distribuição de altitude:', error);
+                // Tentar criar gráfico vazio
+                Plotly.newPlot('altitude-distribution-chart', [], layout);
+            }
         }
 
         function createAltitudeByModule(data) {
+            console.log('Criando gráfico de altitude por módulo com', data.length, 'registros');
+
+            // Filtrar dados válidos
+            const validData = data.filter(d => {
+                const mod = d.Mod;
+                const alt = parseFloat(d.Altitude);
+                return mod && !isNaN(alt) && alt > 0 && isFinite(alt);
+            });
+
+            console.log('Dados válidos para altitude por módulo:', validData.length);
+
+            if (validData.length === 0) {
+                console.warn('Nenhum dado válido encontrado para altitude por módulo!');
+                const layout = {
+                    title: 'Altitude por Módulo PPBio',
+                    annotations: [{
+                        text: 'Nenhum dado válido encontrado',
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.5,
+                        y: 0.5,
+                        showarrow: false,
+                        font: {size: 14, color: 'red'}
+                    }],
+                    height: 400
+                };
+                Plotly.newPlot('altitude-by-module-chart', [], layout);
+                return;
+            }
+
             const modules = ['M01', 'M02', 'M03'];
             const traces = modules.map(mod => {
                 const modNum = parseInt(mod.replace('M0', '')); // M01 -> 1, M02 -> 2, etc.
-                const modData = data.filter(d => d.Mod == modNum);
+                const modData = validData.filter(d => parseInt(d.Mod) === modNum);
+                console.log(`Módulo ${mod}: ${modData.length} registros`);
                 return {
-                    y: modData.map(d => d.Altitude).filter(d => !isNaN(d)),
+                    y: modData.map(d => parseFloat(d.Altitude)),
                     type: 'box',
                     name: mod,
                     marker: {color: mod === 'M01' ? '#2E8B57' : mod === 'M02' ? '#3CB371' : '#90EE90'}
@@ -746,15 +829,46 @@
                 height: 400
             };
 
-            Plotly.newPlot('altitude-by-module-chart', traces, layout);
+            try {
+                Plotly.newPlot('altitude-by-module-chart', traces, layout);
+                console.log('Gráfico de altitude por módulo criado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao criar gráfico de altitude por módulo:', error);
+            }
         }
 
         function createVegetationTypes(data) {
+            console.log('Criando gráfico de tipos de vegetação com', data.length, 'registros');
             const vegCounts = {};
             data.forEach(d => {
                 const veg = d['tipo.veg'];
-                if (veg) vegCounts[veg] = (vegCounts[veg] || 0) + 1;
+                if (veg && typeof veg === 'string' && veg.trim() !== '') {
+                    vegCounts[veg] = (vegCounts[veg] || 0) + 1;
+                }
             });
+
+            console.log('Contagens de vegetação:', vegCounts);
+
+            if (Object.keys(vegCounts).length === 0) {
+                console.warn('Nenhum tipo de vegetação válido encontrado!');
+                const layout = {
+                    title: 'Distribuição dos Tipos de Vegetação',
+                    xaxis: {title: 'Tipo de Vegetação'},
+                    yaxis: {title: 'Contagem'},
+                    annotations: [{
+                        text: 'Nenhum dado válido encontrado',
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.5,
+                        y: 0.5,
+                        showarrow: false,
+                        font: {size: 14, color: 'red'}
+                    }],
+                    height: 400
+                };
+                Plotly.newPlot('vegetation-types-chart', [], layout);
+                return;
+            }
 
             const trace = {
                 x: Object.keys(vegCounts),
@@ -771,7 +885,12 @@
                 height: 400
             };
 
-            Plotly.newPlot('vegetation-types-chart', [trace], layout);
+            try {
+                Plotly.newPlot('vegetation-types-chart', [trace], layout);
+                console.log('Gráfico de tipos de vegetação criado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao criar gráfico de tipos de vegetação:', error);
+            }
         }
 
         function createAltitudeByVegetation(data) {
@@ -1291,42 +1410,82 @@
         // Inicializar todos os gráficos
         async function initializeCharts() {
             console.log('Iniciando criação de gráficos...');
-            try {
-                console.log('Criando gráfico de distribuição de altitude...');
-                createAltitudeDistribution(ppbioData);
+            console.log('Dados disponíveis:', ppbioData ? ppbioData.length : 0, 'registros');
 
-                console.log('Criando gráfico de altitude por módulo...');
-                createAltitudeByModule(ppbioData);
-
-                console.log('Criando gráfico de tipos de vegetação...');
-                createVegetationTypes(ppbioData);
-
-                console.log('Criando gráfico de altitude por vegetação...');
-                createAltitudeByVegetation(ppbioData);
-
-                console.log('Criando gráfico de altitude vs biomassa...');
-                createAltitudeVsBiomass(ppbioData);
-
-                console.log('Criando gráfico de biomassa por estrato...');
-                createBiomassByStratum(ppbioData);
-
-                console.log('Criando heatmap de correlação...');
-                createCorrelationHeatmap(ppbioData);
-
-                console.log('Criando gráfico de profundidade do solo...');
-                createSoilDepth(ppbioData);
-
-                console.log('Criando mapa interativo...');
-                await createMap(ppbioData);
-
-                console.log('Todos os gráficos criados com sucesso!');
-            } catch (error) {
-                console.error('Erro ao criar gráficos:', error);
-                document.body.innerHTML += `<div style="color: red; padding: 20px; background: #ffe6e6; margin: 20px; border-radius: 5px;">
-                    <h3>Erro ao criar gráficos</h3>
-                    <p>${error.message}</p>
-                </div>`;
+            // Verificar se Plotly está carregado
+            if (typeof Plotly === 'undefined') {
+                console.error('Plotly não está carregado!');
+                setTimeout(() => initializeCharts(), 500);
+                return;
             }
+
+            // Verificar se os elementos DOM existem
+            const chartIds = [
+                'altitude-distribution-chart',
+                'altitude-by-module-chart',
+                'vegetation-types-chart',
+                'altitude-by-vegetation-chart',
+                'altitude-vs-biomass-chart',
+                'biomass-by-stratum-chart',
+                'correlation-heatmap-chart',
+                'soil-depth-chart',
+                'ppbio-map'
+            ];
+
+            const missingElements = chartIds.filter(id => !document.getElementById(id));
+            if (missingElements.length > 0) {
+                console.error('Elementos DOM não encontrados:', missingElements);
+                console.log('Tentando novamente em 500ms...');
+                setTimeout(() => initializeCharts(), 500); // Tentar novamente em 500ms
+                return;
+            }
+
+            console.log('Todos os elementos DOM encontrados. Criando gráficos um por vez...');
+
+            // Criar gráficos um por vez com delay
+            const chartFunctions = [
+                { name: 'altitude-distribution', func: () => createAltitudeDistribution(ppbioData) },
+                { name: 'altitude-by-module', func: () => createAltitudeByModule(ppbioData) },
+                { name: 'vegetation-types', func: () => createVegetationTypes(ppbioData) },
+                { name: 'altitude-by-vegetation', func: () => createAltitudeByVegetation(ppbioData) },
+                { name: 'altitude-vs-biomass', func: () => createAltitudeVsBiomass(ppbioData) },
+                { name: 'biomass-by-stratum', func: () => createBiomassByStratum(ppbioData) },
+                { name: 'correlation-heatmap', func: () => createCorrelationHeatmap(ppbioData) },
+                { name: 'soil-depth', func: () => createSoilDepth(ppbioData) },
+                { name: 'map', func: async () => await createMap(ppbioData) }
+            ];
+
+            for (let i = 0; i < chartFunctions.length; i++) {
+                const chart = chartFunctions[i];
+                console.log(`Criando ${chart.name}...`);
+
+                try {
+                    await chart.func();
+                    console.log(`✅ ${chart.name} criado com sucesso`);
+                } catch (error) {
+                    console.error(`❌ Erro em ${chart.name}:`, error);
+                }
+
+                // Pequeno delay entre gráficos
+                if (i < chartFunctions.length - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+            }
+
+            console.log('Todos os gráficos criados!');
+
+            // Verificar se os gráficos foram realmente criados
+            setTimeout(() => {
+                chartIds.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        console.log(`Elemento ${id}:`, element.children.length, 'filhos');
+                        if (element.children.length === 0) {
+                            console.warn(`Gráfico ${id} pode não ter sido criado corretamente`);
+                        }
+                    }
+                });
+            }, 1000);
         }
 
         // Mapeamento de filtros para atributos data
@@ -1464,12 +1623,22 @@
 
         // Adicionar event listeners quando o DOM estiver carregado
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== DOMContentLoaded disparado ===');
+
             // Aguardar que todos os scripts sejam carregados
             window.addEventListener('load', function() {
-                // Inicializar dados
-                initializeData();
+                console.log('=== Window Load disparado ===');
+                console.log('Verificando se Plotly está disponível:', typeof Plotly);
+                console.log('Verificando se Leaflet está disponível:', typeof L);
 
-                // Filtros da aba Altitude
+                // Pequeno delay para garantir que tudo esteja pronto
+                setTimeout(() => {
+                    console.log('=== Iniciando dashboard após delay ===');
+                    // Inicializar dados
+                    initializeData();
+                }, 100);
+
+                // ... resto dos event listeners ...
                 document.getElementById('altitude-module-filter').addEventListener('change', () => applyFilters('altitude'));
                 document.getElementById('altitude-range-filter').addEventListener('change', () => applyFilters('altitude'));
                 document.getElementById('altitude-vegetation-filter').addEventListener('change', () => applyFilters('altitude'));
