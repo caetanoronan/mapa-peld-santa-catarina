@@ -137,18 +137,28 @@ m.get_root().add_child(folium.Element(legend_html))
 fallback_js = """
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // find any window global map_* and set zoom limits safely
-    for (const k in window) {
-        if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {
-            try {
-                window[k].setMinZoom(6);
-                window[k].setMaxZoom(18);
-                console.log('Zoom limits applied to', k);
-            } catch (e) {
-                console.warn('Failed to apply zoom limits', e);
+    // Try to set zoom limits on any global map_* object. Retry a few times
+    // to account for execution order differences in generated HTML.
+    function applyLimits(attemptsLeft) {
+        let appliedAny = false;
+        for (const k in window) {
+            if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {
+                try {
+                    window[k].setMinZoom(6);
+                    window[k].setMaxZoom(18);
+                    console.log('Zoom limits applied to', k);
+                    appliedAny = true;
+                } catch (e) {
+                    console.warn('Failed to apply zoom limits', e);
+                }
             }
         }
+        if (!appliedAny && attemptsLeft > 0) {
+            setTimeout(function(){ applyLimits(attemptsLeft - 1); }, 100);
+        }
     }
+    // initial attempt with 10 retries
+    applyLimits(10);
 });
 </script>
 """
