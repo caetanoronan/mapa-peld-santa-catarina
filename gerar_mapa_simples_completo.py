@@ -27,6 +27,11 @@ m = folium.Map(
     min_zoom=6,
     max_zoom=18
 )
+
+# Fallback: ensure min/max zoom are present in map options for older folium versions
+# Use 'minZoom'/'maxZoom' keys which appear in the Leaflet initialization
+m.options.setdefault('minZoom', 6)
+m.options.setdefault('maxZoom', 18)
 folium.TileLayer('OpenStreetMap', name='OpenStreetMap').add_to(m)
 folium.TileLayer(tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr='Esri', name='Satélite').add_to(m)
 folium.TileLayer('OpenTopoMap', name='Terreno').add_to(m)
