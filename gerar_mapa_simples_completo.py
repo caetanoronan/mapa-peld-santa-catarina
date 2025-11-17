@@ -1,9 +1,7 @@
 import pdfplumber
 import pandas as pd
 import folium
-from folium.plugins import MarkerCluster
 
-# Carregar coordenadas corrigidas
 coords_csv = 'coordenadas_ppBio_corrigidas.csv'
 
 df_coords = pd.read_csv(coords_csv, encoding='utf-8')
@@ -22,15 +20,13 @@ df_merged = df_merged.dropna(subset=['lat', 'long'])
 # Mapa aprimorado
 center = [df_merged['lat'].mean(), df_merged['long'].mean()]
 m = folium.Map(
-    location=center, 
-    zoom_start=10, 
-    tiles=None, 
+    location=center,
+    zoom_start=10,
+    tiles=None,
     control_scale=True,
-    min_zoom=6, 
+    min_zoom=6,
     max_zoom=18
 )
-
-# Camadas base
 folium.TileLayer('OpenStreetMap', name='OpenStreetMap').add_to(m)
 folium.TileLayer(tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr='Esri', name='Satélite').add_to(m)
 folium.TileLayer('OpenTopoMap', name='Terreno').add_to(m)
@@ -64,30 +60,6 @@ for mod in modules:
 # Adicionar controle de camadas
 folium.LayerControl(collapsed=False).add_to(m)
 
-# Adicionar script personalizado para limites de zoom
-zoom_script = """
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Garantir que os limites de zoom sejam aplicados
-    setTimeout(function() {
-        var map = null;
-        // Encontrar o mapa na página
-        for (var key in window) {
-            if (key.startsWith('map_') && window[key] instanceof L.Map) {
-                map = window[key];
-                break;
-            }
-        }
-        if (map) {
-            map.options.minZoom = 6;
-            map.options.maxZoom = 18;
-            console.log('Zoom limits applied: min=6, max=18');
-        }
-    }, 1000);
-});
-</script>
-"""
-m.get_root().add_child(folium.Element(zoom_script))
 
 # Adicionar marcadores
 for _, r in df_merged.iterrows():
@@ -156,5 +128,10 @@ m.get_root().add_child(folium.Element(legend_html))
 
 # Salvar
 m.save('mapa_simples_completo.html')
+# Folium sometimes serializes JS with an object spread token "...{" that breaks
+# in-browser initialization on some environments. Post-process the HTML:
+# Remove post-processing because it caused an invalid JS token in the generated HTML and
+# left the map blank for some users. For now, rely on folium's map options only and avoid
+# injecting/editing the rendered HTML at the end of the generation flow.
 print(f'Mapa simples gerado: mapa_simples_completo.html')
 print(f'Total de parcelas: {len(df_merged)}')
