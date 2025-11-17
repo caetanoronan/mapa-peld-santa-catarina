@@ -263,8 +263,12 @@ Após publicar no GitHub Pages, os mapas estarão disponíveis em:
 - **Mapa Principal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_interativo_peld.html
 - **Dashboard**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html
 - **Mapa Simples Completo**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html
+- **Página de Entrega (sumário + links)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_entrega_relatorio_final.html
 - **Índices de Vegetação (Completo)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
 - **Índices de Vegetação (Parques)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_parques.html
+
+### Página de Entrega (Dashboard de Entrega)
+- **Dashboard de Entrega:** `dashboard_entrega_relatorio_final.html` — página resumo com links diretos para o Mapa Principal (`mapa_simples_completo.html`), Dashboard Interativo (`dashboard_ppBio_interativo.html`) e a Comparação Visual (`comparacao_mapas_visual.html`). Apresenta tema moderno ColorBrewer BuGn e opções de acessibilidade (modo escuro, foco de teclado). Use-a para encaminhar material final ao orientador ou gestores.
 
 ### Análises Temporais 🕐
 
