@@ -325,7 +325,7 @@ Entenda as diferenças entre os índices e por que mostram valores diferentes:
 
 ## 🤖 Assistência de Desenvolvimento
 
-Este projeto foi desenvolvido com assistência de **GitHub Copilot** (AI Assistant) para:
+Este projeto foi desenvolvido com assistência de **GitHub Copilot — Raptor mini (Preview)** (AI Assistant) para:
 - Automação de processamento de dados geoespaciais
 - Desenvolvimento de visualizações interativas
 - Análises estatísticas e temporais

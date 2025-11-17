@@ -230,6 +230,6 @@ Abra o arquivo em um navegador para visualizar!
 ---
 
 **Desenvolvido por:** Ronan Armando Caetano (UFSC)  
-**Com assistência de:** GitHub Copilot  
+**Com assistência de:** GitHub Copilot — Raptor mini (Preview)  
 **Projeto:** PELD-BISC 2025  
 **Última atualização:** 10 de novembro de 2025

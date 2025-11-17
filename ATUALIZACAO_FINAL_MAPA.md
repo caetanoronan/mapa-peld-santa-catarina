@@ -337,7 +337,7 @@ c:\Users\caetanoronan\OneDrive - UFSC\Documentos\PELD -\
 ---
 
 **Desenvolvido por:** Ronan Armando Caetano (UFSC)  
-**Com assistência de:** GitHub Copilot  
+**Com assistência de:** GitHub Copilot — Raptor mini (Preview)  
 **Projeto:** PELD-BISC 2025  
 **Versão:** 2.0  
 **Última atualização:** 10 de novembro de 2025

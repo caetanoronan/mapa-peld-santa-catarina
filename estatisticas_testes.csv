@@ -1,0 +1,17 @@
+test,variable,stat,pvalue,pairs,r,rho
+Shapiro-Wilk,Altitude_mean,0.7589890136363925,5.839550206896976e-06,,,
+Shapiro-Wilk,biom_total_mean,0.8967972130481138,0.0600557241301003,,,
+Shapiro-Wilk,dossel_mean,0.782435234038051,0.00011743701792326665,,,
+Shapiro-Wilk,hmax_mean,0.969523595571928,0.8100383881836626,,,
+Pearson,,,0.6080058721819576,Altitude_mean x biom_total_mean,0.13404839337166807,
+Spearman,,,0.5668307307163287,Altitude_mean x biom_total_mean,,0.14950980392156862
+Pearson,,,0.17737395079107032,Altitude_mean x dossel_mean,0.2786636147064264,
+Spearman,,,0.720241344236858,Altitude_mean x dossel_mean,,0.07538461538461538
+Pearson,,,0.08132400271172738,Altitude_mean x hmax_mean,-0.43455196767300086,
+Spearman,,,0.18761411787479576,Altitude_mean x hmax_mean,,-0.3357843137254902
+Pearson,,,0.04999624531929577,biom_total_mean x dossel_mean,0.4821529144276553,
+Spearman,,,0.0049913959298703466,biom_total_mean x dossel_mean,,0.6470588235294119
+Pearson,,,0.038093572950929584,biom_total_mean x hmax_mean,-0.5063087878519061,
+Spearman,,,0.0160814859673801,biom_total_mean x hmax_mean,,-0.573529411764706
+Pearson,,,3.281244333964162e-05,dossel_mean x hmax_mean,-0.8331860107141766,
+Spearman,,,0.0007700533792802183,dossel_mean x hmax_mean,,-0.7352941176470589

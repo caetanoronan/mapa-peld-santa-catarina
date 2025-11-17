@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard PPBio - Versão Simplificada</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="dados_ppBio.js"></script>
+    <style>
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            padding: 10px;
+        }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Dashboard PPBio - Versão Simplificada</h1>
+
+    <div class="chart-container" id="chart1"></div>
+    <div class="chart-container" id="chart2"></div>
+    <div class="chart-container" id="chart3"></div>
+
+    <div id="status" style="margin-top: 20px; padding: 10px; background: #f0f0f0;"></div>
+
+    <script>
+        console.log('=== Dashboard Simplificado Iniciado ===');
+
+        let ppbioData = [];
+
+        function initializeData() {
+            console.log('Inicializando dados...');
+
+            if (window.ppbioData && window.ppbioData.length > 0) {
+                ppbioData = window.ppbioData;
+                console.log('✅ Dados carregados:', ppbioData.length, 'registros');
+
+                // Pequeno delay antes de criar gráficos
+                setTimeout(createCharts, 500);
+            } else {
+                console.error('❌ Dados não encontrados');
+                document.getElementById('status').innerHTML = 'Erro: Dados não carregados';
+                setTimeout(initializeData, 500);
+            }
+        }
+
+        function createCharts() {
+            console.log('Criando gráficos...');
+
+            try {
+                // Gráfico 1: Distribuição de altitude
+                createAltitudeChart();
+
+                // Aguardar um pouco e criar o próximo
+                setTimeout(() => {
+                    createVegetationChart();
+                }, 1000);
+
+                // E o último
+                setTimeout(() => {
+                    createBiomassChart();
+                }, 2000);
+
+            } catch (error) {
+                console.error('Erro geral:', error);
+                document.getElementById('status').innerHTML = 'Erro: ' + error.message;
+            }
+        }
+
+        function createAltitudeChart() {
+            console.log('Criando gráfico de altitude...');
+
+            const altitudes = ppbioData
+                .map(d => parseFloat(d.Altitude))
+                .filter(d => !isNaN(d) && d > 0 && isFinite(d));
+
+            console.log('Altitudes válidas:', altitudes.length);
+
+            if (altitudes.length === 0) {
+                document.getElementById('chart1').innerHTML = '<p>Nenhum dado de altitude válido encontrado</p>';
+                return;
+            }
+
+            const trace = {
+                x: altitudes,
+                type: 'histogram',
+                nbinsx: 15,
+                marker: {color: '#2E8B57'}
+            };
+
+            const layout = {
+                title: 'Distribuição de Altitude das Parcelas PPBio',
+                xaxis: {title: 'Altitude (m)'},
+                yaxis: {title: 'Número de Parcelas'},
+                height: 350
+            };
+
+            Plotly.newPlot('chart1', [trace], layout);
+            console.log('✅ Gráfico de altitude criado');
+        }
+
+        function createVegetationChart() {
+            console.log('Criando gráfico de vegetação...');
+
+            const vegCounts = {};
+            ppbioData.forEach(d => {
+                const veg = d['tipo.veg'];
+                if (veg && typeof veg === 'string' && veg.trim() !== '') {
+                    vegCounts[veg] = (vegCounts[veg] || 0) + 1;
+                }
+            });
+
+            console.log('Contagens de vegetação:', vegCounts);
+
+            if (Object.keys(vegCounts).length === 0) {
+                document.getElementById('chart2').innerHTML = '<p>Nenhum dado de vegetação válido encontrado</p>';
+                return;
+            }
+
+            const trace = {
+                x: Object.keys(vegCounts),
+                y: Object.values(vegCounts),
+                type: 'bar',
+                marker: {color: '#2E8B57'}
+            };
+
+            const layout = {
+                title: 'Tipos de Vegetação',
+                xaxis: {title: 'Tipo'},
+                yaxis: {title: 'Contagem'},
+                height: 350
+            };
+
+            Plotly.newPlot('chart2', [trace], layout);
+            console.log('✅ Gráfico de vegetação criado');
+        }
+
+        function createBiomassChart() {
+            console.log('Criando gráfico de biomassa...');
+
+            const biomassData = ppbioData
+                .map(d => ({
+                    altitude: parseFloat(d.Altitude),
+                    biomass: (parseFloat(d.Biom1 || 0) + parseFloat(d.Biom2 || 0) + parseFloat(d.Biom3 || 0) + parseFloat(d.Biom4 || 0)) / 4
+                }))
+                .filter(d => !isNaN(d.altitude) && !isNaN(d.biomass) && d.altitude > 0);
+
+            console.log('Dados de biomassa válidos:', biomassData.length);
+
+            if (biomassData.length === 0) {
+                document.getElementById('chart3').innerHTML = '<p>Nenhum dado de biomassa válido encontrado</p>';
+                return;
+            }
+
+            const trace = {
+                x: biomassData.map(d => d.altitude),
+                y: biomassData.map(d => d.biomass),
+                mode: 'markers',
+                type: 'scatter',
+                marker: {color: '#2E8B57', size: 6}
+            };
+
+            const layout = {
+                title: 'Altitude vs Biomassa',
+                xaxis: {title: 'Altitude (m)'},
+                yaxis: {title: 'Biomassa (%)'},
+                height: 350
+            };
+
+            Plotly.newPlot('chart3', [trace], layout);
+            console.log('✅ Gráfico de biomassa criado');
+
+            document.getElementById('status').innerHTML = '✅ Todos os gráficos criados com sucesso!';
+        }
+
+        // Iniciar quando tudo estiver carregado
+        window.addEventListener('load', function() {
+            console.log('Window loaded, iniciando...');
+            setTimeout(initializeData, 100);
+        });
+    </script>
+</body>
+</html>

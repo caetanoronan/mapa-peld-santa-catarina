@@ -24,6 +24,31 @@ rodape_creditos = """
 </div>
 """
 
+# Pequeno modal de créditos (leve, sem dependência de Bootstrap)
+modal_creditos = """
+<div id="creditsModal" style="display:none; position:fixed; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index:99999; align-items:center; justify-content:center;">
+    <div style="background:white; padding:20px; border-radius:8px; max-width:720px; margin: 4% auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h4 style="margin:0">📚 Créditos e Referências</h4>
+            <button id="creditsClose" style="border:none; background:none; font-size:20px">&times;</button>
+        </div>
+        <hr>
+        <p><strong>Autor:</strong> Ronan Armando Caetano — Graduando em Ciências Biológicas (UFSC); Técnico em Geoprocessamento (IFSC); Técnico em Saneamento (IFSC)</p>
+        <p><strong>Assistência:</strong> GitHub Copilot — Raptor mini (Preview)</p>
+        <p>Ver referências completas em <a href="CREDITOS.md" target="_blank">CREDITOS.md</a>.</p>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var credits = document.getElementById('creditsModal');
+        var closeBtn = document.getElementById('creditsClose');
+        document.querySelectorAll('a[href="CREDITOS.md"]').forEach(a => a.addEventListener('click', function(e){ e.preventDefault(); credits.style.display = 'flex'; }));
+        closeBtn && closeBtn.addEventListener('click', function(){ credits.style.display = 'none'; });
+        credits && credits.addEventListener('click', function(e){ if (e.target === credits) credits.style.display = 'none'; });
+    });
+</script>
+"""
+
 print("\n" + "="*70)
 print("   ADICIONANDO CRÉDITOS AOS MAPAS HTML")
 print("="*70)
@@ -55,7 +80,8 @@ for mapa in mapas_html:
         
         # Adicionar rodapé antes do </body>
         if '</body>' in conteudo:
-            conteudo = conteudo.replace('</body>', rodape_creditos + '\n</body>')
+            # Adicionar rodapé e modal
+            conteudo = conteudo.replace('</body>', rodape_creditos + '\n' + modal_creditos + '\n</body>')
             
             # Salvar arquivo atualizado
             with open(mapa, 'w', encoding='utf-8') as f:

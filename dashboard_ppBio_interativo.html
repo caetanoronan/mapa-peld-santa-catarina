@@ -182,6 +182,10 @@
             <span class="navbar-text">
                 Análise Ecológica de Parcelas - PELD
             </span>
+            <div style="margin-left: 16px;">
+                <small style="color: #fff; font-weight: 600;">Autor: Ronan Armando Caetano</small><br>
+                <small style="color: #fff;">Assistência: GitHub Copilot — Raptor mini (Preview)</small>
+            </div>
         </div>
     </nav>
     <!-- server warning removed for minimal changes (keep file:// behaviour unchanged) -->
@@ -1758,6 +1762,46 @@
                 tabs[newIndex].click();
             }
         });
+
+        /* Modal de Créditos (leve e independente de Bootstrap) */
+        (function() {
+            function createCreditsModal() {
+                const modal = document.createElement('div');
+                modal.id = 'creditsModal';
+                modal.style.cssText = 'position: fixed; z-index: 99999; left: 0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center;';
+
+                const content = document.createElement('div');
+                content.style.cssText = 'background:white; padding:20px; border-radius:8px; max-width:720px; width:90%; max-height:80%; overflow:auto;';
+                content.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h4 style="margin:0">📚 Créditos e Referências</h4>
+                        <button id="creditsClose" style="border:none;background:none;font-size:22px;">&times;</button>
+                    </div>
+                    <hr>
+                    <p><strong>Autor:</strong> Ronan Armando Caetano — Graduando em Ciências Biológicas (UFSC); Técnico em Geoprocessamento (IFSC); Técnico em Saneamento (IFSC)</p>
+                    <p><strong>Assistência de desenvolvimento:</strong> GitHub Copilot — Raptor mini (Preview)</p>
+                    <p>Veja a lista completa de referências em <a href="CREDITOS.md" target="_blank">CREDITOS.md</a>.</p>
+                    <p>Dados: Landsat 8/9 (USGS), shapefiles ICMBio, Programa PELD-BISC.</p>
+                `;
+
+                modal.appendChild(content);
+                document.body.appendChild(modal);
+
+                const openLinks = document.querySelectorAll('a[href="CREDITOS.md"], a[href$="CREDITOS.md"]');
+                openLinks.forEach(a => {
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        modal.style.display = 'flex';
+                    });
+                });
+
+                document.getElementById('creditsClose').addEventListener('click', function() { modal.style.display = 'none'; });
+                modal.addEventListener('click', function(e) { if (e.target === modal) modal.style.display = 'none'; });
+            }
+
+            if (document.readyState === 'complete' || document.readyState === 'interactive') createCreditsModal();
+            else document.addEventListener('DOMContentLoaded', createCreditsModal);
+        })();
     </script>
 </body>
 </html>
