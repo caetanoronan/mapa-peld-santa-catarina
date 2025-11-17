@@ -184,6 +184,7 @@
             </span>
         </div>
     </nav>
+    <!-- server warning removed for minimal changes (keep file:// behaviour unchanged) -->
 
     <div class="container mt-4">
         <div class="stats-summary">
@@ -1104,7 +1105,7 @@
                             </div>
                         </div>
                         <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee;">
-                            <div style="font-size: 11px; color: #666; text-align: center;">
+                            <div id="legend-parcel-count" style="font-size: 11px; color: #666; text-align: center;">
                                 ${parcelMarkers.length} parcelas visíveis
                             </div>
                         </div>
@@ -1154,7 +1155,7 @@
                     const matches = [];
                     window.ppbioCoordenadas.forEach(coord => {
                         if (coord.name.toLowerCase().includes(query) ||
-                            coord.module.toLowerCase().includes(query) ||
+                            normalizeModule(coord.module).toLowerCase().includes(query) ||
                             coord.type.toLowerCase().includes(query)) {
                             matches.push(coord);
                         }
@@ -1256,6 +1257,20 @@
                     overlayMaps["🏙️ Cidades Afetadas"] = layers[4];
 
                     console.log('Camadas GeoJSON carregadas com sucesso!');
+                    // Adicionar camadas ao mapa por padrão para facilitar a visualização inicial
+                    try {
+                        layers.forEach((layer, i) => {
+                            if (layer && layer.addTo) {
+                                layer.addTo(ppbioMap);
+                            }
+                            // Se a camada retornou vazia (fetch falhou) mostrar aviso no console
+                            if (layer && layer.getLayers && layer.getLayers().length === 0) {
+                                console.warn(`Camada vazia: ${['parque_nacional_sj.geojson','parque_estadual_serra_furada.geojson','parque_limite.geojson','limite_santa_catarina.geojson','cidades_afetadas.geojson'][i]} — verifique se a página foi servida por HTTP (use um servidor local)`);
+                            }
+                        });
+                    } catch (err) {
+                        console.warn('Erro ao adicionar camadas GeoJSON ao mapa por padrão:', err);
+                    }
                 } catch (error) {
                     console.error('Erro ao carregar camadas GeoJSON:', error);
                 }
@@ -1302,8 +1317,17 @@
             // Adicionar marcadores para cada parcela
             if (window.ppbioCoordenadas) {
                 window.ppbioCoordenadas.forEach(coord => {
+                    // Precomputar versão normalizada do módulo para buscas / filtros
+                    coord._moduleNormalized = normalizeModule(coord.module);
                     // Encontrar dados ecológicos correspondentes (baseado no nome da parcela)
                     const ecologicalData = data.find(d => d.Antigo === coord.name || d.Plot === coord.name);
+
+                    // Se createMap foi chamado com dados filtrados (updateMap), só adicionar marcadores
+                    // que tenham dados ecológicos correspondentes (presente em 'data'). Isso permite que
+                    // filtros por módulo funcionem para coordenadas com módulos no formato M1 ou M01.
+                    if (!ecologicalData && Array.isArray(data) && data.length !== (window.ppbioData||[]).length) {
+                        return; // pula parcelas que não estão no conjunto filtrado
+                    }
 
                     // Definir cor baseada no tipo de vegetação
                     let markerColor = '#2E8B57'; // Verde padrão
@@ -1315,6 +1339,8 @@
                             case 'FOM-CAMPO': markerColor = '#98FB98'; break;
                         }
                     }
+
+                    // (Use as coordenadas originais do arquivo - não tentar correções automáticas)
 
                     // Criar ícone personalizado
                     const customIcon = L.divIcon({
@@ -1374,6 +1400,17 @@
                 ppbioMap.addLayer(markerClusterGroup);
 
                 console.log('Adicionados', parcelMarkers.length, 'marcadores ao mapa (com clustering)');
+
+                    // Force Leaflet to recalc size in case the map was created while hidden (Bootstrap tabs)
+                    setTimeout(() => {
+                        try {
+                            if (ppbioMap && ppbioMap.invalidateSize) {
+                                ppbioMap.invalidateSize();
+                            }
+                        } catch (err) {
+                            console.warn('Falha ao invalidar tamanho do mapa:', err);
+                        }
+                    }, 300);
             } else {
                 console.warn('Coordenadas PPBio não encontradas!');
             }
@@ -1384,11 +1421,9 @@
             console.log('Atualizando mapa com', data.length, 'registros filtrados');
             createMap(data);
             // Atualizar contador na legenda
-            if (legendControl && legendControl.getContainer()) {
-                const counterDiv = legendControl.getContainer().querySelector('[style*="parcelas visíveis"]');
-                if (counterDiv) {
-                    counterDiv.textContent = `${parcelMarkers.length} parcelas visíveis`;
-                }
+            const counterDiv = document.getElementById('legend-parcel-count');
+            if (counterDiv) {
+                counterDiv.textContent = `${parcelMarkers.length} parcelas visíveis`;
             }
         }
 
@@ -1405,6 +1440,15 @@
             const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
 
             return denominator === 0 ? 0 : numerator / denominator;
+        }
+
+        // Normaliza módulos para formato M01, M02 (aceita M1, M01, m1 etc.)
+        function normalizeModule(mod) {
+            if (!mod && mod !== 0) return mod;
+            const mStr = String(mod).trim().toUpperCase();
+            const match = mStr.match(/^M(\d{1,2})$/);
+            if (match) return 'M' + match[1].padStart(2, '0');
+            return mStr;
         }
 
         // Inicializar todos os gráficos
@@ -1638,6 +1682,8 @@
                     initializeData();
                 }, 100);
 
+                // Keep it minimal: no file:// notifications here to avoid UI clutter
+
                 // ... resto dos event listeners ...
                 document.getElementById('altitude-module-filter').addEventListener('change', () => applyFilters('altitude'));
                 document.getElementById('altitude-range-filter').addEventListener('change', () => applyFilters('altitude'));
@@ -1671,6 +1717,24 @@
                 document.getElementById('map-vegetation-filter').addEventListener('change', () => applyFilters('mapa'));
                 document.getElementById('map-altitude-filter').addEventListener('change', () => applyFilters('mapa'));
                 document.getElementById('reset-map-filters').addEventListener('click', () => resetFilters('mapa'));
+
+                // Garantir que o mapa seja redesenhado quando a aba "Mapa" for exibida (Leaflet precisa do tamanho correto)
+                const mapaTabButton = document.getElementById('mapa-tab');
+                if (mapaTabButton) {
+                    mapaTabButton.addEventListener('shown.bs.tab', function (e) {
+                        console.log('Aba Mapa ativada — invalidando tamanho do mapa...');
+                        if (ppbioMap && ppbioMap.invalidateSize) {
+                            // Pequeno delay para garantir que a aba esteja totalmente visível
+                            setTimeout(() => {
+                                try {
+                                    ppbioMap.invalidateSize();
+                                } catch (err) {
+                                    console.warn('Erro ao invalidar o tamanho do mapa ao alternar a aba:', err);
+                                }
+                            }, 250);
+                        }
+                    });
+                }
             });
         });
 
