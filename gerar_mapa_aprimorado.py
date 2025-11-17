@@ -153,6 +153,30 @@ legend_html = '''
 m.get_root().html.add_child(folium.Element(legend_html))
 
 # Salvar
+ # Add JS fallback to enforce zoom limits
+minz = m.options.get('minZoom', 6)
+maxz = m.options.get('maxZoom', 18)
+fallback_js = f"""
+<script>
+document.addEventListener('DOMContentLoaded', function () {{
+    function applyLimits(attemptsLeft) {{
+        let applied = false;
+        for (const k in window) {{
+            if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {{
+                try {{
+                    window[k].setMinZoom({minz});
+                    window[k].setMaxZoom({maxz});
+                    applied = true;
+                }} catch (e) {{ console.warn('Failed to apply zoom', e); }}
+            }}
+        }}
+        if (!applied && attemptsLeft > 0) setTimeout(function(){{applyLimits(attemptsLeft - 1);}}, 100);
+    }}
+    applyLimits(10);
+}});
+</script>
+"""
+m.get_root().html.add_child(folium.Element(fallback_js))
 m.save('mapa_aprimorado.html')
 print('Mapa aprimorado gerado: mapa_aprimorado.html')
 # Add safe JS fallback to enforce zoom limits until Folium bug/serialization is resolved
@@ -178,4 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {{
 }});
 </script>
 """
-m.get_root().html.add_child(folium.Element(fallback_js))
+fallback_marker = '<!-- zoom-limits-applied -->'
+root_str = str(m.get_root())
+if fallback_marker not in root_str:
+    m.get_root().html.add_child(folium.Element(fallback_marker + fallback_js))

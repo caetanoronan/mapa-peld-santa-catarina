@@ -85,7 +85,10 @@ document.addEventListener('DOMContentLoaded', function () {{
 }});
 </script>
 """
-m.get_root().html.add_child(folium.Element(fallback_js))
+fallback_marker = '<!-- zoom-limits-applied -->'
+root_str = str(m.get_root())
+if fallback_marker not in root_str:
+    m.get_root().html.add_child(folium.Element(fallback_marker + fallback_js))
 
 # Adicionar marker cluster
 marker_cluster = MarkerCluster().add_to(m)

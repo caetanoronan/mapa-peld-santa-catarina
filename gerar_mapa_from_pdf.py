@@ -207,8 +207,6 @@ macro._template = template
 m.get_root().add_child(macro)
 
 out_html = 'mapa_interativo_from_pdf.html'
-m.save(out_html)
-# Add JS fallback for zoom limits
 minz = m.options.get('minZoom', 6)
 maxz = m.options.get('maxZoom', 18)
 fallback_js = f"""
@@ -231,7 +229,11 @@ document.addEventListener('DOMContentLoaded', function () {{
 }});
 </script>
 """
-m.get_root().html.add_child(folium.Element(fallback_js))
+fallback_marker = '<!-- zoom-limits-applied -->'
+root_str = str(m.get_root())
+if fallback_marker not in root_str:
+    m.get_root().html.add_child(folium.Element(fallback_marker + fallback_js))
+m.save(out_html)
 print(f'Mapa gerado: {out_html}')
 print("Contadores de marcadores por grupo:")
 for key, count in counters.items():

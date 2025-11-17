@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_66f870944bd665d088f3ef4e56455701 {
+                #map_d3d4f389f87a0433b4aac337ff1a804e {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -60,6 +60,25 @@
 </head>
 <body>
     
+    <!-- zoom-limits-applied -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function applyLimits(attemptsLeft) {
+        let applied = false;
+        for (const k in window) {
+            if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {
+                try {
+                    window[k].setMinZoom(8);
+                    window[k].setMaxZoom(18);
+                    applied = true;
+                } catch (e) { console.warn('Failed to apply zoom', e); }
+            }
+        }
+        if (!applied && attemptsLeft > 0) setTimeout(function(){applyLimits(attemptsLeft - 1);}, 100);
+    }
+    applyLimits(10);
+});
+</script>
     
     <div style="position: fixed; 
                 top: 10px; left: 50px; width: 500px; height: 90px; 
@@ -73,31 +92,14 @@
     </div>
     
     
-            <div class="folium-map" id="map_66f870944bd665d088f3ef4e56455701" ></div>
+            <div class="folium-map" id="map_d3d4f389f87a0433b4aac337ff1a804e" ></div>
         
-
-<div style="position: fixed; bottom: 0; left: 0; right: 0; 
-            background: rgba(255, 255, 255, 0.95); 
-            border-top: 2px solid #ddd; 
-            padding: 10px; 
-            z-index: 9999; 
-            font-size: 11px;
-            text-align: center;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
-    <strong>👨‍💻 Desenvolvido por:</strong> Ronan Armando Caetano (UFSC) | 
-    <strong>🤖 Com assistência de:</strong> GitHub Copilot | 
-    <strong>🏛️</strong> PELD-BISC 2025 | 
-    <strong>🛰️</strong> Dados: Landsat 8/9, ICMBio, PELD | 
-    <a href="dashboard_peld.html" style="color: #3498db; text-decoration: none; font-weight: bold;">📊 Dashboard</a> | 
-    <a href="CREDITOS.md" target="_blank" style="color: #3498db; text-decoration: none; font-weight: bold;">📚 Créditos Completos</a>
-</div>
-
 </body>
 <script>
     
     
-            var map_66f870944bd665d088f3ef4e56455701 = L.map(
-                "map_66f870944bd665d088f3ef4e56455701",
+            var map_d3d4f389f87a0433b4aac337ff1a804e = L.map(
+                "map_d3d4f389f87a0433b4aac337ff1a804e",
                 {
                     center: [-28.125, -49.533],
                     crs: L.CRS.EPSG3857,
@@ -105,6 +107,8 @@
   "zoom": 11,
   "zoomControl": true,
   "preferCanvas": false,
+  "minZoom": 8,
+  "maxZoom": 18,
 }
 
                 }
@@ -114,7 +118,7 @@
 
         
     
-            var tile_layer_9bd9d30beef868a57ae47e512a30125a = L.tileLayer(
+            var tile_layer_b47260c16d78c79c96531c8034bf52fe = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 8,
@@ -131,10 +135,10 @@
             );
         
     
-            tile_layer_9bd9d30beef868a57ae47e512a30125a.addTo(map_66f870944bd665d088f3ef4e56455701);
+            tile_layer_b47260c16d78c79c96531c8034bf52fe.addTo(map_d3d4f389f87a0433b4aac337ff1a804e);
         
     
-            var tile_layer_c0b024751148619d1b79dcc1d30db8c5 = L.tileLayer(
+            var tile_layer_7bde43666f62e2051bc0e13407e77a05 = L.tileLayer(
                 "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -151,23 +155,23 @@
             );
         
     
-            tile_layer_c0b024751148619d1b79dcc1d30db8c5.addTo(map_66f870944bd665d088f3ef4e56455701);
+            tile_layer_7bde43666f62e2051bc0e13407e77a05.addTo(map_d3d4f389f87a0433b4aac337ff1a804e);
         
     
-            var feature_group_95a92387eb049383391e55902b48f76c = L.featureGroup(
+            var feature_group_09f7a292cd59f9908eb8fdee86b8f9aa = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_12dbf9f6dae5b864656706c25b2f7084 = L.marker(
+            var marker_9e50680806aff2ae167684d9d710e4f9 = L.marker(
                 [-28.167, -49.583],
                 {
 }
-            ).addTo(feature_group_95a92387eb049383391e55902b48f76c);
+            ).addTo(feature_group_09f7a292cd59f9908eb8fdee86b8f9aa);
         
     
-            var icon_a9657abc1a017dcb7b63821a7a7d4170 = L.AwesomeMarkers.icon(
+            var icon_a504f4e4e310b2f709e040885f488fa7 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -178,24 +182,24 @@
             );
         
     
-        var popup_902f3c3ab962a7f326a17157a055c324 = L.popup({
+        var popup_72eaaa9e76a8feab115cccbdd803b037 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_d5a8cb31518158e92186994f273a35bc = $(`<div id="html_d5a8cb31518158e92186994f273a35bc" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2020-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.327</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.159</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.372</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.354</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_902f3c3ab962a7f326a17157a055c324.setContent(html_d5a8cb31518158e92186994f273a35bc);
+                var html_01e973600f72f62765eae2586ba9cef3 = $(`<div id="html_01e973600f72f62765eae2586ba9cef3" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2020-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.327</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.159</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.372</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.354</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_72eaaa9e76a8feab115cccbdd803b037.setContent(html_01e973600f72f62765eae2586ba9cef3);
             
         
 
-        marker_12dbf9f6dae5b864656706c25b2f7084.bindPopup(popup_902f3c3ab962a7f326a17157a055c324)
+        marker_9e50680806aff2ae167684d9d710e4f9.bindPopup(popup_72eaaa9e76a8feab115cccbdd803b037)
         ;
 
         
     
     
-            marker_12dbf9f6dae5b864656706c25b2f7084.bindTooltip(
+            marker_9e50680806aff2ae167684d9d710e4f9.bindTooltip(
                 `<div>
                      PNSJ - 2020
                  </div>`,
@@ -205,17 +209,17 @@
             );
         
     
-                marker_12dbf9f6dae5b864656706c25b2f7084.setIcon(icon_a9657abc1a017dcb7b63821a7a7d4170);
+                marker_9e50680806aff2ae167684d9d710e4f9.setIcon(icon_a504f4e4e310b2f709e040885f488fa7);
             
     
-            var marker_de4ac738aa4f2a2392ada34cb92c880e = L.marker(
+            var marker_e72ef92db2935b73ae4cde4187151aa2 = L.marker(
                 [-28.083, -49.483],
                 {
 }
-            ).addTo(feature_group_95a92387eb049383391e55902b48f76c);
+            ).addTo(feature_group_09f7a292cd59f9908eb8fdee86b8f9aa);
         
     
-            var icon_14271a6a3e151abfcbf8b580299aee5a = L.AwesomeMarkers.icon(
+            var icon_543dfbc773921079cc665d189440255f = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -226,24 +230,24 @@
             );
         
     
-        var popup_bb6d60590810cf0a0854c096d0e22a00 = L.popup({
+        var popup_4b38ac971248766e2db8225e7b77dd33 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_b9ca988c091432ed61fbce97cf7ec0bf = $(`<div id="html_b9ca988c091432ed61fbce97cf7ec0bf" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2020-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.368</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.336</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.436</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.393</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_bb6d60590810cf0a0854c096d0e22a00.setContent(html_b9ca988c091432ed61fbce97cf7ec0bf);
+                var html_f41b988513ed5a7e5ecdfe8f5df39dca = $(`<div id="html_f41b988513ed5a7e5ecdfe8f5df39dca" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2020-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.368</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.336</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.436</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.393</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_4b38ac971248766e2db8225e7b77dd33.setContent(html_f41b988513ed5a7e5ecdfe8f5df39dca);
             
         
 
-        marker_de4ac738aa4f2a2392ada34cb92c880e.bindPopup(popup_bb6d60590810cf0a0854c096d0e22a00)
+        marker_e72ef92db2935b73ae4cde4187151aa2.bindPopup(popup_4b38ac971248766e2db8225e7b77dd33)
         ;
 
         
     
     
-            marker_de4ac738aa4f2a2392ada34cb92c880e.bindTooltip(
+            marker_e72ef92db2935b73ae4cde4187151aa2.bindTooltip(
                 `<div>
                      PESF - 2020
                  </div>`,
@@ -253,23 +257,23 @@
             );
         
     
-                marker_de4ac738aa4f2a2392ada34cb92c880e.setIcon(icon_14271a6a3e151abfcbf8b580299aee5a);
+                marker_e72ef92db2935b73ae4cde4187151aa2.setIcon(icon_543dfbc773921079cc665d189440255f);
             
     
-            var feature_group_5b073027b03a30b69f58b9ac5c05377f = L.featureGroup(
+            var feature_group_bc24595ac053f0e93e1fda7e7390bb3e = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_e588ba3f4a33bbc39a381dde9c1f27ec = L.marker(
+            var marker_200023e163601968193306118cf5c92f = L.marker(
                 [-28.167, -49.583],
                 {
 }
-            ).addTo(feature_group_5b073027b03a30b69f58b9ac5c05377f);
+            ).addTo(feature_group_bc24595ac053f0e93e1fda7e7390bb3e);
         
     
-            var icon_6c01c27de751b035ef32edc30dd1b515 = L.AwesomeMarkers.icon(
+            var icon_4870a5c71b18086548fc84f6fb646431 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -280,24 +284,24 @@
             );
         
     
-        var popup_b3e41e052889493d630f7bfd773a4066 = L.popup({
+        var popup_6e46b53a2f7b846df960bf46d07c697f = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_71e00048da64734ff09452b78c07d1f2 = $(`<div id="html_71e00048da64734ff09452b78c07d1f2" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2021-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.356</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.2</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.406</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.383</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_b3e41e052889493d630f7bfd773a4066.setContent(html_71e00048da64734ff09452b78c07d1f2);
+                var html_5e7847af6971b47e1b69d1c35401e417 = $(`<div id="html_5e7847af6971b47e1b69d1c35401e417" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2021-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.356</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.2</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.406</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.383</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_6e46b53a2f7b846df960bf46d07c697f.setContent(html_5e7847af6971b47e1b69d1c35401e417);
             
         
 
-        marker_e588ba3f4a33bbc39a381dde9c1f27ec.bindPopup(popup_b3e41e052889493d630f7bfd773a4066)
+        marker_200023e163601968193306118cf5c92f.bindPopup(popup_6e46b53a2f7b846df960bf46d07c697f)
         ;
 
         
     
     
-            marker_e588ba3f4a33bbc39a381dde9c1f27ec.bindTooltip(
+            marker_200023e163601968193306118cf5c92f.bindTooltip(
                 `<div>
                      PNSJ - 2021
                  </div>`,
@@ -307,17 +311,17 @@
             );
         
     
-                marker_e588ba3f4a33bbc39a381dde9c1f27ec.setIcon(icon_6c01c27de751b035ef32edc30dd1b515);
+                marker_200023e163601968193306118cf5c92f.setIcon(icon_4870a5c71b18086548fc84f6fb646431);
             
     
-            var marker_d2347bed1b2c778bbcba2a5e1fe80f3f = L.marker(
+            var marker_67e567dbf77e375f8fcec059f961f999 = L.marker(
                 [-28.083, -49.483],
                 {
 }
-            ).addTo(feature_group_5b073027b03a30b69f58b9ac5c05377f);
+            ).addTo(feature_group_bc24595ac053f0e93e1fda7e7390bb3e);
         
     
-            var icon_0166a9957d0af1e4f4a6868e267958d7 = L.AwesomeMarkers.icon(
+            var icon_f1adb74e4ef47ba1cd5c67db08841ee9 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -328,24 +332,24 @@
             );
         
     
-        var popup_c643ebd643ccf877a128d2d5d06dca82 = L.popup({
+        var popup_09219e4f3c035c1ccc1d11cdd59eb52b = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_024bea12d9047d831b3b62cac528660b = $(`<div id="html_024bea12d9047d831b3b62cac528660b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2021-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.406</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.386</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.479</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.431</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_c643ebd643ccf877a128d2d5d06dca82.setContent(html_024bea12d9047d831b3b62cac528660b);
+                var html_fe2787964c61808496440c72411f11be = $(`<div id="html_fe2787964c61808496440c72411f11be" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2021-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.406</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.386</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.479</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.431</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_09219e4f3c035c1ccc1d11cdd59eb52b.setContent(html_fe2787964c61808496440c72411f11be);
             
         
 
-        marker_d2347bed1b2c778bbcba2a5e1fe80f3f.bindPopup(popup_c643ebd643ccf877a128d2d5d06dca82)
+        marker_67e567dbf77e375f8fcec059f961f999.bindPopup(popup_09219e4f3c035c1ccc1d11cdd59eb52b)
         ;
 
         
     
     
-            marker_d2347bed1b2c778bbcba2a5e1fe80f3f.bindTooltip(
+            marker_67e567dbf77e375f8fcec059f961f999.bindTooltip(
                 `<div>
                      PESF - 2021
                  </div>`,
@@ -355,23 +359,23 @@
             );
         
     
-                marker_d2347bed1b2c778bbcba2a5e1fe80f3f.setIcon(icon_0166a9957d0af1e4f4a6868e267958d7);
+                marker_67e567dbf77e375f8fcec059f961f999.setIcon(icon_f1adb74e4ef47ba1cd5c67db08841ee9);
             
     
-            var feature_group_197692b740637ad680b0fef3de3f5e2d = L.featureGroup(
+            var feature_group_e9d982741ef6a359c43f58190332a4ce = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_8d27206495fe100a4744ac0a38cc3992 = L.marker(
+            var marker_9ed973026196ec6605e90ee2e24176c6 = L.marker(
                 [-28.167, -49.583],
                 {
 }
-            ).addTo(feature_group_197692b740637ad680b0fef3de3f5e2d);
+            ).addTo(feature_group_e9d982741ef6a359c43f58190332a4ce);
         
     
-            var icon_abeae7b5f3c0960d899a4b6d93b6ee04 = L.AwesomeMarkers.icon(
+            var icon_2de318af0745d28172ae84f599e72ef6 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -382,24 +386,24 @@
             );
         
     
-        var popup_c1b739411b3b45fa431ff135c0c6f2fa = L.popup({
+        var popup_52aeeaaf41bdb691a991209baaa45c83 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_e27faae38a10185cb91ada667390fb12 = $(`<div id="html_e27faae38a10185cb91ada667390fb12" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2022-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.328</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.154</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.371</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.355</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_c1b739411b3b45fa431ff135c0c6f2fa.setContent(html_e27faae38a10185cb91ada667390fb12);
+                var html_e34b9bb33479b58bda65b32b73099f43 = $(`<div id="html_e34b9bb33479b58bda65b32b73099f43" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2022-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.328</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.154</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.371</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.355</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_52aeeaaf41bdb691a991209baaa45c83.setContent(html_e34b9bb33479b58bda65b32b73099f43);
             
         
 
-        marker_8d27206495fe100a4744ac0a38cc3992.bindPopup(popup_c1b739411b3b45fa431ff135c0c6f2fa)
+        marker_9ed973026196ec6605e90ee2e24176c6.bindPopup(popup_52aeeaaf41bdb691a991209baaa45c83)
         ;
 
         
     
     
-            marker_8d27206495fe100a4744ac0a38cc3992.bindTooltip(
+            marker_9ed973026196ec6605e90ee2e24176c6.bindTooltip(
                 `<div>
                      PNSJ - 2022
                  </div>`,
@@ -409,17 +413,17 @@
             );
         
     
-                marker_8d27206495fe100a4744ac0a38cc3992.setIcon(icon_abeae7b5f3c0960d899a4b6d93b6ee04);
+                marker_9ed973026196ec6605e90ee2e24176c6.setIcon(icon_2de318af0745d28172ae84f599e72ef6);
             
     
-            var marker_983497043f7c2a25400c532bd11a2a77 = L.marker(
+            var marker_780eb70dc571fe8313a6f61bd7e95a88 = L.marker(
                 [-28.083, -49.483],
                 {
 }
-            ).addTo(feature_group_197692b740637ad680b0fef3de3f5e2d);
+            ).addTo(feature_group_e9d982741ef6a359c43f58190332a4ce);
         
     
-            var icon_dfecf9b77233e4ce3930a30b30333f59 = L.AwesomeMarkers.icon(
+            var icon_c1ff2622abd5c4e528fd351ee25d298e = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -430,24 +434,24 @@
             );
         
     
-        var popup_f24717aa02c9c961b047977a66b0174a = L.popup({
+        var popup_bac89d4088e0563a255cd982239eb382 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_61ed5f66dead6b9d2a4c7da04ba66c3e = $(`<div id="html_61ed5f66dead6b9d2a4c7da04ba66c3e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2022-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.375</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.337</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.441</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.4</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_f24717aa02c9c961b047977a66b0174a.setContent(html_61ed5f66dead6b9d2a4c7da04ba66c3e);
+                var html_819ae4422985c537f442f7daefa7f674 = $(`<div id="html_819ae4422985c537f442f7daefa7f674" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2022-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.375</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.337</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.441</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.4</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_bac89d4088e0563a255cd982239eb382.setContent(html_819ae4422985c537f442f7daefa7f674);
             
         
 
-        marker_983497043f7c2a25400c532bd11a2a77.bindPopup(popup_f24717aa02c9c961b047977a66b0174a)
+        marker_780eb70dc571fe8313a6f61bd7e95a88.bindPopup(popup_bac89d4088e0563a255cd982239eb382)
         ;
 
         
     
     
-            marker_983497043f7c2a25400c532bd11a2a77.bindTooltip(
+            marker_780eb70dc571fe8313a6f61bd7e95a88.bindTooltip(
                 `<div>
                      PESF - 2022
                  </div>`,
@@ -457,23 +461,23 @@
             );
         
     
-                marker_983497043f7c2a25400c532bd11a2a77.setIcon(icon_dfecf9b77233e4ce3930a30b30333f59);
+                marker_780eb70dc571fe8313a6f61bd7e95a88.setIcon(icon_c1ff2622abd5c4e528fd351ee25d298e);
             
     
-            var feature_group_2a9a33ede7567c0d9e847e875a8294c0 = L.featureGroup(
+            var feature_group_7e4d17feb9ef6869a2d9c14f8d970f61 = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_acfa7c96706dead5323b670132512aff = L.marker(
+            var marker_66348c5a3aa6ec52c7c6a3e8ac1c4007 = L.marker(
                 [-28.167, -49.583],
                 {
 }
-            ).addTo(feature_group_2a9a33ede7567c0d9e847e875a8294c0);
+            ).addTo(feature_group_7e4d17feb9ef6869a2d9c14f8d970f61);
         
     
-            var icon_4e6a2bee6b85d0a16691cfc875d6ffb3 = L.AwesomeMarkers.icon(
+            var icon_64ceb2c997fa46b4809a4ec971f404b3 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -484,24 +488,24 @@
             );
         
     
-        var popup_958de0552fa7ccf364556c09861820e0 = L.popup({
+        var popup_03216c09da79aed9766689bf519b429c = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_02306c0aa8cc640b36f83d815cd59c23 = $(`<div id="html_02306c0aa8cc640b36f83d815cd59c23" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2023-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.351</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.193</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.4</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.378</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_958de0552fa7ccf364556c09861820e0.setContent(html_02306c0aa8cc640b36f83d815cd59c23);
+                var html_8dc247147a33dc94214ab4a7457cea11 = $(`<div id="html_8dc247147a33dc94214ab4a7457cea11" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2023-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.351</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.193</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.4</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.378</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_03216c09da79aed9766689bf519b429c.setContent(html_8dc247147a33dc94214ab4a7457cea11);
             
         
 
-        marker_acfa7c96706dead5323b670132512aff.bindPopup(popup_958de0552fa7ccf364556c09861820e0)
+        marker_66348c5a3aa6ec52c7c6a3e8ac1c4007.bindPopup(popup_03216c09da79aed9766689bf519b429c)
         ;
 
         
     
     
-            marker_acfa7c96706dead5323b670132512aff.bindTooltip(
+            marker_66348c5a3aa6ec52c7c6a3e8ac1c4007.bindTooltip(
                 `<div>
                      PNSJ - 2023
                  </div>`,
@@ -511,17 +515,17 @@
             );
         
     
-                marker_acfa7c96706dead5323b670132512aff.setIcon(icon_4e6a2bee6b85d0a16691cfc875d6ffb3);
+                marker_66348c5a3aa6ec52c7c6a3e8ac1c4007.setIcon(icon_64ceb2c997fa46b4809a4ec971f404b3);
             
     
-            var marker_141d7d985cc8ac9200bffcb765e2516d = L.marker(
+            var marker_99d5135fd9e2dbfc0fc33d13ffcf334b = L.marker(
                 [-28.083, -49.483],
                 {
 }
-            ).addTo(feature_group_2a9a33ede7567c0d9e847e875a8294c0);
+            ).addTo(feature_group_7e4d17feb9ef6869a2d9c14f8d970f61);
         
     
-            var icon_f298cbccf6dd187ef720cbbb07d4de46 = L.AwesomeMarkers.icon(
+            var icon_5be4a45d760cdbb7bdfaa2b220343330 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -532,24 +536,24 @@
             );
         
     
-        var popup_f4a0fbb66348230ab23089725cde7a6a = L.popup({
+        var popup_a5a9b42952713b2787f4b3b0f8f984ac = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_9509792876cb76d626ec1ff5e1edc053 = $(`<div id="html_9509792876cb76d626ec1ff5e1edc053" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2023-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.376</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.354</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.448</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.401</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_f4a0fbb66348230ab23089725cde7a6a.setContent(html_9509792876cb76d626ec1ff5e1edc053);
+                var html_49cb4e7380180136e2d3a664e5bcfd8d = $(`<div id="html_49cb4e7380180136e2d3a664e5bcfd8d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2023-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.376</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.354</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.448</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.401</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_a5a9b42952713b2787f4b3b0f8f984ac.setContent(html_49cb4e7380180136e2d3a664e5bcfd8d);
             
         
 
-        marker_141d7d985cc8ac9200bffcb765e2516d.bindPopup(popup_f4a0fbb66348230ab23089725cde7a6a)
+        marker_99d5135fd9e2dbfc0fc33d13ffcf334b.bindPopup(popup_a5a9b42952713b2787f4b3b0f8f984ac)
         ;
 
         
     
     
-            marker_141d7d985cc8ac9200bffcb765e2516d.bindTooltip(
+            marker_99d5135fd9e2dbfc0fc33d13ffcf334b.bindTooltip(
                 `<div>
                      PESF - 2023
                  </div>`,
@@ -559,23 +563,23 @@
             );
         
     
-                marker_141d7d985cc8ac9200bffcb765e2516d.setIcon(icon_f298cbccf6dd187ef720cbbb07d4de46);
+                marker_99d5135fd9e2dbfc0fc33d13ffcf334b.setIcon(icon_5be4a45d760cdbb7bdfaa2b220343330);
             
     
-            var feature_group_3fd1e65b1075d2f2dc520e9a96081439 = L.featureGroup(
+            var feature_group_12035f08b8bcb6efce3da6abc1deb6d9 = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_29fd6095c9d99b5eb6377d08363c94dd = L.marker(
+            var marker_4cbfac8650e37a04c59740cc0f95e42d = L.marker(
                 [-28.167, -49.583],
                 {
 }
-            ).addTo(feature_group_3fd1e65b1075d2f2dc520e9a96081439);
+            ).addTo(feature_group_12035f08b8bcb6efce3da6abc1deb6d9);
         
     
-            var icon_3297d02a2906af36e1cd09b2f78a52a4 = L.AwesomeMarkers.icon(
+            var icon_03cb7853a1520098c7a74639c4b85b88 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -586,24 +590,24 @@
             );
         
     
-        var popup_8f1577fb780c027a60db0ced64fe651e = L.popup({
+        var popup_97ef9d85ac9cd250209896196a1dd495 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_846c51ee1882047330990ebe32e4c5ec = $(`<div id="html_846c51ee1882047330990ebe32e4c5ec" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2024-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.402</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.264</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.459</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.429</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_8f1577fb780c027a60db0ced64fe651e.setContent(html_846c51ee1882047330990ebe32e4c5ec);
+                var html_0354ef37d86cea3dfae663c15f7f09f1 = $(`<div id="html_0354ef37d86cea3dfae663c15f7f09f1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #2c5f2d; margin-bottom: 10px;">                 🏔️ Parque Nacional São Joaquim             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2024-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.402</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.264</td>                 </tr>                 <tr style="background: #e8f5e9;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.459</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.429</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_97ef9d85ac9cd250209896196a1dd495.setContent(html_0354ef37d86cea3dfae663c15f7f09f1);
             
         
 
-        marker_29fd6095c9d99b5eb6377d08363c94dd.bindPopup(popup_8f1577fb780c027a60db0ced64fe651e)
+        marker_4cbfac8650e37a04c59740cc0f95e42d.bindPopup(popup_97ef9d85ac9cd250209896196a1dd495)
         ;
 
         
     
     
-            marker_29fd6095c9d99b5eb6377d08363c94dd.bindTooltip(
+            marker_4cbfac8650e37a04c59740cc0f95e42d.bindTooltip(
                 `<div>
                      PNSJ - 2024
                  </div>`,
@@ -613,17 +617,17 @@
             );
         
     
-                marker_29fd6095c9d99b5eb6377d08363c94dd.setIcon(icon_3297d02a2906af36e1cd09b2f78a52a4);
+                marker_4cbfac8650e37a04c59740cc0f95e42d.setIcon(icon_03cb7853a1520098c7a74639c4b85b88);
             
     
-            var marker_1b3f3ae26cc3be363afe74547b6ce088 = L.marker(
+            var marker_dab6e281ffca78c02e1f440740fbc425 = L.marker(
                 [-28.083, -49.483],
                 {
 }
-            ).addTo(feature_group_3fd1e65b1075d2f2dc520e9a96081439);
+            ).addTo(feature_group_12035f08b8bcb6efce3da6abc1deb6d9);
         
     
-            var icon_146f70fca294feafe6e1dd7dfcbdd072 = L.AwesomeMarkers.icon(
+            var icon_83ddfd2b29db5bbbbe0fa461d1f52805 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -634,24 +638,24 @@
             );
         
     
-        var popup_8ff7b80ef6e694a283dac4cb2f733976 = L.popup({
+        var popup_32463a012698f910113ce0fc507a22a3 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_ac2cd603cee73fa791c73991bb9251c3 = $(`<div id="html_ac2cd603cee73fa791c73991bb9251c3" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2024-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.43</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.428</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.51</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.455</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
-                popup_8ff7b80ef6e694a283dac4cb2f733976.setContent(html_ac2cd603cee73fa791c73991bb9251c3);
+                var html_b774a5b87aa39f25b9563519daf47eaa = $(`<div id="html_b774a5b87aa39f25b9563519daf47eaa" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 280px;">             <h4 style="color: #1565c0; margin-bottom: 10px;">                 🏞️ Parque Estadual Serra Furada             </h4>             <p style="font-size: 11px; color: #666; margin: 5px 0;">                 📅 Data: <strong>2024-07-15</strong>             </p>             <hr style="margin: 10px 0;">             <table style="width: 100%; font-size: 12px;">                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>NDVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.43</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>EVI</strong></td>                     <td style="padding: 5px; text-align: right;">1.428</td>                 </tr>                 <tr style="background: #e3f2fd;">                     <td style="padding: 5px;"><strong>SAVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.51</td>                 </tr>                 <tr>                     <td style="padding: 5px;"><strong>ARVI</strong></td>                     <td style="padding: 5px; text-align: right;">0.455</td>                 </tr>             </table>             <p style="font-size: 10px; color: #888; margin-top: 10px;">                 🌱 Saúde da vegetação: Boa             </p>         </div>         </div>`)[0];
+                popup_32463a012698f910113ce0fc507a22a3.setContent(html_b774a5b87aa39f25b9563519daf47eaa);
             
         
 
-        marker_1b3f3ae26cc3be363afe74547b6ce088.bindPopup(popup_8ff7b80ef6e694a283dac4cb2f733976)
+        marker_dab6e281ffca78c02e1f440740fbc425.bindPopup(popup_32463a012698f910113ce0fc507a22a3)
         ;
 
         
     
     
-            marker_1b3f3ae26cc3be363afe74547b6ce088.bindTooltip(
+            marker_dab6e281ffca78c02e1f440740fbc425.bindTooltip(
                 `<div>
                      PESF - 2024
                  </div>`,
@@ -661,7 +665,7 @@
             );
         
     
-                marker_1b3f3ae26cc3be363afe74547b6ce088.setIcon(icon_146f70fca294feafe6e1dd7dfcbdd072);
+                marker_dab6e281ffca78c02e1f440740fbc425.setIcon(icon_83ddfd2b29db5bbbbe0fa461d1f52805);
             
     
             L.Control.TimeDimensionCustom = L.Control.TimeDimension.extend({
@@ -671,7 +675,7 @@
                     return newdate.format("YYYY");
                 }
             });
-            map_66f870944bd665d088f3ef4e56455701.timeDimension = L.timeDimension(
+            map_d3d4f389f87a0433b4aac337ff1a804e.timeDimension = L.timeDimension(
                 {
                     period: "P1Y",
                 }
@@ -692,7 +696,7 @@
 },
 }
             );
-            map_66f870944bd665d088f3ef4e56455701.addControl(this.timeDimensionControl);
+            map_d3d4f389f87a0433b4aac337ff1a804e.addControl(this.timeDimensionControl);
 
             var geoJsonLayer = L.geoJson({"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.583, -28.167]}, "properties": {"time": "2020-07-15", "popup": "PNSJ - 2020", "icon": "circle", "iconstyle": {"fillColor": "green", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.483, -28.083]}, "properties": {"time": "2020-07-15", "popup": "PESF - 2020", "icon": "circle", "iconstyle": {"fillColor": "blue", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.583, -28.167]}, "properties": {"time": "2021-07-15", "popup": "PNSJ - 2021", "icon": "circle", "iconstyle": {"fillColor": "green", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.483, -28.083]}, "properties": {"time": "2021-07-15", "popup": "PESF - 2021", "icon": "circle", "iconstyle": {"fillColor": "blue", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.583, -28.167]}, "properties": {"time": "2022-07-15", "popup": "PNSJ - 2022", "icon": "circle", "iconstyle": {"fillColor": "green", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.483, -28.083]}, "properties": {"time": "2022-07-15", "popup": "PESF - 2022", "icon": "circle", "iconstyle": {"fillColor": "blue", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.583, -28.167]}, "properties": {"time": "2023-07-15", "popup": "PNSJ - 2023", "icon": "circle", "iconstyle": {"fillColor": "green", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.483, -28.083]}, "properties": {"time": "2023-07-15", "popup": "PESF - 2023", "icon": "circle", "iconstyle": {"fillColor": "blue", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.583, -28.167]}, "properties": {"time": "2024-07-15", "popup": "PNSJ - 2024", "icon": "circle", "iconstyle": {"fillColor": "green", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-49.483, -28.083]}, "properties": {"time": "2024-07-15", "popup": "PESF - 2024", "icon": "circle", "iconstyle": {"fillColor": "blue", "fillOpacity": 0.8, "stroke": "true", "radius": 8}}}]}, {
                     pointToLayer: function (feature, latLng) {
@@ -728,14 +732,14 @@
                     }
                 })
 
-            var timestamped_geo_json_31e1b5c1f8c52f0f2e56990567d953b9 = L.timeDimension.layer.geoJson(
+            var timestamped_geo_json_9b73c08ae7747f403682ba00d8217ac4 = L.timeDimension.layer.geoJson(
                 geoJsonLayer,
                 {
                     updateTimeDimension: true,
                     addlastPoint: true,
                     duration: "P1Y",
                 }
-            ).addTo(map_66f870944bd665d088f3ef4e56455701);
+            ).addTo(map_d3d4f389f87a0433b4aac337ff1a804e);
         
 </script>
 </html>

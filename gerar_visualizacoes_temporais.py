@@ -146,7 +146,11 @@ document.addEventListener('DOMContentLoaded', function () {{
 }});
 </script>
 """
-    m.get_root().html.add_child(folium.Element(fallback_js))
+    # Ensure we add this fallback only once per map root (avoid duplicates)
+    fallback_marker = '<!-- zoom-limits-applied -->'
+    root_str = str(m.get_root())
+    if fallback_marker not in root_str:
+        m.get_root().html.add_child(folium.Element(fallback_marker + fallback_js))
     
     # Adicionar camada de topografia
     folium.TileLayer(

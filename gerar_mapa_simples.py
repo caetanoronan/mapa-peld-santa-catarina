@@ -57,8 +57,7 @@ fg_riparia.add_to(m)
 folium.LayerControl().add_to(m)
 
 out = 'mapa_interativo_simples.html'
-m.save(out)
-# Inject fallback JS to apply zoom limits safely after map initialization
+# Inject fallback JS to apply zoom limits safely before saving
 minz = m.options.get('minZoom', 6)
 maxz = m.options.get('maxZoom', 18)
 fallback_js = f"""
@@ -81,5 +80,12 @@ document.addEventListener('DOMContentLoaded', function () {{
 }});
 </script>
 """
-m.get_root().html.add_child(folium.Element(fallback_js))
+# Avoid injecting the same fallback multiple times across runs
+fallback_marker = '<!-- zoom-limits-applied -->'
+root_str = str(m.get_root())
+if fallback_marker not in root_str:
+    m.get_root().html.add_child(folium.Element(fallback_marker + fallback_js))
+# Avoid injecting the same fallback multiple times across runs
+
+m.save(out)
 print(f"Mapa simples criado: {out}")
