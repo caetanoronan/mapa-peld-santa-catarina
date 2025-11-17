@@ -27,8 +27,7 @@ m = folium.Map(
     tiles=None, 
     control_scale=True,
     min_zoom=6, 
-    max_zoom=18,
-    options={'minZoom': 6, 'maxZoom': 18}
+    max_zoom=18
 )
 
 # Camadas base
@@ -64,6 +63,31 @@ for mod in modules:
 
 # Adicionar controle de camadas
 folium.LayerControl(collapsed=False).add_to(m)
+
+# Adicionar script personalizado para limites de zoom
+zoom_script = """
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Garantir que os limites de zoom sejam aplicados
+    setTimeout(function() {
+        var map = null;
+        // Encontrar o mapa na página
+        for (var key in window) {
+            if (key.startsWith('map_') && window[key] instanceof L.Map) {
+                map = window[key];
+                break;
+            }
+        }
+        if (map) {
+            map.options.minZoom = 6;
+            map.options.maxZoom = 18;
+            console.log('Zoom limits applied: min=6, max=18');
+        }
+    }, 1000);
+});
+</script>
+"""
+m.get_root().add_child(folium.Element(zoom_script))
 
 # Adicionar marcadores
 for _, r in df_merged.iterrows():
