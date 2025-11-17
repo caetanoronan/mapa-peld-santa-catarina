@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Mapa PELD Santa Catarina</title>
     
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -37,8 +38,8 @@
 
             <style>#map {
                 position:absolute;
-                top:0;
-                bottom:0;
+                top:60px;
+                bottom:100px;
                 right:0;
                 left:0;
                 }
@@ -82,7 +83,15 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
     
+    <h1 style="text-align: center; margin: 10px;">Parcelas de estudo PELD-BISC Santa Catarina</h1>
+    
             <div class="folium-map" id="map_985d4b3d4e4209c0bf0b7ffc1a14f995" ></div>
+        
+    <footer style="position: absolute; bottom: 0; left: 0; right: 0; background: white; padding: 10px; text-align: center; border-top: 1px solid #ccc;">
+        <strong>Autor:</strong> Ronan Armando Caetano — Graduando em Ciências Biológicas (UFSC); Técnico em Geoprocessamento (IFSC); Técnico em Saneamento (IFSC)<br>
+        <strong>Referência:</strong> Caetano, R. A. (2025). Mapas Interativos do Programa PELD - Biodiversidade de Santa Catarina. Disponível em: https://caetanoronan.github.io/mapa-peld-santa-catarina/<br>
+        <strong>🤖 Assistência de desenvolvimento:</strong> GitHub Copilot — Raptor mini (Preview)
+    </footer>
         
 </body>
 <script>
@@ -1588,6 +1597,10 @@ document.addEventListener('DOMContentLoaded', function () {
 }
             ).addTo(map_985d4b3d4e4209c0bf0b7ffc1a14f995);
 
+            // Keep layer control expanded
+            map_985d4b3d4e4209c0bf0b7ffc1a14f995.on('zoomend moveend click', function() {
+                layer_control_ad1b40d483cb86dcc55b73f41b47402d.expand();
+            });
         
 </script>
 </html>

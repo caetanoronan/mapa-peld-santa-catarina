@@ -36,6 +36,8 @@ mapas_html = [
     'mapa_comparacao_lado_a_lado.html',
     'mapa_serie_temporal.html',
     'mapa_analise_ndvi_vs_evi.html'
+    , 'dashboard_peld.html'
+    , 'mapa_simples_completo.html'
 ]
 
 for mapa in mapas_html:
