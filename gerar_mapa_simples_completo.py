@@ -131,6 +131,29 @@ legend_html = '''
 '''
 m.get_root().add_child(folium.Element(legend_html))
 
+# Non-breaking JS fallback to enforce min/max zoom after map is created.
+# This avoids changing the Leaflet initializer object and thus prevents
+# parsing issues in environments where Folium emits a spread-like token.
+fallback_js = """
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // find any window global map_* and set zoom limits safely
+    for (const k in window) {
+        if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {
+            try {
+                window[k].setMinZoom(6);
+                window[k].setMaxZoom(18);
+                console.log('Zoom limits applied to', k);
+            } catch (e) {
+                console.warn('Failed to apply zoom limits', e);
+            }
+        }
+    }
+});
+</script>
+"""
+m.get_root().add_child(folium.Element(fallback_js))
+
 # Salvar
 m.save('mapa_simples_completo.html')
 # Folium sometimes serializes JS with an object spread token "...{" that breaks
