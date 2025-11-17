@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 """
-m.get_root().add_child(folium.Element(fallback_js))
+m.get_root().html.add_child(folium.Element(fallback_js))
 
 # Salvar
 m.save('mapa_simples_completo.html')
