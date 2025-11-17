@@ -12,6 +12,7 @@ files = {
     'Resumo por Parcela': 'resumo_por_parcela.csv',
     'Consolidado por Parcela': 'relatorio_consolidado_parcela.csv',
     'Alertas de Dados': 'alertas_dados.csv',
+    'Relatório Estatístico': 'apresentacao_relatorio_estatistico.html',
 }
 
 out = Path('relatorios_dashboard.html')
@@ -46,6 +47,13 @@ for idx,(title,filename) in enumerate(files.items()):
     html.append(f'<div class="tab-pane fade {active}" id="tab{idx}" role="tabpanel" aria-labelledby="tab{idx}-tab">')
     if Path(filename).exists():
         # read CSV
+        # if html, embed iframe. If CSV, create table.
+        if filename.lower().endswith('.html'):
+            html.append(f'<iframe src="{filename}" width="100%" height="800px" frameborder="0"></iframe>')
+            html.append(f'<p>Arquivo: <code>{filename}</code> — <a href="{filename}" target="_blank" rel="noopener">Abrir</a></p>')
+            html.append('</div>')
+            first=False
+            continue
         rows = []
         with open(filename, encoding='utf-8') as f:
             reader = csv.reader(f)
@@ -78,9 +86,10 @@ html.append(f'<script src="{JQUERY}"></script>')
 html.append(f'<script src="{DATATABLES_JS}"></script>')
 html.append('<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>')
 html.append('<script>')
-# Initialize tables
-for idx in range(len(files)):
-    html.append(f'$(document).ready(function(){{ $("#table{idx}").DataTable({{"pageLength": 25}}); }});')
+# Initialize tables only for CSV-based tabs
+for idx,(title,filename) in enumerate(files.items()):
+    if filename.lower().endswith('.csv') and Path(filename).exists():
+        html.append(f'$(document).ready(function(){{ $("#table{idx}").DataTable({{"pageLength": 25}}); }});')
 html.append('</script>')
 
 html.append('</div></body></html>')

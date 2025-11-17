@@ -20,6 +20,9 @@
 <li class="nav-item" role="presentation">
 <button class="nav-link " id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Alertas de Dados</button>
 </li>
+<li class="nav-item" role="presentation">
+<button class="nav-link " id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="tab4" aria-selected="false">Relatório Estatístico</button>
+</li>
 </ul>
 <div class="tab-content mt-3" id="relTabsContent">
 <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="tab0-tab">
@@ -1373,7 +1376,11 @@
 <p>Arquivo: <code>relatorio_consolidado_parcela.csv</code> — <a href="relatorio_consolidado_parcela.csv" download>Baixar CSV</a></p>
 </div>
 <div class="tab-pane fade " id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-<div class="alert alert-warning">Arquivo <code>alertas_dados.csv</code> não encontrado.</div>
+<div class="alert alert-warning">Arquivo <code>alertas_dados.csv</code> não encontrado. Para gerar executável: <code>python gerar_relatorios_avancados.py</code> (local). Consulte o script <code>gerar_relatorios_avancados.py</code> para ajustar thresholds de alertas.</div>
+</div>
+<div class="tab-pane fade " id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
+<p>Relatório interativo (HTML): <a href="apresentacao_relatorio_estatistico.html" target="_blank">Abrir Apresentação Estatística</a></p>
+<p>Arquivos de saída: <code>estatisticas_testes.csv</code>, <code>estatisticas_modelos.csv</code> — <a href="estatisticas_testes.csv" download>Baixar testes</a> | <a href="estatisticas_modelos.csv" download>Baixar modelos</a></p>
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
