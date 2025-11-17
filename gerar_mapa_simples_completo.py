@@ -26,9 +26,9 @@ m = folium.Map(
     zoom_start=10, 
     tiles=None, 
     control_scale=True,
-    min_zoom=8, 
-    max_zoom=17,
-    options={'minZoom': 8, 'maxZoom': 17}
+    min_zoom=6, 
+    max_zoom=18,
+    options={'minZoom': 6, 'maxZoom': 18}
 )
 
 # Camadas base
