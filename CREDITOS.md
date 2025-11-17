@@ -256,6 +256,8 @@ Disponível em: https://caetanoronan.github.io/mapa-peld-santa-catarina/
 - **Repositório GitHub:** https://github.com/caetanoronan/mapa-peld-santa-catarina
 - **Dashboard Online:** https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html
 - **Mapas Interativos:** https://caetanoronan.github.io/mapa-peld-santa-catarina/
+ - **Mapas Interativos:** https://caetanoronan.github.io/mapa-peld-santa-catarina/ (ver destaque: `mapa_simples_completo.html`)
+ - **Mapa Simples Completo (destaque):** https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html
 
 ---
 
