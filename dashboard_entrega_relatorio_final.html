@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Entrega - Relatório Final (Dashboard)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f6f8fb; }
+        .card { box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+        .link-btn { text-decoration: none; }
+        .page-header { padding: 30px 0; }
+        /* Dark mode support */
+        :root { --bg: #f6f8fb; --card-bg: #ffffff; --text: #222; --muted: #666; }
+        .dark-mode { --bg: #121212; --card-bg: #1e1e1e; --text: #e8e8e8; --muted: #b5b5b5; }
+        body { background: var(--bg); color: var(--text); }
+        .card { background: var(--card-bg); }
+        a { color: #0d6efd; }
+        .dark-mode a { color: #66b2ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-end mt-3">
+            <button id="darkToggle" class="btn btn-sm btn-outline-secondary">🌓 Modo Escuro</button>
+        </div>
+        <div class="page-header text-center">
+            <h1>Entrega do Relatório Final — Produtos PELD</h1>
+            <p class="lead">Links diretos e explicações dos produtos entregues. Clique para abrir cada recurso no GitHub Pages.</p>
+        </div>
+
+        <div class="row gy-4">
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3>🗺️ Mapa principal — Mapa Simples Completo</h3>
+                    <p><strong>Link:</strong> <a href="https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html" target="_blank">https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html</a></p>
+                    <p><strong>O que é:</strong> Um mapa interativo (Folium/Leaflet) que mostra todas as parcelas PELD no estado de Santa Catarina. Tem camadas base (OpenStreetMap, Satélite, Terreno), camadas contextuais (parques e limites), e marcadores por parcela com popups e informações.</p>
+                    <p><strong>Como usar:</strong> Abra o link, utilize controles de camadas para alternar fundos e visualize os marcadores; clique em um marcador para ver informações da parcela (módulo, tipo de vegetação e coordenadas).</p>
+                    <p><strong>Quando usar:</strong> Para exploração espacial rápida das parcelas, ver localização geográfica e camadas de contexto (parques, limite estadual).</p>
+                    <div class="text-end">
+                        <a class="btn btn-primary link-btn" href="https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html" target="_blank">Abrir Mapa</a>
+                    </div>
+                </div>
+                <!-- ColorBrewer card removed as requested -->
+            </div>
+
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3>📊 Dashboard PPBio Interativo</h3>
+                    <p><strong>Link:</strong> <a href="https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_ppBio_interativo.html" target="_blank">https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_ppBio_interativo.html</a></p>
+                    <p><strong>O que é:</strong> Painel interativo com gráficos (Plotly) e filtros dinâmicos para explorar variáveis do inventário: altitude, tipos de vegetação, biomassa por estrato, correlações, variáveis do solo e um mapa interativo das parcelas com cluster.</p>
+                    <p><strong>Como usar:</strong> Use as abas para navegar entre análises (Altitude, Vegetação, Biomassa etc.), aplique filtros por módulo/vegetação/altitude e veja os gráficos atualizarem. A aba "Mapa" traz um mapa com busca por parcela e popups informativos.</p>
+                    <p><strong>Quando usar:</strong> Para análise detalhada, inspeção estatística e para apresentação de resultados dinâmicos ao time (gráficos exportáveis e filtros para relatórios).</p>
+                    <div class="text-end">
+                        <a class="btn btn-primary link-btn" href="https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_ppBio_interativo.html" target="_blank">Abrir Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card p-4">
+                    <h3>🔍 Comparação Visual — Mapa Planejado vs Implementado</h3>
+                    <p><strong>Link:</strong> <a href="https://caetanoronan.github.io/mapa-peld-santa-catarina/comparacao_mapas_visual.html" target="_blank">https://caetanoronan.github.io/mapa-peld-santa-catarina/comparacao_mapas_visual.html</a></p>
+                    <p><strong>O que é:</strong> Página de comparação que mostra (1) o mapa planejado com as 49 parcelas originalmente propostas, (2) o mapa de parcelas efetivamente implementadas (33), e (3) estatísticas e recomendações (taxas de implementação por módulo, parcelas não implantadas, análise por tipo ripária/terrestre).</p>
+                    <p><strong>Como usar:</strong> Abra a página para ver os mapas lado a lado (inclui iframes dos mapas correspondentes). Use este recurso para apresentar conclusões chave do relatório final e justificar recomendações de ação priorizada.</p>
+                    <p><strong>Quando usar:</strong> Ideal para capítulos do relatório final onde se documenta discrepâncias entre planejamento e campo, para reuniões com gestores e para fornecer um link público de visualização.</p>
+                    <div class="text-end">
+                        <a class="btn btn-primary link-btn" href="https://caetanoronan.github.io/mapa-peld-santa-catarina/comparacao_mapas_visual.html" target="_blank">Abrir Comparação</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-3 mb-5">
+                <div class="alert alert-info">
+                    <h5>📌 Observações finais</h5>
+                    <ul>
+                        <li>Todas as páginas estão publicadas no GitHub Pages; links acima abrem versões hospedadas no repositório <code>caetanoronan/mapa-peld-santa-catarina</code>.</li>
+                        <li>Se você atualizar arquivos HTML no branch de publicação, aguarde alguns minutos pelo cache do GitHub Pages.</li>
+                        <li>Se quiser, faço um link direto no dashboard principal para este arquivo de entrega ou incluo um botão de download do relatório PDF.</li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-success" href="https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html" target="_blank">Voltar ao Dashboard Principal</a>&nbsp;&nbsp;
+                    <a class="btn btn-outline-secondary" href="CREDITOS.md">Créditos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center mt-4 mb-4 text-muted">
+        <small>
+            <strong>Autor:</strong> Ronan Armando Caetano — Graduando em Ciências Biológicas (UFSC); Técnico em Geoprocessamento (IFSC); Técnico em Saneamento (IFSC)<br>
+            <strong>Assistência de desenvolvimento:</strong> GitHub Copilot — Raptor mini (Preview) (assistência de IA para otimizações e debug)
+        </small>
+    </footer>
+</body>
+<script>
+    // Dark mode toggle — stores preference in localStorage
+    const darkBtn = document.getElementById('darkToggle');
+    function setDarkMode(on) {
+        if (on) document.documentElement.classList.add('dark-mode');
+        else document.documentElement.classList.remove('dark-mode');
+        localStorage.setItem('dashboard_dark', on ? '1' : '0');
+        if (darkBtn) darkBtn.textContent = on ? '🌑 Modo Escuro' : '🌓 Modo Escuro';
+    }
+
+    (function() {
+        const saved = localStorage.getItem('dashboard_dark');
+        if (saved === null) {
+            // Follow system preference if not set
+            const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setDarkMode(prefers);
+        } else {
+            setDarkMode(saved === '1');
+        }
+    })();
+
+    darkBtn && darkBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.contains('dark-mode');
+        setDarkMode(!isDark);
+    });
+</script>
+</html>
