@@ -11,18 +11,37 @@
         .link-btn { text-decoration: none; }
         .page-header { padding: 30px 0; }
         /* Dark mode support */
+        /* Base colors */
         :root { --bg: #f6f8fb; --card-bg: #ffffff; --text: #222; --muted: #666; }
+        /* ColorBrewer BuGn (n=3) */
+        :root { --bugn-1: #e5f5f9; --bugn-2: #99d8c9; --bugn-3: #2ca25f; }
         .dark-mode { --bg: #121212; --card-bg: #1e1e1e; --text: #e8e8e8; --muted: #b5b5b5; }
         body { background: var(--bg); color: var(--text); }
         .card { background: var(--card-bg); }
         a { color: #0d6efd; }
         .dark-mode a { color: #66b2ff; }
+
+        /* Modern theme with accessible BuGn palette */
+        .modern-mode body { background: linear-gradient(180deg, var(--bugn-1), var(--bg)); }
+        .modern-mode .page-header { padding: 36px 0; }
+        .modern-mode .container { max-width: 1100px; }
+        .modern-mode .card { border-radius: 12px; border: 1px solid rgba(44,162,95,0.06); }
+        .modern-mode h1, .modern-mode h3 { color: var(--bugn-3); }
+        .modern-mode .page-header .lead { color: #163a3a; }
+        .modern-mode .card p strong { color: var(--bugn-2); }
+        .modern-mode .btn-primary { background-color: var(--bugn-3); border-color: var(--bugn-3); }
+        .modern-mode .btn-primary:hover { background-color: #238a43; border-color: #238a43; }
+
+        /* Accessible focus and keyboard navigation */
+        .modern-mode button:focus, .modern-mode a:focus { outline: 3px solid rgba(44,162,95,0.2); outline-offset: 2px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="d-flex justify-content-end mt-3">
             <button id="darkToggle" class="btn btn-sm btn-outline-secondary">🌓 Modo Escuro</button>
+            &nbsp;
+            <button id="modernToggle" class="btn btn-sm btn-outline-primary" aria-pressed="false" aria-label="Alternar tema moderno">🎨 Tema Moderno</button>
         </div>
         <div class="page-header text-center">
             <h1>Entrega do Relatório Final — Produtos PELD</h1>
@@ -116,6 +135,28 @@
     darkBtn && darkBtn.addEventListener('click', () => {
         const isDark = document.documentElement.classList.contains('dark-mode');
         setDarkMode(!isDark);
+    });
+
+    // Modern theme toggle — BuGn accessible palette
+    const modernBtn = document.getElementById('modernToggle');
+    function setModernMode(on) {
+        if (on) document.documentElement.classList.add('modern-mode');
+        else document.documentElement.classList.remove('modern-mode');
+        localStorage.setItem('dashboard_modern', on ? '1' : '0');
+        if (modernBtn) {
+            modernBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            modernBtn.textContent = on ? '✨ Tema Moderno' : '🎨 Tema Moderno';
+        }
+    }
+
+    (function() {
+        const savedModern = localStorage.getItem('dashboard_modern');
+        if (savedModern === '1') setModernMode(true);
+    })();
+
+    modernBtn && modernBtn.addEventListener('click', () => {
+        const isModern = document.documentElement.classList.contains('modern-mode');
+        setModernMode(!isModern);
     });
 </script>
 </html>
