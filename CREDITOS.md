@@ -10,12 +10,16 @@
 - **Programa:** Pesquisa Ecológica de Longa Duração (PELD)
 - **Projeto:** PELD-BISC - Biodiversidade de Santa Catarina
 - **Ano:** 2025
+- **Funções e Formação:**
+  - Graduando em Ciências Biológicas — UFSC
+  - Técnico em Geoprocessamento — IFSC
+  - Técnico em Saneamento (curso técnico)
 
 ---
 
-## 🤖 ASSISTÊNCIA DE DESENVOLVIMENTO
+- ## 🤖 ASSISTÊNCIA DE DESENVOLVIMENTO
 
-Este projeto foi desenvolvido com assistência de **GitHub Copilot** (AI Assistant da Microsoft/OpenAI)
+Este projeto recebeu assistência de **GitHub Copilot** (AI assistant). A versão do modelo utilizada foi **Raptor mini (Preview)**.
 
 **Contribuições da IA:**
 - Automação de processamento de dados geoespaciais em Python
