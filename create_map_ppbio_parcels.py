@@ -148,6 +148,7 @@ m.get_root().html.add_child(folium.Element(title_html))
 # Salvar mapa
 m.save('mapa_parcelas_ppbio_existentes.html')
 print("\nMapa salvo como 'mapa_parcelas_ppbio_existentes.html'")
+print("Nota: este mapa é o arquivo histórico das parcelas existentes. Para apresentações rápidas, considere usar 'mapa_simples_completo.html' gerado por 'gerar_mapa_simples_completo.py'.")
 
 # Estatísticas
 print("\nEstatísticas do mapa:")

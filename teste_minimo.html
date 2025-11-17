@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Mínimo</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Teste Mínimo - Plotly</h1>
+    <div id="chart1" style="width: 600px; height: 300px; border: 1px solid black;"></div>
+    <div id="chart2" style="width: 600px; height: 300px; border: 1px solid black;"></div>
+    <div id="status"></div>
+
+    <script>
+        console.log('=== Teste Mínimo Iniciado ===');
+
+        // Teste 1: Gráfico simples sem dados externos
+        const trace1 = {
+            x: [1, 2, 3, 4],
+            y: [10, 11, 12, 13],
+            type: 'scatter'
+        };
+
+        const layout1 = {
+            title: 'Teste 1: Gráfico Simples'
+        };
+
+        try {
+            Plotly.newPlot('chart1', [trace1], layout1);
+            console.log('✅ Teste 1: Gráfico simples criado');
+            document.getElementById('status').innerHTML += '<p style="color: green;">Teste 1: OK</p>';
+        } catch (error) {
+            console.error('❌ Teste 1 falhou:', error);
+            document.getElementById('status').innerHTML += '<p style="color: red;">Teste 1: FALHA</p>';
+        }
+
+        // Aguardar um pouco e testar com dados externos
+        setTimeout(() => {
+            console.log('=== Teste 2: Com dados externos ===');
+
+            if (typeof window.ppbioData === 'undefined') {
+                console.error('❌ Dados PPBio não carregados');
+                document.getElementById('status').innerHTML += '<p style="color: red;">Dados não carregados</p>';
+                return;
+            }
+
+            console.log('✅ Dados PPBio carregados:', window.ppbioData.length, 'registros');
+
+            // Teste 2: Gráfico com dados reais
+            const altitudes = window.ppbioData
+                .map(d => parseFloat(d.Altitude))
+                .filter(d => !isNaN(d) && d > 0);
+
+            console.log('Altitudes encontradas:', altitudes.length);
+
+            if (altitudes.length === 0) {
+                console.error('❌ Nenhuma altitude válida');
+                document.getElementById('status').innerHTML += '<p style="color: red;">Nenhuma altitude válida</p>';
+                return;
+            }
+
+            const trace2 = {
+                x: altitudes,
+                type: 'histogram',
+                nbinsx: 10
+            };
+
+            const layout2 = {
+                title: 'Teste 2: Dados PPBio'
+            };
+
+            try {
+                Plotly.newPlot('chart2', [trace2], layout2);
+                console.log('✅ Teste 2: Gráfico com dados criado');
+                document.getElementById('status').innerHTML += '<p style="color: green;">Teste 2: OK</p>';
+            } catch (error) {
+                console.error('❌ Teste 2 falhou:', error);
+                document.getElementById('status').innerHTML += '<p style="color: red;">Teste 2: FALHA - ' + error.message + '</p>';
+            }
+        }, 1000);
+    </script>
+
+    <script src="dados_ppBio.js"></script>
+</body>
+</html>

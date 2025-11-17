@@ -93,7 +93,7 @@ Ripárias: ██████████░░░░░░░░░░░  45% 
 
 ### Mapas Disponíveis:
 - [**Mapa Completo**](https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_interativo_peld.html): Todas as 49 parcelas planejadas
-- [**Mapa Existentes**](https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_parcelas_ppbio_existentes.html): 33 parcelas implementadas
+- [**Mapa Simples Completo**](https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html): 49 parcelas (visualização completa)
 
 ### Códigos de Cor:
 - 🔴 **Módulo 1**: Vermelho (100% implementado)

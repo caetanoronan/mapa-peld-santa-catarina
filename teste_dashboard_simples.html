@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Dashboard Simples</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="dados_ppBio.js"></script>
+</head>
+<body>
+    <h1>Teste Dashboard Simples</h1>
+    <div id="test-chart" style="width: 800px; height: 400px;"></div>
+
+    <script>
+        console.log('Iniciando teste simples...');
+        console.log('window.ppbioData:', typeof window.ppbioData);
+
+        function testChart() {
+            if (!window.ppbioData || window.ppbioData.length === 0) {
+                console.error('Dados não encontrados!');
+                return;
+            }
+
+            console.log('Dados encontrados:', window.ppbioData.length, 'registros');
+
+            // Testar apenas com altitude
+            const altitudes = window.ppbioData.map(d => d.Altitude).filter(d => {
+                const num = parseFloat(d);
+                return !isNaN(num) && num > 0 && isFinite(num);
+            });
+
+            console.log('Altitudes válidas:', altitudes.length);
+
+            if (altitudes.length === 0) {
+                document.getElementById('test-chart').innerHTML = '<p style="color: red;">Nenhuma altitude válida encontrada!</p>';
+                return;
+            }
+
+            const trace = {
+                x: altitudes,
+                type: 'histogram',
+                nbinsx: 20,
+                marker: {color: '#2E8B57'}
+            };
+
+            const layout = {
+                title: 'Teste: Distribuição de Altitude',
+                xaxis: {title: 'Altitude (m)'},
+                yaxis: {title: 'Número de Parcelas'}
+            };
+
+            try {
+                Plotly.newPlot('test-chart', [trace], layout);
+                console.log('Gráfico criado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao criar gráfico:', error);
+                document.getElementById('test-chart').innerHTML = `<p style="color: red;">Erro: ${error.message}</p>`;
+            }
+        }
+
+        // Aguardar carregamento
+        window.addEventListener('load', function() {
+            console.log('Window loaded, testing chart...');
+            setTimeout(testChart, 500);
+        });
+    </script>
+</body>
+</html>

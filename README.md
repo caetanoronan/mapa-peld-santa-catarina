@@ -41,7 +41,9 @@ O arquivo `mapa_interativo_peld.html` é um mapa interativo criado com Folium (b
 
 ## Mapa das Parcelas PPBio Existentes
 
-O arquivo `mapa_parcelas_ppbio_existentes.html` apresenta um mapa interativo focado exclusivamente nas parcelas PPBio que foram efetivamente implementadas no campo, baseado na validação cruzada entre dados de coordenadas e informações do PDF oficial.
+O arquivo `mapa_simples_completo.html` apresenta uma versão simplificada do mapa com todas as parcelas exibidas em uma visualização compacta, adequada para apresentações rápidas.
+
+> ⚠️ Nota: o arquivo `mapa_parcelas_ppbio_existentes.html` (Mapa das Parcelas PPBio Existentes) foi mantido por histórico, mas para a versão final de apresentação preferimos `mapa_simples_completo.html`. O arquivo antigo contém apenas as parcelas validadas em campo; o novo reúne a visão completa e é o recomendado para visualização geral.
 
 ### Características:
 - **33 parcelas existentes** validadas contra dados oficiais
@@ -60,7 +62,7 @@ O arquivo `mapa_parcelas_ppbio_existentes.html` apresenta um mapa interativo foc
 - **Validação**: Coordenadas verificadas contra PDF oficial do projeto
 
 ### Como visualizar:
-- Abra o arquivo `mapa_parcelas_ppbio_existentes.html` em qualquer navegador web
+- Abra o arquivo `mapa_simples_completo.html` em qualquer navegador web
 - Use o zoom para explorar agrupamentos de parcelas
 - Clique nos marcadores para ver informações detalhadas
 
@@ -260,7 +262,7 @@ O mapa é totalmente autônomo (HTML + JS + CSS embutidos), não requer servidor
 Após publicar no GitHub Pages, os mapas estarão disponíveis em:
 - **Mapa Principal**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_interativo_peld.html
 - **Dashboard**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html
-- **Parcelas PPBio Existentes**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_parcelas_ppbio_existentes.html
+- **Mapa Simples Completo**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html
 - **Índices de Vegetação (Completo)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
 - **Índices de Vegetação (Parques)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_parques.html
 
