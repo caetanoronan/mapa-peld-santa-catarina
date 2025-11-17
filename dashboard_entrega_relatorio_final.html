@@ -14,7 +14,7 @@
         /* Base colors */
         :root { --bg: #f6f8fb; --card-bg: #ffffff; --text: #222; --muted: #666; }
         /* ColorBrewer BuGn (n=3) */
-        :root { --bugn-1: #e5f5f9; --bugn-2: #99d8c9; --bugn-3: #2ca25f; }
+        :root { --bugn-1: #e5f5f9; /* light */ --bugn-2: #66bfa9; /* medium, increased contrast */ --bugn-3: #1f8a49; /* dark, stronger contrast */ }
         .dark-mode { --bg: #121212; --card-bg: #1e1e1e; --text: #e8e8e8; --muted: #b5b5b5; }
         body { background: var(--bg); color: var(--text); }
         .card { background: var(--card-bg); }
@@ -29,8 +29,8 @@
         .modern-mode h1, .modern-mode h3 { color: var(--bugn-3); }
         .modern-mode .page-header .lead { color: #163a3a; }
         .modern-mode .card p strong { color: var(--bugn-2); }
-        .modern-mode .btn-primary { background-color: var(--bugn-3); border-color: var(--bugn-3); }
-        .modern-mode .btn-primary:hover { background-color: #238a43; border-color: #238a43; }
+        .modern-mode .btn-primary { background-color: var(--bugn-3); border-color: var(--bugn-3); color: #fff; }
+        .modern-mode .btn-primary:hover { background-color: #166836; border-color: #166836; }
 
         /* Accessible focus and keyboard navigation */
         .modern-mode button:focus, .modern-mode a:focus { outline: 3px solid rgba(44,162,95,0.2); outline-offset: 2px; }
@@ -150,8 +150,13 @@
     }
 
     (function() {
+        // Default: enable modern theme unless user explicitly chose otherwise
         const savedModern = localStorage.getItem('dashboard_modern');
-        if (savedModern === '1') setModernMode(true);
+        if (savedModern === null) {
+            setModernMode(true);
+        } else if (savedModern === '1') {
+            setModernMode(true);
+        }
     })();
 
     modernBtn && modernBtn.addEventListener('click', () => {
