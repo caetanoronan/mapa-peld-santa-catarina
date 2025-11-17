@@ -47,6 +47,10 @@ except:
 # Criar mapa base
 mapa = folium.Map(location=[df['lat'].mean(), df['long'].mean()], zoom_start=10, min_zoom=8, max_zoom=18)
 
+# Ensure fallback exists for older Folium
+mapa.options.setdefault('minZoom', 8)
+mapa.options.setdefault('maxZoom', 18)
+
 # Adicionar camada de relevo
 folium.TileLayer(
     tiles='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',

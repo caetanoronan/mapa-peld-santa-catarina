@@ -29,7 +29,11 @@ df['long'] = pd.to_numeric(df['long'], errors='coerce')
 df = df.dropna(subset=['lat', 'long'])
 
 # Criar mapa
-m = folium.Map(location=[df['lat'].mean(), df['long'].mean()], zoom_start=11)
+m = folium.Map(location=[df['lat'].mean(), df['long'].mean()], zoom_start=11, min_zoom=6, max_zoom=18)
+
+# Compatibilizar com versões antigas do Folium — garante min/max zoom nas options
+m.options.setdefault('minZoom', 6)
+m.options.setdefault('maxZoom', 18)
 
 # Grupos de camadas
 fg_terrestre = folium.FeatureGroup('Parcelas Terrestres', show=True)
@@ -54,4 +58,28 @@ folium.LayerControl().add_to(m)
 
 out = 'mapa_interativo_simples.html'
 m.save(out)
+# Inject fallback JS to apply zoom limits safely after map initialization
+minz = m.options.get('minZoom', 6)
+maxz = m.options.get('maxZoom', 18)
+fallback_js = f"""
+<script>
+document.addEventListener('DOMContentLoaded', function () {{
+    function applyLimits(attemptsLeft) {{
+        let applied = false;
+        for (const k in window) {{
+            if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {{
+                try {{
+                    window[k].setMinZoom({minz});
+                    window[k].setMaxZoom({maxz});
+                    applied = true;
+                }} catch (e) {{ console.warn('Failed to apply zoom', e); }}
+            }}
+        }}
+        if (!applied && attemptsLeft > 0) setTimeout(function(){{applyLimits(attemptsLeft - 1);}}, 100);
+    }}
+    applyLimits(10);
+}});
+</script>
+"""
+m.get_root().html.add_child(folium.Element(fallback_js))
 print(f"Mapa simples criado: {out}")

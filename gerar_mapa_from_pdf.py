@@ -57,7 +57,11 @@ df_merged = df_merged.dropna(subset=['lat', 'long'])
 
 center = [df_merged['lat'].mean(), df_merged['long'].mean()]
 # Criar mapa sem camada base padrão e adicionar múltiplas camadas base (Satellite, Terrain, OpenStreetMap)
-m = folium.Map(location=center, zoom_start=11, tiles=None)
+m = folium.Map(location=center, zoom_start=11, tiles=None, min_zoom=6, max_zoom=18)
+
+# Ensure zoom limits present in folium options for safety
+m.options.setdefault('minZoom', 6)
+m.options.setdefault('maxZoom', 18)
 folium.TileLayer('OpenStreetMap', name='OpenStreetMap', control=True).add_to(m)
 folium.TileLayer('Stamen Terrain', name='Terrain', control=True,
                  attr='Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.').add_to(m)
@@ -204,6 +208,30 @@ m.get_root().add_child(macro)
 
 out_html = 'mapa_interativo_from_pdf.html'
 m.save(out_html)
+# Add JS fallback for zoom limits
+minz = m.options.get('minZoom', 6)
+maxz = m.options.get('maxZoom', 18)
+fallback_js = f"""
+<script>
+document.addEventListener('DOMContentLoaded', function () {{
+    function applyLimits(attemptsLeft) {{
+        let applied = false;
+        for (const k in window) {{
+            if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {{
+                try {{
+                    window[k].setMinZoom({minz});
+                    window[k].setMaxZoom({maxz});
+                    applied = true;
+                }} catch (e) {{ console.warn('Failed to apply zoom', e); }}
+            }}
+        }}
+        if (!applied && attemptsLeft > 0) setTimeout(function(){{applyLimits(attemptsLeft - 1);}}, 100);
+    }}
+    applyLimits(10);
+}});
+</script>
+"""
+m.get_root().html.add_child(folium.Element(fallback_js))
 print(f'Mapa gerado: {out_html}')
 print("Contadores de marcadores por grupo:")
 for key, count in counters.items():

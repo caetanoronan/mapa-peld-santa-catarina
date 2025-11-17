@@ -116,6 +116,37 @@ def criar_mapa_slider_temporal():
         max_zoom=18,
         tiles='OpenStreetMap'
     )
+    # Fallback for older Folium versions
+    m.options.setdefault('minZoom', 8)
+    m.options.setdefault('maxZoom', 18)
+
+    # Fallback for older Folium versions
+    m.options.setdefault('minZoom', 8)
+    m.options.setdefault('maxZoom', 18)
+    # Add JS fallback for zoom limits
+    minz = m.options.get('minZoom', 8)
+    maxz = m.options.get('maxZoom', 18)
+    fallback_js = f"""
+<script>
+document.addEventListener('DOMContentLoaded', function () {{
+    function applyLimits(attemptsLeft) {{
+        let applied = false;
+        for (const k in window) {{
+            if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {{
+                try {{
+                    window[k].setMinZoom({minz});
+                    window[k].setMaxZoom({maxz});
+                    applied = true;
+                }} catch (e) {{ console.warn('Failed to apply zoom', e); }}
+            }}
+        }}
+        if (!applied && attemptsLeft > 0) setTimeout(function(){{applyLimits(attemptsLeft - 1);}}, 100);
+    }}
+    applyLimits(10);
+}});
+</script>
+"""
+    m.get_root().html.add_child(folium.Element(fallback_js))
     
     # Adicionar camada de topografia
     folium.TileLayer(

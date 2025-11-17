@@ -27,6 +27,9 @@ m = folium.Map(
     max_zoom=18,
     tiles='OpenStreetMap'
 )
+# Fallback for older Folium versions
+m.options.setdefault('minZoom', 8)
+m.options.setdefault('maxZoom', 18)
 
 # Adicionar camada topográfica
 folium.TileLayer(

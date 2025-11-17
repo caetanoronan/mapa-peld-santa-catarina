@@ -59,6 +59,34 @@ center_long = coords_df['long'].mean()
 m = folium.Map(location=[center_lat, center_long], zoom_start=10,
                tiles='OpenStreetMap')
 
+# Apply fallback for min/max zoom to ensure Leaflet limits even if Folium serializes oddly
+m.options.setdefault('minZoom', 6)
+m.options.setdefault('maxZoom', 18)
+
+minz = m.options.get('minZoom', 6)
+maxz = m.options.get('maxZoom', 18)
+fallback_js = f"""
+<script>
+document.addEventListener('DOMContentLoaded', function () {{
+    function applyLimits(attemptsLeft) {{
+        let applied = false;
+        for (const k in window) {{
+            if (k.startsWith('map_') && window[k] && typeof window[k].setMinZoom === 'function') {{
+                try {{
+                    window[k].setMinZoom({minz});
+                    window[k].setMaxZoom({maxz});
+                    applied = true;
+                }} catch (e) {{ console.warn('Failed to apply zoom', e); }}
+            }}
+        }}
+        if (!applied && attemptsLeft > 0) setTimeout(function(){{applyLimits(attemptsLeft - 1);}}, 100);
+    }}
+    applyLimits(10);
+}});
+</script>
+"""
+m.get_root().html.add_child(folium.Element(fallback_js))
+
 # Adicionar marker cluster
 marker_cluster = MarkerCluster().add_to(m)
 
