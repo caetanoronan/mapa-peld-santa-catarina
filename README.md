@@ -264,6 +264,11 @@ Após publicar no GitHub Pages, os mapas estarão disponíveis em:
 - **Dashboard**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_peld.html
 - **Mapa Simples Completo**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_simples_completo.html
 - **Página de Entrega (sumário + links)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/dashboard_entrega_relatorio_final.html
+
+## 📦 Release de Entrega Final
+
+- Download (ZIP): `releases/PELD_entrega_final.zip` — Pacote com página de entrega, PDFs consolidados e CSV principal. Use este ZIP para distribuição ou repositório offline.
+- Alternativa de distribuição — GitHub Releases: https://github.com/caetanoronan/mapa-peld-santa-catarina/releases/latest (recomendado). O Release contém o mesmo pacote em formato ZIP como artefato e facilita downloads para a entrega final.
 - **Índices de Vegetação (Completo)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_vegetacao.html
 - **Índices de Vegetação (Parques)**: https://caetanoronan.github.io/mapa-peld-santa-catarina/mapa_indices_parques.html
 
